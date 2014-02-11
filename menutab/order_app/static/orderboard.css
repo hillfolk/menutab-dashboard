@@ -65,11 +65,7 @@ body {
 	color : white;	
 	font-size : 22px;
 }
-.timeline {
-	padding-top : 5px;
-	margin-left : 15px;
-	margin-right : 15px;
-}
+
 .leftalign {
 	text-align:left;
 }
@@ -165,14 +161,26 @@ body {
 	text-align: center;
 	width: 100%;
 	background: #b3ffeb;
+	border-radius: 7px;
+
 }
 #msgTemplate > ul{
 	overflow: hidden;
+	text-align:center;
+	display:inline;
 }
-#msgTemplate > ul> li {
-	float: left;
-}
+
 
 #msgTemplate > ul > li  .btn{
 	margin-top: 20px;
+}
+
+#msgTemplate > ul >li:nth-child(1)  {
+	width: 20%;
+}
+#msgTemplate > ul >li:nth-child(2)  {
+	width: 60%;
+}
+#msgTemplate > ul >li:nth-child(3)  {
+	width: 20%;
 }
