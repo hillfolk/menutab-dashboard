@@ -113,7 +113,7 @@ USE_TZ = True
 
 import os
 SITE_ROOT = BASE_DIR
-
+STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
