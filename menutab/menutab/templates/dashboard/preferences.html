@@ -18,9 +18,9 @@
 					<a class="brand" href="#">주문 대쉬 보드</a>
 					<div class="nav-collapse" id="navMenu">
 						<ul class="nav center">
-							<li class="active"><a href="#">대쉬보드</a></li>
-							<li><a href="profile.html">처리내역</a></li>
-							<li><a href="account.html">환경설정</a></li>
+							<li class="active"><a href="dashboard.html">대쉬보드</a></li>
+							<li><a href="orderhistory.html">처리내역</a></li>
+							<li><a href="preferences.html">환경설정</a></li>
 						</ul>
 						<div class="btn-group pull-right">
 							<a class="btn" id="adminBtn"> 
@@ -150,7 +150,7 @@
 				 $("[name=cookdone]").live("click", doCookDone);
 				 $(".getInfo").live("click", doGetUserInfo);
 				
-				 var auto_refresh = setInterval(function() { doReload() }, 210000);
+				 var auto_refresh = setInterval(function() { doReload() }, 1000);
 			});
 		</script>
 	</body>

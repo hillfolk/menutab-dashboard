@@ -24,7 +24,7 @@ def need_auth(functor):
 		logout(request)
 		response = HttpResponse()
 		response.status_code = 401
-		response['WWW-Authenticate'] = 'Basic realm= "OrderBoard Service"'
+		response['WWW-Authenticate'] = 'Basic realm= "DashBoard Service"'
 		return response
 	return try_auth
 

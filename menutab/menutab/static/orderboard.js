@@ -72,11 +72,53 @@ var doGetOrderBoard = function() {
 			// $("#writearea").val("");
 		},
 		error : function() {
-			alert("Fail to get data!");
+			location.href = "login.html";
 		},
 	});
 }
+var doGetWOrderBoard = function() {
+	$.ajax({
+		type : 'get',
+		url : baseUrl + 'orders/',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
+		success : function(data) {
+			for (var i in data.order_list) {
+				doWAppend(data.order_list[i]);
+			}
+			$("#total").html(data.total_count);
+			// $("#mine").html($('[name=deleteMsg]').length - 1);
+			$("#username").html(username);
+			// $("#writearea").val("");
+		},
+		error : function() {
+			location.href = "login.html";
+		},
+	});
+}
+var doWAppend = function(data) {
+	
+	node = $('#msgTemplate').clone();
 
+	$('.name', node).append(data.row+'층'+data.table_code );
+	$('.content', node).append(data.menu_name + data.count+'');
+	$('.date', node).append(data.order_time);
+	// $('.cookstart', node).prepend(status[data.status]+" 상태입니다.");
+	$('#cookstart', node).attr("value",data.id);
+	$('#cookdone', node).attr("value",data.id);
+
+
+	// if(username == data.username)
+	// 	$('[name=deleteMsg]',node).attr("value",data.id);
+	// else
+	// 	$('[name=deleteMsg]',node).remove();
+	
+	node.show();
+	if (data.status === 0) {
+		$('#watchingarea').append(node);	
+	};
+}
 var doAppend = function(data) {
 	
 	node = $('#msgTemplate').clone();
@@ -108,9 +150,12 @@ var doAppend = function(data) {
 	
 
 
-	
-
 }
+var doWReload = function() {
+	doWClear();
+	doGetWOrderBoard();
+}
+
 var doReload = function() {
 	doClear();
 	doGetOrderBoard();
@@ -121,6 +166,11 @@ var doClear = function() {
 	$('#donearea').html('')
 
 }
+var doWClear = function() {
+	$('#watchingarea').html('')
+
+}
+
 
 
 
