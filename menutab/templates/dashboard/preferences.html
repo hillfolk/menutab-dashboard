@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>주문 대쉬 보드</title>
+		<link href="{{STATIC_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}orderboard.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu"> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> </a>
+					<a class="brand" href="#">주문 대쉬 보드</a>
+					<div class="nav-collapse" id="navMenu">
+						<ul class="nav center">
+							<li class="active"><a href="dashboard.html">대쉬보드</a></li>
+							<li><a href="orderhistory.html">처리내역</a></li>
+							<li><a href="preferences.html">환경설정</a></li>
+						</ul>
+						<div class="btn-group pull-right">
+							<a class="btn" id="adminBtn"> 
+								<i class="icon-pencil"></i>Admin 
+								<span class="caret"></span> 
+							</a>
+							<a class="btn" id="logoutBtn"> 
+								<i class="icon-user"></i>Logout 
+								<span class="caret"></span> 
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--End of NavBar!-->
+
+		<div class="container bg"><!-- Start of Container -->
+			<div class="board"><!-- Start of cookboard -->
+				<div class="span4 bottom15">	<!-- Start of Span7 -->
+						<div class = "boardtitle">
+						<h1 > 대기
+						</h1>
+					</div>
+					<div class="roundinside" id='msgTemplate' style="display:none;">
+						<ul class ="nav nav-pills" >
+							<li>
+							<a class="btn" id="cookstart" name="cookstart" > 
+							<i class='icon-chevron-left'></i></a>							</li>
+							
+							<li> 
+						<a data-toggle="modal" class="getInfo">
+						<div class='name lightblue'></div>
+						</a>
+
+						<div class='content'>
+						</div>
+						<span class = 'order_count'>
+						<span class='date'></span>
+						</li>
+					<li> <a class="btn" id="cookdone" name="cookdone"><i class='icon-chevron-right'></i></a></li>
+
+						</ul>
+					</div>
+
+					<div id='watchingarea'>
+					</div>
+				</div><!-- End of Span4 -->
+				<div class="span4 bottom15"><!-- Start of Span4 -->
+					<div class = "boardtitle">
+						<h1> 처리
+						</h1>
+					</div>
+						<div class="roundinside" id='msgTemplate' style="display:none;">
+						<a data-toggle="modal" class="getInfo">
+							<div class='name lightblue'></div>
+						</a>
+						<div class='content'>
+							<a class="btn close" id="cookdone" name="cookdone">X</a>
+						</div>
+						<span class='date'></span>
+						<span class='cookstart'> 
+							<a class="btn btn-mini" id="cookstart" name="cookstart" > 
+							<i class='icon-chevron-up '></i></a></span>
+					</div>
+					<div id='processingarea'>
+					</div>
+				</div><!-- End of Span4 -->
+						<div class="span4 bottom15"><!-- Start of Span4 -->
+								<div class = "boardtitle">
+						<h1> 완료						</h1>
+					</div>
+						<div class="roundinside" id='msgTemplate' style="display:none;">
+						<a data-toggle="modal" class="getInfo">
+							<div class='name lightblue'></div>
+						</a>
+						<div class='content'>
+							<a class="btn close" id="cookdone" name="cookdone">X</a>
+						</div>
+						<span class='date'></span>
+						<span class='cookstart'> 
+							<a class="btn btn-mini" id="cookstart" name="cookstart" > 
+							<i class='icon-chevron-up '></i></a></span>
+					</div>
+					<div id='donearea'>
+					</div>
+				</div><!-- End of Span4 -->
+			</div><!-- End of cookboard -->
+		</div><!-- End of Container -->
+		
+
+		<div class="modal hide fade" id="myModal" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					×
+				</button>
+				<h2><span id="modalid"></span>'s Info</h2>
+			</div>
+			<div class="modal-body">
+				<h3>Nick : <span id="modalnickname"> </span></h3>
+				<h3>Country : <span id="modalcountry"> </span></h3>
+				<h3>URL : <span id="modalurl"> </span></h3>
+				<h3>Comment : <span id="modalcomment"> </span></h3>
+			</div>
+		</div>
+		
+		<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+		<script src="{{STATIC_URL}}bootstrap/js/bootstrap.js"></script>
+		<script src="{{STATIC_URL}}orderboard.js"></script>
+		<script src="{{STATIC_URL}}base64.js"></script>
+		<script>
+			$(document).ready(function() {
+				getLoginString();
+				doGetOrderBoard();
+				$("#adminBtn").click(goAdmin);
+				// $("#writeBtn").click(doWritecookboard);
+				$("#reloadBtn").click(doReload);
+				$("#logoutBtn").click(doLogout);
+
+				// $("[name=deleteMsg]").live("click", doDeletecookboard);
+				// $("#searchBtn").click(doSearchcookboard);
+				$("#logoutBtn").click(doLogout);
+
+				 $("[name=cookstart]").live("click", doCookStart);
+				 $("[name=cookdone]").live("click", doCookDone);
+				 $(".getInfo").live("click", doGetUserInfo);
+				
+				 var auto_refresh = setInterval(function() { doReload() }, 1000);
+			});
+		</script>
+	</body>
+</html>

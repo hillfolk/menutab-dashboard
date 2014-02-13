@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- LOGIN -->
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>주문처리 내</title>
+		<link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}orderboard.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu"> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> </a>
+					<a class="brand" href="#">주문 대쉬 보드</a>
+					<div class="nav-collapse" id="navMenu">
+						<ul class="nav center">
+							<li class="active"><a href="dashboard.html">대쉬보드</a></li>
+							<li><a href="orderhistory.html">처리내역</a></li>
+							<li><a href="preferences.html">환경설정</a></li>
+						</ul>
+						<div class="btn-group pull-right">
+							<a class="btn" id="adminBtn"> 
+								<i class="icon-pencil"></i>Admin 
+								<span class="caret"></span> 
+							</a>
+							<a class="btn" id="logoutBtn"> 
+								<i class="icon-user"></i>Logout 
+								<span class="caret"></span> 
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--End of NavBar!-->
+
+		<div class="container bg logincontainer"><!-- Start of Container-->
+			<div class="row-fluid"><!--Start of Row-->
+				<div class="span8">
+					<div class="inside center loginbox">
+						<h1 class="bigfont lightblue middlemsg">주문 대쉬 보드</h1>
+					</div>
+				</div>
+				<div class="span2" >
+					Date: <div id="datepicker"></div>
+				</div>
+			</div><!-- End of Row -->
+		</div><!-- End of Container-->
+		<script type="text/javascript" 
+			src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+		</script>
+		<script type="text/javascript" 
+			src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js">
+		</script>
+		<script src="{{STATIC_URL}}bootstrap/js/bootstrap.js"></script>
+		<script src="{{STATIC_URL}}orderboard.js"></script>
+		<script src="{{STATIC_URL}}base64.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#registerBtn").click(function(){
+					location.href = "join.html"
+				});
+				$("#loginBtn").click(doLogin);
+				$("#adminBtn").click(goAdmin);
+			});
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+
+		</script>
+	</body>
+</html>
