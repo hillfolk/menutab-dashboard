@@ -5,12 +5,9 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from .utils import *
 from django.utils import simplejson
-from push_app.models import MenuTabApp 
+from pushs.models import MenuTabApp 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
-def serve_html(request, page):
-    return render_to_response('orderboard/' + page + '.html', {}, context_instance=RequestContext(request))
 
 # Create your views here.
 
@@ -118,17 +115,4 @@ def order_update_view(request,num,method):
 		return toJSON({'status':'ok'})
 	else:
 		return HttpResponse('bad request',status=400)
-
-
-	
-
-
-@need_auth
-def login_view(request):
-    return toJSON({'status':'ok',
-                   'user':request.user.username})
-
-
-
-
 
