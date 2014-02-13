@@ -4,10 +4,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        # Examples:
-                       url(r'^/',include('dashboard.urls')),
+                      
                        # url(r'^blog/', include('blog.urls')),
-		       #url(r'', include('gcm.urls')),
+		       		   url(r'',include('gcm.urls')),
+		       		   url(r'',include('dashboard.urls')),
                        url(r'^admin/', include(admin.site.urls)),
-                       #url(r'^push_app/', include('push_app.urls')),
-                       #url(r'^order_app/', include('order_app.urls')),
+                       url(r'^pushs/', include('pushs.urls')),
+                       url(r'^orders/', include('orders.urls')),
                        )

@@ -14,7 +14,7 @@ body {
 	margin-bottom: 10px !important;
 }
 
-[class*="span"] {
+div [class*="span"] {
   float: left;
   margin-left: 10px;
 }

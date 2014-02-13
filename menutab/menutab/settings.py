@@ -62,7 +62,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 GCM_APIKEY = 'AIzaSyAssxwZHH2T03y7lq56KLXA8Lo89b72Am0'
-GCM_DEVICE_MODEL = 'push_app.models.MenuTabApp'
+GCM_DEVICE_MODEL = 'pushs.models.MenuTabApp'
 
 ROOT_URLCONF = 'menutab.urls'
 
@@ -101,10 +101,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+import os
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, "static"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -116,8 +118,7 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-import os
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.

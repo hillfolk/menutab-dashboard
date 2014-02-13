@@ -39,13 +39,13 @@ var doLogin = function() {
 	$.ajax({
 		type : 'get',
 		async : true,
-		url : baseUrl + 'order_app/login/',
+		url : baseUrl + 'orders/login/',
 		beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
 			setLoginString();
-			window.location = "orderboard.html";
+			window.location = "dashboard.html";
 		},
 		error : function() {
 			alert("Fail to get data!"+username +":"+password);
@@ -58,7 +58,7 @@ var doLogin = function() {
 var doGetOrderBoard = function() {
 	$.ajax({
 		type : 'get',
-		url : baseUrl + 'order_app/orders/',
+		url : baseUrl + 'orders/',
 		beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
@@ -135,7 +135,7 @@ var doCookStart = function() {
 
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'order_app/orders/' + id + "/cookstart/",
+		url : baseUrl + 'orders/' + id + "/cookstart/",
 		beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
@@ -162,7 +162,7 @@ var doCookDone = function() {
 
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'order_app/orders/' + id + "/cookdone/",
+		url : baseUrl + 'orders/' + id + "/cookdone/",
 		beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
