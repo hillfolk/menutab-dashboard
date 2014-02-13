@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate,login,logout
-from order_app.models import *
+from orders.models import *
 from django.http import HttpResponse
 import json
 import base64
