@@ -14,7 +14,6 @@ from django.shortcuts import get_object_or_404
 
 @need_auth
 def order_list_view(request):
-
     order_per_page = int(request.GET.get('per_page', 10))
     page_num = int(request.GET.get('page', 1))
     #Listing
@@ -69,64 +68,50 @@ def order_view(request,num):
 	else:
 		return HttpResponse('bad request',status=400)
 
-@need_auth
+
 def order_update_view(request,num,method):
 	if method == 'update' and request.method == 'POST':
 		user =  request.user
-		data = json.loads(request.body)
-		order = get_object_or_404(Order, pk=1)
+		data = request.body
+		order = get_object_or_404(Order, pk=num)
 		beStatus = order.status
-		if data['menu_name']:
-			order.menu_name =  data['menu_name']
-		if data['table_code']:
-			order.table_code =  data['table_code']
-		if data['device_key']:
-			order.device_key =  data['device_key']
-		if data['status']:
-			order.status =  data['status']
-		if beStatus < order.status:
-			if order.status == 1:
-				pass
-			elif order.status == 2:
-				pass
-			elif order.status == 3:
-				pass
-			elif order.status == 4:
-				pass
-			
-			
 		
-		Order.objects.order_update(id = order.id,user = user, menu_code = data['menu_name'],count = data['count'],row = data["row"] ,table_code =data['table_code'],device_key = data['device_key'],status = data['status'])
+		status = request.POST.get('status',order.status)
+		
+		
+		if status:
+			order.status =  status
+
+		if beStatus < order.status:
+			if order.status == 0:
+				print "취소"
+				msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 취소되었습니다.'
+				# device.send_message(msg)
+				print msg
+			elif order.status == 1:
+				print "대기"
+				msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 접수되었습니다.'
+				#device.send_message(msg)
+				print msg
+			elif order.status == 2:
+				print "처리"
+				msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 조리중입니다.'
+				#device.send_message(msg)
+				print msg
+			elif order.status == 3:
+				print "완료"
+				msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 완료되었습니다.'
+				#device.send_message(msg)
+				print msg
+			elif order.status == 4:
+				print "수령"
+				msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 수되었습니다.'
+				#device.send_message(msg)
+				print msg
+
+		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,customer_key = order.customer_key,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
 
 		return toJSON(order.serialize())
-	elif method == 'cookstart' and request.method == 'POST':
-		user =  request.user
-		order = Order.objects.get(id = num)
-		order.status = 1;
-		try:
-			device = MenuTabApp.objects.get(dev_id = order.device_key)
-		except MenuTabApp.DoesNotExist:
-			device = None
-			return toJSON({'status':'None'})
-		order.save()
-		print order;
-		# msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 완성되었습니다.'
-		# device.send_message(msg)
-		return toJSON({'status':'ok'})
-	elif method == 'cookdone' and request.method == 'POST':
-		user =  request.user
-		order = Order.objects.get(id = num)
-		order.status = 2;
-		try:
-			device = MenuTabApp.objects.get(dev_id = order.device_key)
-		except MenuTabApp.DoesNotExist:
-			device = None
-			return toJSON({'status':'None'})
-		order.save()
-		print order;
-		msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 완성되었습니다.'
-		# device.send_message(msg)
-		return toJSON({'status':'ok'})
 	else:
 		return HttpResponse('bad request',status=400)
 

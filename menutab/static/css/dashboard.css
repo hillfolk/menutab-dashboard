@@ -164,23 +164,28 @@ div [class*="span"] {
 	border-radius: 7px;
 
 }
-#msgTemplate > ul{
+#orderTemplate > ul{
 	overflow: hidden;
 	text-align:center;
 	display:inline;
 }
 
 
-#msgTemplate > ul > li  .btn{
+#orderTemplate > ul > li  .btn{
 	margin-top: 20px;
 }
 
-#msgTemplate > ul >li:nth-child(1)  {
+#orderTemplate > ul >li:nth-child(1)  {
 	width: 20%;
 }
-#msgTemplate > ul >li:nth-child(2)  {
+#orderTemplate > ul >li:nth-child(2)  {
 	width: 60%;
 }
-#msgTemplate > ul >li:nth-child(3)  {
+#orderTemplate > ul >li:nth-child(3)  {
 	width: 20%;
+}
+
+.orderTimePicker {
+	margin-left: 15px;
+	margin-top: 15px;
 }

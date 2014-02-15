@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>주문 대쉬 보드</title>
+		<link href="{{ STATIC_URL }}css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet">
 		<link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
 		<link href="{{STATIC_URL}}css/dashboard.css" rel="stylesheet">
 		<link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
@@ -44,23 +45,28 @@
 						<h1 > 대기
 						</h1>
 					</div>
-					<div class="roundinside" id='msgTemplate' style="display:none;">
+					<div class="roundinside" id='orderTemplate' style="display:none;">
 						<ul class ="nav nav-pills" >
 							<li>
-							<a class="btn" id="cookstart" name="cookstart" > 
+							<a class="btn" id="LeftBtn" name="LeftBtn" > 
 							<i class='icon-chevron-left'></i></a>							</li>
 							
 							<li> 
 						<a data-toggle="modal" class="getInfo">
-						<div class='name lightblue'></div>
+						<div class='name lightblue'> </div>
 						</a>
 
 						<div class='content'>
-						</div>
+						<span  class = 'order_id' style="display:none;" ></span>
 						<span class = 'order_count'>
 						<span class='date'></span>
+
+						</div>
+						
 						</li>
-					<li> <a class="btn" id="cookdone" name="cookdone"><i class='icon-chevron-right'></i></a></li>
+					<li> 
+						<a class="btn" id="RightBtn" name="RightBtn"><i class='icon-chevron-right'></i></a>
+					</li>
 
 						</ul>
 					</div>
@@ -73,18 +79,7 @@
 						<h1> 처리
 						</h1>
 					</div>
-						<div class="roundinside" id='msgTemplate' style="display:none;">
-						<a data-toggle="modal" class="getInfo">
-							<div class='name lightblue'></div>
-						</a>
-						<div class='content'>
-							<a class="btn close" id="cookdone" name="cookdone">X</a>
-						</div>
-						<span class='date'></span>
-						<span class='cookstart'> 
-							<a class="btn btn-mini" id="cookstart" name="cookstart" > 
-							<i class='icon-chevron-up '></i></a></span>
-					</div>
+						
 					<div id='processingarea'>
 					</div>
 				</div><!-- End of Span4 -->
@@ -97,7 +92,7 @@
 							<div class='name lightblue'></div>
 						</a>
 						<div class='content'>
-							<a class="btn close" id="cookdone" name="cookdone">X</a>
+							<a class="btn close" id="cookdone" name="RightBtn">X</a>
 						</div>
 						<span class='date'></span>
 						<span class='cookstart'> 
@@ -119,7 +114,7 @@
 				<h2><span id="modalid"></span>'s Info</h2>
 			</div>
 			<div class="modal-body">
-				<h3>Nick : <span id="modalnickname"> </span></h3>
+				<h3>Nick : <span id="menuname"> </span></h3>
 				<h3>Country : <span id="modalcountry"> </span></h3>
 				<h3>URL : <span id="modalurl"> </span></h3>
 				<h3>Comment : <span id="modalcomment"> </span></h3>
@@ -138,7 +133,6 @@
 				getLoginString();
 				doGetOrderBoard();
 				$("#adminBtn").click(goAdmin);
-				// $("#writeBtn").click(doWritecookboard);
 				$("#reloadBtn").click(doReload);
 				$("#logoutBtn").click(doLogout);
 
@@ -146,11 +140,11 @@
 				// $("#searchBtn").click(doSearchcookboard);
 				$("#logoutBtn").click(doLogout);
 
-				 $("[name=cookstart]").live("click", doCookStart);
-				 $("[name=cookdone]").live("click", doCookDone);
-				 $(".getInfo").live("click", doGetUserInfo);
+				 $("[name=LeftBtn]").live("click", doLeftBtn);
+				 $("[name=RightBtn]").live("click", doRightBtn);
+				 // $(".getInfo").live("click", doGetUserInfo);
 				
-				 var auto_refresh = setInterval(function() { doWReload() }, 1000);
+				 var auto_refresh = setInterval(function() { doReload() }, 2000);
 			});
 
   $(function() {
