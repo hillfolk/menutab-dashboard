@@ -77,23 +77,23 @@ WSGI_APPLICATION = 'menutab.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'djangostack',
-        'HOST': '/opt/bitnami/postgresql',
-        'PORT': '5432',
-        'USER': 'bitnami',
-        'PASSWORD': '3fc46b800d'
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'djangostack',
+#         'HOST': '/opt/bitnami/postgresql',
+#         'PORT': '5432',
+#         'USER': 'bitnami',
+#         'PASSWORD': '3fc46b800d'
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -124,7 +124,7 @@ SITE_ROOT = BASE_DIR
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    # normpath(join(SITE_ROOT, 'static')),
+    normpath(join(SITE_ROOT, 'static')),
 )
 
 TEMPLATE_LOADERS = (
