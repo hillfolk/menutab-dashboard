@@ -33,6 +33,7 @@ class OrderManager(models.Manager):
 		order.table_code = table_code
 		order.user = user
 		order.status = status
+		order.customer_key = customer_key
 
 		print order
 		order.save(using=self._db)
@@ -47,6 +48,7 @@ class Order(models.Model):
 	table_code = models.CharField(max_length=255)
 	device_key = models.CharField(max_length=255)
 	status = models.IntegerField(choices=MENU_STATUS, default=0)
+	customer_key = models.CharField(max_length=255)
 	order_time = models.DateTimeField(auto_now_add=True)
 	objects = OrderManager()
 
@@ -60,6 +62,7 @@ class Order(models.Model):
             'table_code':self.table_code,
             'device_key':self.device_key,
             'status':self.status,
+            'customer_key':self.customer_key,
             'order_time':self.order_time.ctime()
         }
         	return data

@@ -48,7 +48,7 @@ var doLogin = function() {
 			window.location = "dashboard.html";
 		},
 		error : function() {
-			alert("Fail to get data!"+username +":"+password);
+			//alert("Fail to get data!"+username +":"+password);
 		},
 	});
 }
@@ -127,8 +127,8 @@ var doAppend = function(data) {
 	$('.content', node).append(data.menu_name + data.count+'');
 	$('.date', node).append(data.order_time);
 	// $('.cookstart', node).prepend(status[data.status]+" 상태입니다.");
-	$('#cookstart', node).attr("value",data.id);
-	$('#cookdone', node).attr("value",data.id);
+	$('#left_btn', node).attr("value",data.id);
+	$('#right_btn', node).attr("value",data.id);
 
 
 	// if(username == data.username)

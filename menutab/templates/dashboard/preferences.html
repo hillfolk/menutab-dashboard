@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>주문 대쉬 보드</title>
-		<link href="{{STATIC_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
-		<link href="{{STATIC_URL}}orderboard.css" rel="stylesheet">
-		<link href="{{STATIC_URL}}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}css/orderboard.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -44,7 +44,7 @@
 						<h1 > 대기
 						</h1>
 					</div>
-					<div class="roundinside" id='msgTemplate' style="display:none;">
+					<div class="roundinside" id='orderTemplate' style="display:none;">
 						<ul class ="nav nav-pills" >
 							<li>
 							<a class="btn" id="cookstart" name="cookstart" > 
@@ -73,7 +73,7 @@
 						<h1> 처리
 						</h1>
 					</div>
-						<div class="roundinside" id='msgTemplate' style="display:none;">
+						<div class="roundinside" id='orderTemplate' style="display:none;">
 						<a data-toggle="modal" class="getInfo">
 							<div class='name lightblue'></div>
 						</a>
@@ -92,7 +92,7 @@
 								<div class = "boardtitle">
 						<h1> 완료						</h1>
 					</div>
-						<div class="roundinside" id='msgTemplate' style="display:none;">
+						<div class="roundinside" id='orderTemplate' style="display:none;">
 						<a data-toggle="modal" class="getInfo">
 							<div class='name lightblue'></div>
 						</a>
@@ -130,27 +130,21 @@
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript"
 		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-		<script src="{{STATIC_URL}}bootstrap/js/bootstrap.js"></script>
-		<script src="{{STATIC_URL}}orderboard.js"></script>
-		<script src="{{STATIC_URL}}base64.js"></script>
+		<script src="{{STATIC_URL}}js/bootstrap.js"></script>
+		<script src="{{STATIC_URL}}js/orderboard.js"></script>
+		<script src="{{STATIC_URL}}js/base64.js"></script>
 		<script>
 			$(document).ready(function() {
-				getLoginString();
-				doGetOrderBoard();
+	
 				$("#adminBtn").click(goAdmin);
-				// $("#writeBtn").click(doWritecookboard);
 				$("#reloadBtn").click(doReload);
 				$("#logoutBtn").click(doLogout);
-
-				// $("[name=deleteMsg]").live("click", doDeletecookboard);
-				// $("#searchBtn").click(doSearchcookboard);
+				$("#searchBtn").click(doSearchcookboard);
 				$("#logoutBtn").click(doLogout);
 
-				 $("[name=cookstart]").live("click", doCookStart);
-				 $("[name=cookdone]").live("click", doCookDone);
-				 $(".getInfo").live("click", doGetUserInfo);
 				
-				 var auto_refresh = setInterval(function() { doReload() }, 1000);
+				
+				
 			});
 		</script>
 	</body>

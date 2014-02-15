@@ -8,6 +8,7 @@ from pushs.models import MenuTabApp
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+
 def serve_html(request, page):
     return render_to_response("dashboard/" +  page + '.html', {}, context_instance=RequestContext(request))
 
