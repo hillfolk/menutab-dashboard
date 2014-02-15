@@ -39,7 +39,7 @@ def order_create_view(request,method):
 		row = "1층"#data['row']
 		table_code = data['table_code']
 		device_key = data['device_key']
-		user =  User.objects.get(username = username)
+		user =  User.objects.get(username__exact=username)
 
 		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,count=count,row=row,table_code = table_code,device_key=device_key);
 		return toJSON(order.serialize())
