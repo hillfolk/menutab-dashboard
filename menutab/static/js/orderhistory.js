@@ -19,7 +19,7 @@ orderhistoryGrid.setConfig({
 					{key:"table_code", label:"테이블", width:"100", align:"center"},
 					{key:"order_time", label:"주문시간", width:"100", align:"center",formatter:"datetime"},
 					{key:"row", label:"층", width:"100", align:"center"},
-					{key:"status", label:"상태", width:"100", align:"center"}
+					{key:"status", label:"상태", width:"200", align:"center",formatter:function(){return ( status[this.itme.status]);}}
 					// {key:"", label:"가격", width:"100", align:"right", formatter:"money"},
 					// {key:"amount", label:"수량", width:"80", align:"right", formatter:"money"},
 					// {key:"cost", label:"금액", width:"100", align:"right", formatter:function(){
@@ -53,77 +53,7 @@ orderhistoryGrid.setConfig({
 
 }
 
-var doGetOrderBoard = function(value) {
-	$.ajax({
-		type : 'get',
-		url : baseUrl + 'orders/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
-		success : function(data) {
-			if (value == 1) {
 
-				order_list = [];
-				doClear();
-			};
-			
-			for (var i in data.order_list){
-				if (order_list.indexOf(data.order_list[i].id)  == -1  ) {
-					console.log(order_list.indexOf(data.order_list[i]));
-				order_list.push(data.order_list[i].id);	
-				console.log(data.order_list[i])
-				doAppend(data.order_list[i]);				
-			};
-			
-				
-				
-
-			 
-				
-			};
-			// order_list = data.order_list;
-
-			$("#total").html(data.total_count);
-			$("#username").html(username);
-		},
-		error : function() {
-			location.href = "login.html";
-		},
-	});
-}
-
-var doAppend = function(data) {
-						// <div class='content'>
-						// <span class = 'order_date'></span>
-						// <span class = 'process date'></span>
-						// <span class = 'table_code'></span>
-						// <span class = 'menu_name'></span>
-						// <span class = 'menu_price'></span>
-						// <span class = 'order_count'></span>
-						// <span class = 'order_price'></span>
-						// <span class = 'order_status'></span>
-					
-	node = $('#orderhistoryTemplate').clone();
-	$('.order_id',node).attr("id", "order_"+ data.id).attr("value",data.status);
-	$('.order_date', node).append(data.order_time);
-	$('.process_date', node).append(data.order_time);
-	$('.table_code', node).append(data.row+data.table_code );
-	$('.menu_name', node).append( data.menu_name);
-	$('.order_count', node).append( data.count);
-
-	$('.menu_price', node).append(data.menu_price);
-	$('.order_price', node).append(data.menu_price * data.count);
-	$('.menu_price', node).append(status[data.status]);
-	
-
-	
-	node.show();
-	
-		$('#historyarea').append(node);	
-		
-	
-
-}
 
 var doReload = function() {
 	console.log(order_list.length);     
@@ -185,13 +115,15 @@ var doCancel = function() {
 	location.reload();
 };
 //
-var doSearchOrder = function(starttime,endtime) {
+var doSearchOrder = function(search_value) {
 	$.ajax({
-		type : 'get',
-		url : baseUrl + 'orders/',beforeSend : function(req) {
+		type : 'post',
+		url : baseUrl + 'getsearchboard/',beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
-		},success : function(data) {
-	 console.log(data)
+		},data:search_value
+		,
+		success : function(data) {
+	 	console.log(search_value)
 		orderhistoryGrid.setList(data.order_list);
 
 	},error : function(msg) {

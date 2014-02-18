@@ -175,13 +175,13 @@ div [class*="span"] {
 	margin-top: 20px;
 }
 
-#orderTemplate > ul >li:nth-child(1)  {
+.orderTemplate > ul >li:nth-child(1)  {
 	width: 20%;
 }
-#orderTemplate > ul >li:nth-child(2)  {
+.orderTemplate > ul >li:nth-child(2)  {
 	width: 60%;
 }
-#orderTemplate > ul >li:nth-child(3)  {
+.orderTemplate > ul >li:nth-child(3)  {
 	width: 20%;
 }
 

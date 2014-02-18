@@ -9,6 +9,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from orders.models import Order
 from staffcall.models import StaffCall
+from datetime import datetime, timedelta
+from menutab.settings import *
 
 
 def serve_html(request, page):
@@ -25,21 +27,38 @@ def login_view(request):
 
 @need_auth
 def dashboard_list_view(request):
-	# staffcall_per_page = int(request.GET.get('per_page', 20))
-	# page_num = int(request.GET.get('page', 1))
 	user =  request.user
+	now = datetime.now()# <3 
+	daysthree_day_ago = now - timedelta(days=3)
 
-
-	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).order_by('-staffcall_time').all()
-	wait_list = Order.objects.filter(user__exact=user,status__in = [1]).order_by('-order_time').all()
-	process_list = Order.objects.filter(user__exact=user,status__in = [2]).order_by('-order_time').all()
-	done_list = Order.objects.filter(user__exact=user,status__in = [3]).order_by('-order_time').all()
+	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).filter(staffcall_time__range=(daysthree_day_ago, now)).order_by('staffcall_time').all()
+	wait_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+	process_list = Order.objects.filter(user__exact=user,status__in = [2]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+	done_list = Order.objects.filter(user__exact=user,status__in = [3]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
 	
 	resp = {
            'wait_list' : serialize(wait_list),
            'process_list' : serialize(process_list),
            'done_list' : serialize(done_list),
            'staffcall_list' : serialize(staffcall_list)
+			}
+
+	return toJSON(resp)
+@need_auth
+def dashboard_search_view(request):
+	if request.method == 'POST':
+		data = json.loads(request.body)
+		user =  request.user
+		if not data['ST_value']:
+			now = datetime.now()
+			months_ago = now - timedelta(days=1)
+			order_list = Order.objects.filter(user__exact=user,status__in = [0,4]).filter(order_time__range=(months_ago, now)).order_by('order_time').all()
+		else:
+			start_date = datetime.strptime(data['ST_value'],'%Y/%m/%d')
+			end_date =  datetime.strptime(data['ED_value'],'%Y/%m/%d') + timedelta(days=1)
+			order_list = Order.objects.filter(user__exact=user,status__in = [0,4]).filter(order_time__range=(start_date,end_date)).order_by('order_time').all()
+		resp = {
+           'order_list' : serialize(order_list),
 			}
 
 	return toJSON(resp)

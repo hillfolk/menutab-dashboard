@@ -100,7 +100,7 @@ var doGetDasboard = function(value) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
-	
+			var update_check = false;
 			for (var i in data.staffcall_list){
 				if (staffcall_id_list.indexOf(data.staffcall_list[i].id)  == -1 && i >= 0 ) {
 				staffcall_id_list.push(data.staffcall_list[i].id);
@@ -109,7 +109,7 @@ var doGetDasboard = function(value) {
 					 ,onClick:doStaffcall(i) 
 				});	
 			};
-		
+			
 			};
 			if (value == 1) {
 				wait_list.clear();
@@ -122,37 +122,30 @@ var doGetDasboard = function(value) {
 				if (w_idx == -1  ) {
 				wait_list.push(data.wait_list[i].id);	
 				doAppend(data.wait_list[i]);				
-			}else{
-				if (!(data.wait_list[i].status == 1)) {
-								doGetDasboard(1);
-				};
-
-			}
 			};
-				for (var i in data.process_list){
+			};
+
+			for (var i in data.process_list){
 					var p_idx  = process_list.indexOf(data.process_list[i].id);
 				if (  p_idx == -1  ) {
 				process_list.push(data.process_list[i].id);	
 				doAppend(data.process_list[i]);				
-				}else{
-				if (!(data.process_list[i].status == 2)) {
-								   doGetDasboard(1);
-				};
 				};
 			};
+		
 			for (var i in data.done_list){
 				var d_idx  = done_list.indexOf(data.done_list[i].id);
 				if (d_idx  == -1  ) {
 				done_list.push(data.done_list[i].id);	
 				doAppend(data.done_list[i]);				
-			}else {
-				if (!(data.done_list[i].status == 3)) {
-								  doGetDasboard(1);
-				};
-			}
+			};
 				
 			};
 
+			if (update_check) {
+				update(1);
+			};
+			
 		},
 		error : function() {
 			location.href = "login.html";
