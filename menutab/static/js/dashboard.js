@@ -1,6 +1,8 @@
 
 
-var order_list = [];
+var wait_list = [];
+var process_list = [];
+var done_list = [];
 var staffcall_id_list = [];
 var staffcall_data_list = [];
 
@@ -8,32 +10,33 @@ var staffcall_data_list = [];
 
 
 
-var doGetOrderBoard = function(value) {
-	$.ajax({
-		type : 'get',
-		url : baseUrl + 'orders/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
-		success : function(data) {
+// var doGetOrderBoard = function(value) {
+// 	$.ajax({
+// 		type : 'get',
+// 		url : baseUrl + 'orders/',
+// 		beforeSend : function(req) {
+// 			req.setRequestHeader('Authorization', loginstring);
+// 		},
+// 		success : function(data) {
 
-			for (var i in data.order_list){
-				if (order_list.indexOf(data.order_list[i].id)  == -1  ) {
-					console.log(order_list.indexOf(data.order_list[i]));
-				order_list.push(data.order_list[i].id);	
-				console.log(data.order_list[i])
-				doAppend(data.order_list[i]);				
-			};
-				
-			};
-			$("#total").html(data.total_count);
-			$("#username").html(username);
-		},
-		error : function() {
-			location.href = "login.html";
-		},
-	});
-}
+// 			for (var i in data.order_list){
+// 				if (order_list.indexOf(data.order_list[i].id)  == -1 ) {
+// 					if(order_list.) 
+					
+// 				order_list.push(data.order_list[i].id);	
+// 				console.log(data.order_list[i])
+// 				doAppend(data.order_list[i]);				
+// 			};
+	
+// 			};
+// 			// $("#total").html(data.total_count);
+// 			// $("#username").html(username);
+// 		},
+// 		error : function() {
+// 			location.href = "login.html";
+// 		},
+// 	});
+// }
 
 var doStaffcall = function(staffcall_idx) {
 	console.log(staffcall_idx);
@@ -109,13 +112,27 @@ var doGetDasboard = function(value) {
 		
 			};
 			if (value == 1) {
-				order_list.clear();
+				wait_list.clear();
+				process_list.clear();
+				done_list.clear();
 			};
 			
-			for (var i in data.order_list){
-				if (order_list.indexOf(data.order_list[i].id)  == -1  ) {
-				order_list.push(data.order_list[i].id);	
-				doAppend(data.order_list[i]);				
+			for (var i in data.wait_list){
+				if (wait_list.indexOf(data.wait_list[i].id)  == -1  ) {
+				wait_list.push(data.wait_list[i].id);	
+				doAppend(data.wait_list[i]);				
+			};
+	};
+				for (var i in data.process_list){
+				if (process_list.indexOf(data.process_list[i].id)  == -1  ) {
+				process_list.push(data.process_list[i].id);	
+				doAppend(data.process_list[i]);				
+			};
+	};
+			for (var i in data.done_list){
+				if (done_list.indexOf(data.done_list[i].id)  == -1  ) {
+				done_list.push(data.done_list[i].id);	
+				doAppend(data.done_list[i]);				
 			};
 				
 			};

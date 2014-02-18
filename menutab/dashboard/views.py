@@ -28,14 +28,17 @@ def dashboard_list_view(request):
 	# staffcall_per_page = int(request.GET.get('per_page', 20))
 	# page_num = int(request.GET.get('page', 1))
 	user =  request.user
-	order_per_page = int(request.GET.get('per_page', 20))
-	page_num = int(request.GET.get('page', 1))
+
+
 	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).order_by('-staffcall_time').all()
-	order_list = Order.objects.filter(user__exact=user,status__in = [1,2,3]).order_by('-order_time').all()
-	pages = Paginator(order_list, order_per_page)
+	wait_list = Order.objects.filter(user__exact=user,status__in = [1]).order_by('-order_time').all()
+	process_list = Order.objects.filter(user__exact=user,status__in = [2]).order_by('-order_time').all()
+	done_list = Order.objects.filter(user__exact=user,status__in = [3]).order_by('-order_time').all()
+	
 	resp = {
-           'order_list' : serialize(pages.page(page_num).object_list),
-           'total_count' : pages.count,
+           'wait_list' : serialize(wait_list),
+           'process_list' : serialize(process_list),
+           'done_list' : serialize(done_list),
            'staffcall_list' : serialize(staffcall_list)
 			}
 
