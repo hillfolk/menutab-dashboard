@@ -135,7 +135,7 @@ var doGetDasboard = function(value) {
 				process_list.push(data.process_list[i].id);	
 				doAppend(data.process_list[i]);				
 				}else{
-				if (!(data.process_list[i].status == 1)) {
+				if (!(data.process_list[i].status == 2)) {
 								   $("#order_"+ data.process_list[i].id).remove();
 				};
 				};
@@ -146,7 +146,7 @@ var doGetDasboard = function(value) {
 				done_list.push(data.done_list[i].id);	
 				doAppend(data.done_list[i]);				
 			}else {
-				if (!(data.done_list[i].status == 1)) {
+				if (!(data.done_list[i].status == 3)) {
 								   $("#order_"+ data.done_list[i].id).remove();
 				};
 			}
