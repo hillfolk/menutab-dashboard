@@ -163,13 +163,12 @@ var doGetDasboard = function(value) {
 
 var doAppend = function(data) {
 	
-	node = $('#orderTemplate').clone();
-	
+	node = $('#order_').clone();
+	$(node).attr("id", "order_"+ data.id).attr("value",data.status);
 	$('.name', node).append(data.row+data.table_code );
 	$('.content', node).append(data.menu_name + data.count+'');
 	$('.date', node).append(data.order_time);
-	// $('.cookstart', node).prepend(status[data.status]+" 상태입니다.");
-	$('.order_id',node).attr("id", "order_"+ data.id).attr("value",data.status);
+	
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);
 	
