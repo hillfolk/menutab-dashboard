@@ -189,3 +189,12 @@ div [class*="span"] {
 	margin-left: 15px;
 	margin-top: 15px;
 }
+
+
+.AXlineProgress .AXprogressTitle{
+	color:#000;
+	font-weight:bold;
+}
+.AXlineProgress .AXprogress .AXprogressContainer .AXprogressLoadedText{
+	color:#000;
+}

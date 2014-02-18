@@ -1,62 +1,14 @@
-var baseUrl = 'http://127.0.0.1:8000/';
 
-var username;
-var password;
-var loginstring;
-var status = ['취소','대기','처리','완'];
 
-var doJoin = function() {
-	username = $("#username").val();
-	name = $("#name").val();
-	password = $("#password").val();
-	$.ajax({
-		type : 'post',
-		url : baseUrl + 'api/user/create/',
-		data : {
-			username : username,
-			name : name,
-			password : password
-		},
-		success : function() {
-			alert("OK");
-			location.href = "login.html";
-		},
-		error : function(msg) {
-			alert("Error!");
-		},
-	});
-}
-
-var goAdmin = function() {
-	location.href = baseUrl + "admin/";
-}
-
-var doLogin = function() {
-	username = $('#username').val();
-	password = $('#password').val();
-	loginstring = "Basic " +  Base64.encode(username + ":" + password);
-	
-	$.ajax({
-		type : 'get',
-		async : true,
-		url : baseUrl + 'orders/login/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
-		success : function(data) {
-			setLoginString();
-			window.location = "dashboard.html";
-		},
-		error : function() {
-			window.location = "login.html";
-			//alert("Fail to get data!"+username +":"+password);
-		},
-	});
-}
+var order_list = [];
+var staffcall_id_list = [];
+var staffcall_data_list = [];
 
 
 
-var doGetOrderBoard = function() {
+
+
+var doGetOrderBoard = function(value) {
 	$.ajax({
 		type : 'get',
 		url : baseUrl + 'orders/',
@@ -64,9 +16,16 @@ var doGetOrderBoard = function() {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
-			for (var i in data.order_list) {
-				doAppend(data.order_list[i]);
-			}
+
+			for (var i in data.order_list){
+				if (order_list.indexOf(data.order_list[i].id)  == -1  ) {
+					console.log(order_list.indexOf(data.order_list[i]));
+				order_list.push(data.order_list[i].id);	
+				console.log(data.order_list[i])
+				doAppend(data.order_list[i]);				
+			};
+				
+			};
 			$("#total").html(data.total_count);
 			$("#username").html(username);
 		},
@@ -76,11 +35,104 @@ var doGetOrderBoard = function() {
 	});
 }
 
+var doStaffcall = function(staffcall_idx) {
+	console.log(staffcall_idx);
+	staffcall_data_list[staffcall_idx].status = staffcall_data_list[staffcall_idx].status +1;
+	
+
+	$.ajax({
+		type : 'post',
+		url : baseUrl + 'staffcall/' + staffcall_data_list[staffcall_idx].id + "/update/",
+		data :{
+		status:staffcall_data_list[staffcall_idx].status
+
+		},
+		success : function() {
+			// doReload();
+		},
+		error : function(msg) {
+			// alert("Fail to set data!");
+		},
+	});
+}
+
+
+var doGetStaffcall = function() {
+	$.ajax({
+		type : 'get',
+		url : baseUrl + 'staffcall/',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
+		success : function(data) {
+			console.log(data);
+			for (var i in data.staffcall_list){
+				if (staffcall_id_list.indexOf(data.staffcall_list[i])  == -1 && i >= 0 ) {
+						console.log('-->'+i);
+				staffcall_id_list.push(data.staffcall_list[i].id);
+				staffcall_data_list.push(data.staffcall_list[i]);
+				toast.push({body:'직원호출:'+data.staffcall_list[i].table_code +'테이블 '+ data.staffcall_list[i].staffcall_desc +' '+ data.staffcall_list[i].count +  '개', type:'Caution'
+					 ,onClick:doStaffcall(i) 
+						});	
+					};
+		
+			};
+
+
+		
+			// order_list = data.order_list;
+
+		},
+		error : function() {
+			location.href = "login.html";
+		},
+	});
+}
+
+var doGetDasboard = function(value) {
+	$.ajax({
+		type : 'get',
+		url : baseUrl + 'getdashboard/',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
+		success : function(data) {
+	
+			for (var i in data.staffcall_list){
+				if (staffcall_id_list.indexOf(data.staffcall_list[i].id)  == -1 && i >= 0 ) {
+				staffcall_id_list.push(data.staffcall_list[i].id);
+				staffcall_data_list.push(data.staffcall_list[i]);
+				toast.push({body:'직원호출:'+data.staffcall_list[i].table_code +'테이블 '+ data.staffcall_list[i].staffcall_desc +' '+ data.staffcall_list[i].count +  '개', type:'Caution'
+					 ,onClick:doStaffcall(i) 
+				});	
+			};
+		
+			};
+			if (value == 1) {
+				order_list.clear();
+			};
+			
+			for (var i in data.order_list){
+				if (order_list.indexOf(data.order_list[i].id)  == -1  ) {
+				order_list.push(data.order_list[i].id);	
+				doAppend(data.order_list[i]);				
+			};
+				
+			};
+
+		},
+		error : function() {
+			location.href = "login.html";
+		},
+	});
+}
+
+
 var doAppend = function(data) {
 	
 	node = $('#orderTemplate').clone();
 	
-	$('.name', node).append(data.row+'층'+data.table_code );
+	$('.name', node).append(data.row+data.table_code );
 	$('.content', node).append(data.menu_name + data.count+'');
 	$('.date', node).append(data.order_time);
 	$('.cookstart', node).prepend(status[data.status]+" 상태입니다.");
@@ -101,33 +153,30 @@ var doAppend = function(data) {
 	};	
 	
 
-
 }
 
 var doReload = function() {
-	doClear();
-	doGetOrderBoard();
+ 	doClear();
+	doGetDasboard(1);
+} 
+
+var doUpdate = function() {
+	doGetDasboard(0);
+
 }
+
 var doClear = function() {
 	$('#watchingarea').html('')
 	$('#processingarea').html('')
 	$('#donearea').html('')
 
 }
-var doWClear = function() {
-	$('#watchingarea').html('')
-
-}
 
 
 
 
 
 
-var doLogout = function() {
-	resetLoginString();
-	window.location = "login.html";
-};
 var doRightBtn = function() {
 	var id = $(this).val() ;
 	
@@ -197,109 +246,6 @@ var doGetOrderInfo = function() {
 var doCancel = function() {
 	location.reload();
 };
-//END PROFILE
 
 
 
-//FOR ACCOUNT
-var doCheckPassword = function() {
-	$.ajax({
-		type : 'post',
-		url : baseUrl + 'api/user/checkpassword/',
-		data : {password:$("#oldpassword").val()},
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
-		success : function(data) {
-			alert(data.status);
-			console.log(data);
-		},
-		error : function(msg) {
-			alert("Fail to get data!");
-		},
-	});
-};
-var doSetPassword = function() {
-	$.ajax({
-		type : 'post',
-		url : baseUrl + 'api/user/setpassword/',
-		data : {password:$("#newpassword").val()},
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
-		success : function(data) {
-			alert("OK");
-			loginstring = "Basic " +  
-						  Base64.encode(username + ":" + $("#newpassword").val());
-			setLoginString();
-			$("#oldpassword").val($("#newpassword").val());
-			$("#newpassword").val("");
-		},
-		error : function(msg) {
-			alert(msg.responseText);
-		},
-	});
-};
-var doGetName = function() {
-	$.ajax({
-		type : 'get',
-		url : baseUrl + 'api/user/name/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
-		success : function(data) {
-			$("#getname").val(data.name);
-		},
-		error : function(msg) {
-			alert("Fail to get data!");
-		},
-	});
-};
-
-
-
-
-// UTILITY METHODS
-function setCookie(name, value, day) {
-	var expire = new Date();
-	expire.setDate(expire.getDate() + day);
-	cookies = name + '=' + escape(value) + '; path=/ ';
-	if (typeof day != 'undefined')
-		cookies += ';expires=' + expire.toGMTString() + ';';
-	document.cookie = cookies;
-}
-
-function getCookie(name) {
-	name = name + '=';
-	var cookieData = document.cookie;
-	var start = cookieData.indexOf(name);
-	
-	var value = '';
-	if (start != -1) {
-		start += name.length;
-		var end = cookieData.indexOf(';', start);
-		if (end == -1)
-			end = cookieData.length;
-		value = cookieData.substring(start, end);
-	}
-	return unescape(value);
-}
-
-function getLoginString() {
-	loginstring = getCookie("loginstring");
-	username = getCookie("username");
-}
-function setLoginString() {
-	setCookie("loginstring", loginstring, 1);
-	setCookie("username", username, 1);
-}
-function resetLoginString() {
-	setCookie("loginstring", "", "-1");
-	setCookie("username", "", "-1");
-}
-
-function checkLoginString() {
-	if (loginstring == "") {
-		history.back();
-	}
-}

@@ -6,8 +6,14 @@
 		<title>주문처리 내</title>
 		<link href="{{ STATIC_URL }}css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}css/dashboard.css" rel="stylesheet">
+
 		<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXJ.css">	
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXGrid.css">
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXInput.css">
+
+		<link href="{{ STATIC_URL }}css/orderhistory.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -20,8 +26,8 @@
 					<a class="brand" href="#">주문 대쉬 보드</a>
 					<div class="nav-collapse" id="navMenu">
 						<ul class="nav center">
-							<li class="active"><a href="dashboard.html">대쉬보드</a></li>
-							<li><a href="orderhistory.html">처리내역</a></li>
+							<li ><a href="dashboard.html">대쉬보드</a></li>
+							<li class="active"><a href="orderhistory.html">처리내역</a></li>
 							<li><a href="preferences.html">환경설정</a></li>
 						</ul>
 						<div class="btn-group pull-right">
@@ -42,58 +48,74 @@
 
 		<div class="container bg"><!-- Start of Container-->
 			<div class="row-fluid"><!--Start of Row-->
-			<div class="span12 ">	<p class = "orderTimePicker">
-			 <input  type="text" value="01/01/2013" id="rangeBa" />
-				 <input type="text" value="02/06/2013" id="rangeBb" />
-										          </p>
-					
-				</div>
-				
-				<div class="span12 pull-right">
-					<div class="inside center">
-						<h1 class="bigfont lightblue">주문 내역</h1>
-					</div>
-				</div>
-				
-			</div><!-- End of Row -->
+		
+			<div style="position: relative;">
+	
+
+	
+	<input type="text" name="" id="AXInputDateST" class="AXInput W100" /> ~
+	<input type="text" name="" id="AXInputDateED" class="AXInput W100" />
+</div>
+	
+			<div class = "span12 pull-right" id = "orderhistory_grid">
+			<!-- Gird 영역 -->
+			</div>
 		</div><!-- End of Container-->
+
+
+		<div class="roundinside" id='orderhistoryTemplate' style="display:none;">
+						<a data-toggle="modal" class="getInfo">
+							
+						<span class = 'order_id' style="display:none;"></span>
+						<div class='content'>
+						<span class = 'order_date'></span>
+						<span class = 'process_date'></span>
+						<span class = 'table_code'></span>
+						<span class = 'menu_name'></span>
+						<span class = 'menu_price'></span>
+						<span class = 'order_count'></span>
+						<span class = 'order_price'></span>
+						<span class = 'order_status'></span>
+						
+						</div>
+						</a>
+
+					</div>
+
+
+
 		<script type="text/javascript" 
 			src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
 		</script>
 		<script type="text/javascript" 
 			src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js">
 		</script>
-		<script src="{{STATIC_URL}}js/bootstrap.js"></script>
-		<script src="{{STATIC_URL}}js/dashboard.js"></script>
-		<script src="{{STATIC_URL}}js/base64.js"></script>
+
+		<script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXJ.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXInput.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXGrid.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/common.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/base64.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/orderhistory.js"></script>
+
 		<script>
 			$(document).ready(function() {
-				$("#registerBtn").click(function(){
-					location.href = "join.html"
-				});
-				$("#loginBtn").click(doLogin);
-				$("#adminBtn").click(goAdmin);
-			});
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
+		
+			$("#AXInputDateED").bindTwinDate({align:"right", valign:"bottom", separator:"/", startTargetID:"AXInputDateST", onChange:function(){toast.push(Object.toJSON(this));}});
+			getLoginString();
+			setOrderConfig();
+			doSearchOrder();
+			
 
-  $( "#rangeBa" ).datepicker({
-    defaultDate: "+1w",
-    changeMonth: true,
-    numberOfMonths: 3,
-    onClose: function( selectedDate ) {
-        $( "#rangeBb" ).datepicker( "option", "minDate", selectedDate );
-    }
-});
-$( "#rangeBb" ).datepicker({
-    defaultDate: "+1w",
-    changeMonth: true,
-    numberOfMonths: 3,
-    onClose: function( selectedDate ) {
-        $( "#rangeBa" ).datepicker( "option", "maxDate", selectedDate );
-    }
-});
+			$("#adminBtn").click(goAdmin);
+
+	});
+
+
+
+
+
 
 		</script>
 	</body>
