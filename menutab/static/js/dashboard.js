@@ -118,22 +118,38 @@ var doGetDasboard = function(value) {
 			};
 			
 			for (var i in data.wait_list){
-				if (wait_list.indexOf(data.wait_list[i].id)  == -1  ) {
+				var w_idx  = wait_list.indexOf(data.wait_list[i].id);
+				if (w_idx == -1  ) {
 				wait_list.push(data.wait_list[i].id);	
 				doAppend(data.wait_list[i]);				
+			}else{
+				if (!(data.wait_list[i].status == 1)) {
+								   $("#order_"+ data.wait_list[i].id).remove();
+				};
+
+			}
 			};
-	};
 				for (var i in data.process_list){
-				if (process_list.indexOf(data.process_list[i].id)  == -1  ) {
+					var p_idx  = process_list.indexOf(data.process_list[i].id);
+				if (  p_idx == -1  ) {
 				process_list.push(data.process_list[i].id);	
 				doAppend(data.process_list[i]);				
+				}else{
+				if (!(data.process_list[i].status == 1)) {
+								   $("#order_"+ data.process_list[i].id).remove();
+				};
+				};
 			};
-	};
 			for (var i in data.done_list){
-				if (done_list.indexOf(data.done_list[i].id)  == -1  ) {
+				var d_idx  = done_list.indexOf(data.done_list[i].id);
+				if (d_idx  == -1  ) {
 				done_list.push(data.done_list[i].id);	
 				doAppend(data.done_list[i]);				
-			};
+			}else {
+				if (!(data.done_list[i].status == 1)) {
+								   $("#order_"+ data.done_list[i].id).remove();
+				};
+			}
 				
 			};
 
@@ -152,7 +168,7 @@ var doAppend = function(data) {
 	$('.name', node).append(data.row+data.table_code );
 	$('.content', node).append(data.menu_name + data.count+'');
 	$('.date', node).append(data.order_time);
-	$('.cookstart', node).prepend(status[data.status]+" 상태입니다.");
+	// $('.cookstart', node).prepend(status[data.status]+" 상태입니다.");
 	$('.order_id',node).attr("id", "order_"+ data.id).attr("value",data.status);
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);
