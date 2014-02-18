@@ -124,7 +124,7 @@ var doGetDasboard = function(value) {
 				doAppend(data.wait_list[i]);				
 			}else{
 				if (!(data.wait_list[i].status == 1)) {
-								   $("#order_"+ data.wait_list[i].id).remove();
+								doGetDasboard(1);
 				};
 
 			}
@@ -136,7 +136,7 @@ var doGetDasboard = function(value) {
 				doAppend(data.process_list[i]);				
 				}else{
 				if (!(data.process_list[i].status == 2)) {
-								   $("#order_"+ data.process_list[i].id).remove();
+								   doGetDasboard(1);
 				};
 				};
 			};
@@ -147,7 +147,7 @@ var doGetDasboard = function(value) {
 				doAppend(data.done_list[i]);				
 			}else {
 				if (!(data.done_list[i].status == 3)) {
-								   $("#order_"+ data.done_list[i].id).remove();
+								  doGetDasboard(1);
 				};
 			}
 				
