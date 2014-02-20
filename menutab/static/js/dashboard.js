@@ -111,7 +111,7 @@ var doAppend = function(data) {
 	$('#menu_name', node).append(data.menu_name);
 	$('#menu_count', node).append(data.count+'개');
 	
-	$('#order_time', node).append(data.order_time);
+	$('#order_time', node).append( data.order_time);
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);
 	
