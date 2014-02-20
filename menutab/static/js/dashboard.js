@@ -83,16 +83,15 @@ var doGetDasboard = function(value) {
 				order_list.push(data.order_list[i].id);	
 				doAppend(data.order_list[i]);				
 				}else{
-				if(!(order_list.indexOf(id) == idx){
-					update_check = true;
-
-				}		
-				}
-			};
+				if (!(data.order_list[i].status == 1)) {
+					$('#order_'+data.order_list[i].id).remove();
+					};	
+				};
+			
 			if (update_check) {
 				update(1);
 			};
-			
+			};
 		},
 		error : function() {
 			location.href = "login.html";
