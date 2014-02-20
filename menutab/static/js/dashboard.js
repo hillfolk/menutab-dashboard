@@ -45,7 +45,7 @@ var doGetStaffcall = function() {
 				// toast.push({body:'직원호출:'+data.staffcall_list[i].table_code +'테이블 '+ data.staffcall_list[i].staffcall_desc +' '+ data.staffcall_list[i].count +  '개', type:'Caution'
 				// 	 ,onClick:doStaffcall(i) 
 						// });	
-					};
+				};
 		
 			};
 
@@ -82,7 +82,12 @@ var doGetDasboard = function(value) {
 				if (idx == -1  ) {
 				order_list.push(data.order_list[i].id);	
 				doAppend(data.order_list[i]);				
-				};
+				}else{
+				if(!(order_list.indexOf(id) == idx){
+					update_check = true;
+
+				}		
+				}
 			};
 			if (update_check) {
 				update(1);
