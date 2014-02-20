@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!-- LOGIN -->
 <html lang="ko">
 	<head>
 		<meta charset="utf-8">
-		<title>주문처리 내</title>
+		<title>취소현황</title>
 		<link href="{{ STATIC_URL }}css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
 
@@ -26,10 +25,10 @@
 					{# <a class="brand" href="#">주문 대쉬 보드</a> #}
 					<div class="nav-collapse" id="navMenu">
 					<ul class="nav center">
-							<li><a href="dashboard.html"><h2> 대쉬보드</h2></a></li>
-							<li class = 'active'><a href="orderhistory.html"><h2>완료현황</h2></a></li>
-							<li><a href="canclehistory.html"><h2>취소현황</h2></a></li>
-							{# <li><a href="preferences.html"><h2>환경설정</h2></a></li> #}
+							<li ><a href="dashboard.html"><h2> 대쉬보드</h2></a></li>
+							<li><a href="orderhistory.html"><h2>완료현황</h2></a></li>
+							<li class="active"><a href="canclehistory.html"><h2>취소현황</h2></a></li>
+							{# <li ><a href="preferences.html"><h2>환경설정</h2></a></li> #}
 					</ul>
 						<div class=" pull-right" >
 						<a id = "logoutBtn"> 
@@ -46,20 +45,39 @@
 
 		<div class="container bg"><!-- Start of Container-->
 			<div class="row-fluid"><!--Start of Row-->
-				
-	<span>
+		
+			<div style="position: relative;">
+	
+
+	
 	<input type="text" name="" id="AXInputDateST" class="AXInput W100" /> ~
 	<input type="text" name="" id="AXInputDateED" class="AXInput W100" />
-	</span>
-
 </div>
-		
+	
 			<div class = "span12 pull-right" id = "orderhistory_grid">
 			<!-- Gird 영역 -->
 			</div>
 		</div><!-- End of Container-->
 
 
+		<div class="roundinside" id='orderhistoryTemplate' style="display:none;">
+						<a data-toggle="modal" class="getInfo">
+							
+						<span class = 'order_id' style="display:none;"></span>
+						<div class='content'>
+						<span class = 'order_date'></span>
+						<span class = 'process_date'></span>
+						<span class = 'table_code'></span>
+						<span class = 'menu_name'></span>
+						<span class = 'menu_price'></span>
+						<span class = 'order_count'></span>
+						<span class = 'order_price'></span>
+						<span class = 'order_status'></span>
+						
+						</div>
+						</a>
+
+					</div>
 
 
 
@@ -81,9 +99,9 @@
 		<script>
 			$(document).ready(function() {
 		
-			$("#AXInputDateED").bindTwinDate({align:"right", valign:"bottom", separator:"/", startTargetID:"AXInputDateST", onChange:function(){doSearchOrder(Object.toJSON(this));}});
+			$("#AXInputDateED").bindTwinDate({align:"right", valign:"bottom", separator:"/", startTargetID:"AXInputDateST", onChange:function(){doCancleOrder(Object.toJSON(this));}});
 			getLoginString();
-			doSearchOrder(Object.toJSON({'ST_objID': 'AXInputDateST','ED_value':'','ST_value':'','ED_objID':'AXInputDateED'}));
+			doCancleOrder(Object.toJSON({'ST_objID': 'AXInputDateST','ED_value':'','ST_value':'','ED_objID':'AXInputDateED'}));
 			setOrderConfig();
 			
 			

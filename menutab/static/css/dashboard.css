@@ -1,6 +1,4 @@
-/*join page*/
-
-body {
+  body {
 	background-color: #0a0a0a;
     padding-bottom: 40px;
 	font-family:calibri;
@@ -19,6 +17,9 @@ div [class*="span"] {
   float: left;
   margin-left: 10px;
 }
+
+
+
 
 .center{
     text-align:center;
@@ -165,7 +166,9 @@ div [class*="span"] {
 
 .orderTemplate {
 	background-color: #a4a4a4;
+	margin-top: 5px;
 	padding: 10px;
+
 }
 
 

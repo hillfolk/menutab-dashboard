@@ -48,11 +48,30 @@ def dashboard_search_view(request):
 		if not data['ST_value']:
 			now = datetime.now()
 			months_ago = now - timedelta(days=1)
-			order_list = Order.objects.filter(user__exact=user,status__in = [0,4]).filter(order_time__range=(months_ago, now)).order_by('order_time').all()
+			order_list = Order.objects.filter(user__exact=user,status__in = [4]).filter(order_time__range=(months_ago, now)).order_by('-order_time').all()
 		else:
 			start_date = datetime.strptime(data['ST_value'],'%Y/%m/%d')
 			end_date =  datetime.strptime(data['ED_value'],'%Y/%m/%d') + timedelta(days=1)
-			order_list = Order.objects.filter(user__exact=user,status__in = [0,4]).filter(order_time__range=(start_date,end_date)).order_by('order_time').all()
+			order_list = Order.objects.filter(user__exact=user,status__in = [4]).filter(order_time__range=(start_date,end_date)).order_by('-order_time').all()
+		resp = {
+           'order_list' : serialize(order_list),
+			}
+
+	return toJSON(resp)
+
+@need_auth
+def dashboard_cancle_view(request):
+	if request.method == 'POST':
+		data = json.loads(request.body)
+		user =  request.user
+		if not data['ST_value']:
+			now = datetime.now()
+			months_ago = now - timedelta(days=1)
+			order_list = Order.objects.filter(user__exact=user,status__in = [0]).filter(order_time__range=(months_ago, now)).order_by('-order_time').all()
+		else:
+			start_date = datetime.strptime(data['ST_value'],'%Y/%m/%d')
+			end_date =  datetime.strptime(data['ED_value'],'%Y/%m/%d') + timedelta(days=1)
+			order_list = Order.objects.filter(user__exact=user,status__in = [0]).filter(order_time__range=(start_date,end_date)).order_by('-order_time').all()
 		resp = {
            'order_list' : serialize(order_list),
 			}

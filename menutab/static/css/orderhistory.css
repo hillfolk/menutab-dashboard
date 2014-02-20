@@ -1,11 +1,10 @@
-/*join page*/
-
-body {
-	background-color: #C0DEED;
-	padding-top: 60px;
+  body {
+	background-color: #0a0a0a;
     padding-bottom: 40px;
 	font-family:calibri;
+	padding-top:100px;
 }
+
 .row-fluid div[class*="span"] {
 	background-color: white;
 	-webkit-border-radius: 6px;
@@ -45,9 +44,6 @@ div [class*="span"] {
 	background: url('http://bit.ly/MTt30q');
 	/*http://cfile8.uf.tistory.com/image/1426B1355023C92334FFB7*/
 }
-.loginbox{
-	height : 200px;
-}
 .middlemsg{
 	 padding-top:80px;
 }
@@ -59,12 +55,6 @@ div [class*="span"] {
 	width:50%;
 }
 
-
-/* timeline page */
-.container .brand{
-	color : white;	
-	font-size : 22px;
-}
 
 .leftalign {
 	text-align:left;
@@ -157,33 +147,6 @@ div [class*="span"] {
 	margin-right : 10px;
 }
 
-.boardtitle{
-	text-align: center;
-	width: 100%;
-	background: #b3ffeb;
-	border-radius: 7px;
-
-}
-#orderTemplate > ul{
-	overflow: hidden;
-	text-align:center;
-	display:inline;
-}
-
-
-#orderTemplate > ul > li  .btn{
-	margin-top: 20px;
-}
-
-#orderTemplate > ul >li:nth-child(1)  {
-	width: 20%;
-}
-#orderTemplate > ul >li:nth-child(2)  {
-	width: 60%;
-}
-#orderTemplate > ul >li:nth-child(3)  {
-	width: 20%;
-}
 
 .orderTimePicker {
 	margin-left: 15px;

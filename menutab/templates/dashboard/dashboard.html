@@ -24,8 +24,8 @@
 					<ul class="nav center">
 							<li class="active"><a href="dashboard.html"><h2> 대쉬보드</h2></a></li>
 							<li><a href="orderhistory.html"><h2>완료현황</h2></a></li>
-							<li><a href="orderhistory.html"><h2>취소현황</h2></a></li>
-							<li><a href="preferences.html"><h2>환경설정</h2></a></li>
+							<li><a href="canclehistory.html"><h2>취소현황</h2></a></li>
+							{# <li><a href="preferences.html"><h2>환경설정</h2></a></li> #}
 					</ul>
 						<div class=" pull-right" >
 						<a id = "logoutBtn"> 
@@ -70,28 +70,33 @@
 		</div>
 		
 		
-				<div class="roundinside orderTemplate" id='order_' style="display:none;" >
+				<div class="orderTemplate" id='order_' style="display:none;" >
 			
 					
-		
 				<div class = "table_info"> <!-- 1단 -->
+					<h2>
 				<span id = 'table_row'> </span>		
-				<span id = 'table_code'> </span>
+				<span id = 'table_code'> </span> 
 				<span class = "pull-right" id = 'order_time'> </span>
+			</h2>
 				</div> <!-- 1단  종료-->
 				<div class = "menu_info"> <!--2단 -->
 				<div class='button_area pull-right'>
-				<a class="btn" id="RightBtn" name="RightBtn">완료</a>
-				<a class="btn" id="LeftBtn" name="LeftBtn">취소</a>
+				
+				<a class="btn" id="LeftBtn" name="LeftBtn"><h2>취소</h2></a>
+				<a class="btn" id="RightBtn" name="RightBtn"><h2>완료</h2></a>
+			
 				</div>
+				<h2>
 				<span id = 'menu_name'> </span>
 				<span id = 'menu_count'> </span>
+			</h2>
 				</div> <!-- 2단  종료-->
 				<div class = 'opt_info'> <!-- 3단 -->
 				<span id = 'opt_name'> </span>
 				</div> <!-- 3단  종료-->
 	
-		
+		</h2>
 				</div>
 
 		
