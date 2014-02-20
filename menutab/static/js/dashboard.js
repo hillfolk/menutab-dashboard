@@ -86,13 +86,14 @@ var doGetDasboard = function(value) {
 				if (!(data.order_list[i].status == 1)) {
 					$('#order_'+data.order_list[i].id).remove();
 
-				};	
+					};	
 				};
 			
-			if (update_check) {
+			
+		};
+		if (update_check) {
 				update(1);
 			};
-			
 		},
 		error : function() {
 			location.href = "login.html";
