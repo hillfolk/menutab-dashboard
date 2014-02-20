@@ -53,7 +53,10 @@ orderhistoryGrid.setConfig({
 						}
 						*/
 					}
-				}
+				},
+				page: {
+                paging: false
+            }
 			});
 
 }
