@@ -1,11 +1,12 @@
 /*join page*/
 
 body {
-	background-color: #C0DEED;
-	padding-top: 60px;
+	background-color: #0a0a0a;
     padding-bottom: 40px;
 	font-family:calibri;
+	padding-top:100px;
 }
+
 .row-fluid div[class*="span"] {
 	background-color: white;
 	-webkit-border-radius: 6px;
@@ -42,7 +43,7 @@ div [class*="span"] {
 }
 .bg{
 	padding:15px;
-	background: url('http://bit.ly/MTt30q');
+	/*background: url('http://bit.ly/MTt30q');*/
 	/*http://cfile8.uf.tistory.com/image/1426B1355023C92334FFB7*/
 }
 .loginbox{
@@ -157,39 +158,39 @@ div [class*="span"] {
 	margin-right : 10px;
 }
 
-.boardtitle{
-	text-align: center;
-	width: 100%;
-	background: #b3ffeb;
-	border-radius: 7px;
+.paddingtop-10 {
+	padding-top: 50px;
 
 }
-#orderTemplate > ul{
-	overflow: hidden;
-	text-align:center;
-	display:inline;
+
+.orderTemplate {
+	background-color: #a4a4a4;
+	padding: 10px;
 }
 
 
-#orderTemplate > ul > li  .btn{
-	margin-top: 20px;
+
+
+.table_info  {
+	background-color: #7b7b7b;
+
+}
+.table_info  > .button_area{
+	position: relative;
+	
 }
 
-.orderTemplate > ul >li:nth-child(1)  {
-	width: 20%;
-}
-.orderTemplate > ul >li:nth-child(2)  {
-	width: 60%;
-}
-.orderTemplate > ul >li:nth-child(3)  {
-	width: 20%;
+
+.menu_info {
+	padding: 5px;
+	/*background-color: #7b7b7b;*/
+	
 }
 
-.orderTimePicker {
-	margin-left: 15px;
-	margin-top: 15px;
+.opt_info {
+	/*background-color: #7b7b7b;*/
+	
 }
-
 
 .AXlineProgress .AXprogressTitle{
 	color:#000;

@@ -32,14 +32,10 @@ def dashboard_list_view(request):
 	daysthree_day_ago = now - timedelta(days=3)
 
 	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).filter(staffcall_time__range=(daysthree_day_ago, now)).order_by('staffcall_time').all()
-	wait_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
-	process_list = Order.objects.filter(user__exact=user,status__in = [2]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
-	done_list = Order.objects.filter(user__exact=user,status__in = [3]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
-	
+	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+
 	resp = {
-           'wait_list' : serialize(wait_list),
-           'process_list' : serialize(process_list),
-           'done_list' : serialize(done_list),
+           'order_list' : serialize(order_list),
            'staffcall_list' : serialize(staffcall_list)
 			}
 

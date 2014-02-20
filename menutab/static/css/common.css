@@ -5,8 +5,17 @@ body, select, input, a, button{
 	font-family:'Apple SD Gothic Neo', 'Nanum Gothic';
 	font-size:12px;
 	line-height:1.6em;
+	
 }
   
+body > .container {
+	background-color: #C0DEED;
+    padding-bottom: 40px;
+	font-family:calibri;
+	padding-top:100px;
+}
+
+
 * { -webkit-tap-highlight-color: rgba(0,0,0,0);} 
 body{background:#fff;margin:0px;padding:0px;}
 select{vertical-align:middle;}
@@ -14,6 +23,7 @@ input{vertical-align:middle;}
 form{margin:0px;padding:0px;}
 img{border:0px;}
 a{}
+
 
 
 /*----- default class styleCSS -----*/
@@ -130,3 +140,7 @@ table.setConfig td.ti20{
 .tac {text-align:center;}
 
 table.setConfig pre{margin:0px;}
+  
+
+
+
