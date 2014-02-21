@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
@@ -14,10 +15,17 @@ from menutab.settings import *
 
 
 def serve_html(request, page):
-    return render_to_response("dashboard/" +  page + '.html', {}, context_instance=RequestContext(request))
+	"""
+	Html 페이지 반환 뷰
+	url에 해당하는 HTML 페이지를 반환한다.
+	"""
+	return render_to_response("dashboard/" +  page + '.html', {}, context_instance=RequestContext(request))
 
 def main_html(request):
-    return render_to_response("dashboard/" +  "dashboard" + '.html', {}, context_instance=RequestContext(request))
+	"""
+	Main html 페이지 호출 
+	"""
+	return render_to_response("dashboard/" +  "dashboard" + '.html', {}, context_instance=RequestContext(request))
 
 @need_auth
 def login_view(request):

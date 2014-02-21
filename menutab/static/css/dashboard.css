@@ -19,8 +19,6 @@ div [class*="span"] {
 }
 
 
-
-
 .center{
     text-align:center;
 	font-size:16px;
@@ -37,14 +35,14 @@ div [class*="span"] {
 
 .logincontainer{
 	padding:15px;
-	margin-top:120px;
+/*	margin-top:120px;*/
 }
 .between{
 	margin-left : 30px;
 }
 
 .loginbox{
-	height : 200px;
+	height : 350px;
 }
 .middlemsg{
 	 padding-top:80px;
@@ -110,10 +108,6 @@ div [class*="span"] {
 	line-height:0px;
 	margin-top:15px;
 }
-.search{
-	width:70%;
-	margin-top:8px;
-}
 
 
 /* profile */
@@ -149,21 +143,24 @@ div [class*="span"] {
  
 /* account */
 .accountbox {
-	height : 250px;
+	height : 350px;
 }
 .right10 {
 	margin-right : 10px;
 }
 
 .paddingtop-10 {
-	padding-top: 50px;
+	padding-top: 10px;
 
 }
 
 .orderTemplate {
 	background-color: #a4a4a4;
-	margin-top: 5px;
-	padding: 10px;
+	margin-top: 10px;
+	padding-top:  5px;
+	padding-left:   5px;
+	padding-right:   5px;
+	padding-bottom:  10px;
 
 }
 
@@ -171,30 +168,32 @@ div [class*="span"] {
 
 
 .table_info  {
-	background-color: #7b7b7b;
+padding-left: 2px;
+padding-right: 2px;
+background-color: #7b7b7b;
+color: #ffffff;
 
 }
 .table_info  > .button_area{
+	padding: 2px;
 	position: relative;
 	
 }
 
 
 .menu_info {
-	padding: 5px;
+	padding: 2px;
+	color:#fcfcfc;
 	/*background-color: #7b7b7b;*/
 	
 }
 
 .opt_info {
+	color:#818181;
+
 	/*background-color: #7b7b7b;*/
-	
+padding: 2px;	
 }
 
-.AXlineProgress .AXprogressTitle{
-	color:#000;
-	font-weight:bold;
-}
-.AXlineProgress .AXprogress .AXprogressContainer .AXprogressLoadedText{
-	color:#000;
-}
+
+

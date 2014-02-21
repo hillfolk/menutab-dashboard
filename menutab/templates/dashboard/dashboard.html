@@ -25,7 +25,7 @@
 							<li class="active"><a href="dashboard.html"><h2> 대쉬보드</h2></a></li>
 							<li><a href="orderhistory.html"><h2>완료현황</h2></a></li>
 							<li><a href="canclehistory.html"><h2>취소현황</h2></a></li>
-							{# <li><a href="preferences.html"><h2>환경설정</h2></a></li> #}
+							<li><a href="preferences.html"><h2>환경설정</h2></a></li> 
 					</ul>
 						<div class=" pull-right" >
 						<a id = "logoutBtn"> 
@@ -54,7 +54,7 @@
 		</div><!-- End of Container -->
 		
 
-		<div class="modal hide fade" id="myModal" >
+		<div class="modal hide fade" id="orderMdoal" >
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">
 					×
@@ -62,23 +62,21 @@
 				<h2><span id="modalid"></span>'s Info</h2>
 			</div>
 			<div class="modal-body">
-				<h3>메뉴이름 : <span id="menuname"> </span></h3>
-				<h3>개수 시간 : <span id="modalcountry"> </span></h3>
-				<h3>완료 시간: <span id="modalurl"> </span></h3>
-				<h3>수량: <span id="modalcomment"> </span></h3>
+				<h3>테이블이름 : <span class="modal_table_code"> </span></h3>
+				<h3>주문 메뉴 : <span class="modal_menuname"> </span></h3>
+				<h3>주문 시간: <span class="modal_order_time"> </span></h3>
+				<h3>주문 수량: <span class="modal_order_count"> </span></h3>
 			</div>
 		</div>
 		
-		
+				{# 주문 리스트 DIV #}
 				<div class="orderTemplate" id='order_' style="display:none;" >
-			
-					
 				<div class = "table_info"> <!-- 1단 -->
 					<h2>
 				<span id = 'table_row'> </span>		
 				<span id = 'table_code'> </span> 
-				<span class = "pull-right" id = 'order_time'> </span>
-			</h2>
+				<span class = "pull-right leftalign" id = 'order_time'> </span>
+				</h2>
 				</div> <!-- 1단  종료-->
 				<div class = "menu_info"> <!--2단 -->
 				<div class='button_area pull-right'>
@@ -131,7 +129,7 @@
 
 				 $("[name=LeftBtn]").live("click", doLeftBtn);
 				 $("[name=RightBtn]").live("click", doRightBtn);
-				 // $(".getInfo").live("click", doGetUserInfo);
+				  // $(".orderTemplate").live("click", doShowConfirm);
 				
 				  var auto_refresh = setInterval(function() { doUpdate(); }, 3000);
 

@@ -21,7 +21,7 @@ def order_list_view(request):
 	user =  request.user
 
     #order_list = Order.objects.filter(user__exact=user,order_time__gte=starttime,order_time__lte=endtime).order_by('-order_time').all()
-	order_list = Order.objects.filter(user__exact=user,status__in = [1,2,3]).order_by('-order_time').all()
+	order_list = Order.objects.filter(user__exact=user).order_by('-order_time').all()
 	pages = Paginator(order_list, order_per_page)
 	resp = {
            'total_count' : pages.count,
