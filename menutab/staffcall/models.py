@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.conf import settings
 from datetime import datetime
 # Create your models here.
-STAFFCALL_STATUS = ((0, '접수'),(1, '완료'))
+STAFFCALL_STATUS = ((0, '접'),(1, '완료'))
 
 
 class StaffCallManager(models.Manager):

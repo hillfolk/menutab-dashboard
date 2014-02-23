@@ -155,15 +155,21 @@ div [class*="span"] {
 }
 
 .orderTemplate {
-	background-color: #a4a4a4;
-	margin-top: 10px;
-	padding-top:  5px;
+	background-color: #444444;
+	margin-top: 5px;
+	padding-top:  1px;
 	padding-left:   5px;
 	padding-right:   5px;
 	padding-bottom:  10px;
 
 }
 
+.orderTemplate  > h2{
+	margin-top: 2px;
+	padding: 2px;
+	position: relative;
+	
+}
 
 
 
@@ -174,7 +180,7 @@ background-color: #7b7b7b;
 color: #ffffff;
 
 }
-.table_info  > .button_area{
+.button_area{
 	padding: 2px;
 	position: relative;
 	
@@ -195,5 +201,11 @@ color: #ffffff;
 padding: 2px;	
 }
 
+#RightBtn {
+margin-right: 15px;
+}
+#LeftBtn {
+margin-right: 15px;
+}
 
 

@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from django.contrib.auth import authenticate, login, logout
 from orders.models import *
 from django.http import HttpResponse
@@ -24,7 +25,7 @@ def need_auth(functor):
         logout(request)
         response = HttpResponse()
         response.status_code = 401
-        response['WWW-Authenticate'] = 'Basic realm= "DashBoard Service"'
+        response['WWW-Authenticate'] = 'Basic realm= "Markmedia Menutab Service"'
         return response
     return try_auth
 

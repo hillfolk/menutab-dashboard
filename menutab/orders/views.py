@@ -29,16 +29,11 @@ def order_list_view(request):
 			}
 	return toJSON(resp)
 
-#@need_auth
+@need_auth
 def order_search_view(request):
-	print request.body
+	user =  request.user
 	order_per_page = int(request.GET.get('per_page', 20))
 	page_num = int(request.GET.get('page', 1))
-    # starttime = request.GET.get('starttime')
-    # endtime = request.GET.get('endtime')
-	user =  request.user
-
-    #order_list = Order.objects.filter(user__exact=user,order_time__gte=starttime,order_time__lte=endtime).order_by('-order_time').all()
 	order_list = Order.objects.filter(user__exact=user,status__in = [0,4]).order_by('-order_time').all()
 	pages = Paginator(order_list, order_per_page)
 	resp = {
@@ -73,15 +68,24 @@ def order_create_view(request,method):
 		return HttpResponse('bad request',status=400)
 
 
+@need_auth
 def new_order_view(request):
-	if request.method == 'POST':
-		user =  request.user
-		data = json.loads(request.body)
-		data[1]
-	
-
+	"""
+	새로운 주문 요청 제공
+	"""
+	user =  request.user
+	data = json.loads(request.body)
+	if data['id']:
+		old_id = data[id]
+		while old_id >= Order.objects.filter(user__exact=use).latest('id'):
+			time.sleep(1)
+		order_list = Order.objects.filter(user__exact=user,status__in = [1],id__gt = old_id).all()
+		resp = {
+           'order_list' : serialize(order_list),
+			}
 	else:
 		return HttpResponse('bad request',status=400)
+	return toJSON(resp)
 
 
 

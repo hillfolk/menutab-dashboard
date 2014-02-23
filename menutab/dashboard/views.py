@@ -25,7 +25,7 @@ def main_html(request):
 	"""
 	Main html 페이지 호출 
 	"""
-	return render_to_response("dashboard/" +  "dashboard" + '.html', {}, context_instance=RequestContext(request))
+	return render_to_response("dashboard/" +  "login" + '.html', {}, context_instance=RequestContext(request))
 
 @need_auth
 def login_view(request):
@@ -35,8 +35,11 @@ def login_view(request):
 
 @need_auth
 def dashboard_list_view(request):
+	"""
+	접수된 주문 목록을 제공
+	"""
 	user =  request.user
-	now = datetime.now()# <3 
+	now = datetime.now() 
 	daysthree_day_ago = now - timedelta(days=3)
 
 	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).filter(staffcall_time__range=(daysthree_day_ago, now)).order_by('staffcall_time').all()
@@ -48,6 +51,49 @@ def dashboard_list_view(request):
 			}
 
 	return toJSON(resp)
+
+@need_auth
+def cancle_list_view(request):
+	"""
+	최소된 주문에 대한 목록을 제공한다.
+
+	"""
+	user =  request.user
+	now = datetime.now()# <3 
+	daysthree_day_ago = now - timedelta(days=3)
+
+	# staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).filter(staffcall_time__range=(daysthree_day_ago, now)).order_by('staffcall_time').all()
+	order_list = Order.objects.filter(user__exact=user,status__in = [0]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-order_time').all()
+
+	resp = {
+           'order_list' : serialize(order_list),
+           'staffcall_list' : serialize(staffcall_list)
+			}
+
+	return toJSON(resp)
+
+@need_auth
+def finish_list_view(request):
+	"""
+	완료된 주문 리스트 제공
+	"""
+	user =  request.user
+	now = datetime.now()
+	daysthree_day_ago = now - timedelta(days=3)
+
+	order_list = Order.objects.filter(user__exact=user,status__in = [4]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+
+	resp = {
+           'order_list' : serialize(order_list),
+           'staffcall_list' : serialize(staffcall_list)
+			}
+
+	return toJSON(resp)
+
+
+
+
+
 @need_auth
 def dashboard_search_view(request):
 	if request.method == 'POST':

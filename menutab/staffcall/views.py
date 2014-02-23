@@ -18,6 +18,9 @@ logger = logging.getLogger(__name__)
 
 @need_auth
 def staffcall_list_view(request):
+	"""
+	직원호출 리스트 요청
+	"""
 	staffcall_per_page = int(request.GET.get('per_page', 20))
 	page_num = int(request.GET.get('page', 1))
 
@@ -33,6 +36,9 @@ def staffcall_list_view(request):
 
 @need_auth
 def staffcall_search_view(request):
+	"""
+	직원호출 검ㅅ
+	"""
 	staffcall_per_page = int(request.GET.get('per_page', 20))
 	page_num = int(request.GET.get('page', 1))
     # starttime = request.GET.get('starttime')
