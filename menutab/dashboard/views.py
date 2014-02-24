@@ -107,7 +107,7 @@ def history_order_view(request):
 			end_date =  datetime.strptime(data['ED_value'],'%Y/%m/%d') + timedelta(days=1)
 			order_list = Order.objects.filter(user__exact=user,status__in = [4]).filter(order_time__range=(start_date,end_date)).order_by('-order_time').all()
 		resp = {
-           'order_list' : serialize(order_list),
+           'history_list' : serialize(order_list),
 			}
 
 	return toJSON(resp)
@@ -126,7 +126,7 @@ def history_cancle_view(request):
 			end_date =  datetime.strptime(data['ED_value'],'%Y/%m/%d') + timedelta(days=1)
 			order_list = Order.objects.filter(user__exact=user,status__in = [0]).filter(order_time__range=(start_date,end_date)).order_by('-order_time').all()
 		resp = {
-           'order_list' : serialize(order_list),
+           'history_list' : serialize(order_list),
 			}
 
 	return toJSON(resp)

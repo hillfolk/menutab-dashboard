@@ -55,7 +55,7 @@ historyGrid.setConfig({
 					}
 				},
 				page: {
-                paging: true
+                paging: false
             }
 			});
 
@@ -135,8 +135,7 @@ var doSearchOrder = function(search_value) {
 		},data:search_value
 		,
 		success : function(data) {
-	 	console.log(search_value)
-		orderhistoryGrid.setList(data.order_list);
+	 		historyGrid.setList(data.history_list);
 
 	},error : function(msg) {
 			alert("Fail to get data!");
@@ -153,8 +152,7 @@ var doCancleOrder = function(search_value) {
 		},data:search_value
 		,
 		success : function(data) {
-	 	console.log(search_value)
-		historyGrid.setList(data.order_list);
+	 	historyGrid.setList(data.history_list);
 
 	},error : function(msg) {
 			alert("Fail to get data!");
