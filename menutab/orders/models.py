@@ -43,6 +43,9 @@ class OrderManager(models.Manager):
 		order.save(using=self._db)
 		return order
 
+	def get_new_orders(self,id,user):
+		return Order.objects.filter(user__exact=user,pk__gt=id,status__exact=1).order_by('pk')
+
 
 class Order(models.Model):
 	user = models.ForeignKey(User)

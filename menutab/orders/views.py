@@ -11,6 +11,8 @@ from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 import time;
 
+
+SLEEP_SECONDS = 5000
 # Create your views here.
 
 @need_auth
@@ -77,18 +79,24 @@ def neworder_view(request):
 	user =  request.user
 	data = json.loads(request.body)
 	# print data
-	if data['id']:
-		old_id = data['id']
-		while old_id <= Order.objects.filter(user__exact=user).latest('id'):
-			time.sleep(1)
-			# print Order.objects.filter(user__exact=user).latest('id')
-		order_list = Order.objects.filter(user__exact=user,status__in = [1],id__gt = old_id).all()
-		resp = {
-           'order_list' : serialize(order_list),
-			}
-	else:
+	if not data['id']:
 		return HttpResponse('bad request',status=400)
-	return toJSON(resp)
+
+	for _ in xrange(SLEEP_SECONDS):
+		id = data['id']
+		neworders = Order.objects.get_new_orders(id,user)
+		neworders_count = neworders.count()
+		if neworders_count == 0:
+			time.sleep(1)
+			continue
+
+		result = {
+           'order_list' : serialize(neworders),
+			}
+		return HttpResponse(json.dumps(result),
+                            mimetype='application/json; charset=UTF-8')
+	return HttpResponse('OK', mimetype='text/plain; charset=UTF-8')
+	
 
 
 
@@ -101,7 +109,7 @@ def order_view(request,num):
 	else:
 		return HttpResponse('bad request',status=400)
 
-
+@need_auth
 def order_update_view(request,num,method):
 	if method == 'update' and request.method == 'POST':
 

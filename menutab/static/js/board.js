@@ -6,6 +6,8 @@ var cancle_list = new Array();
 var staffcall_id_list =  [];
 var staffcall_data_list =  [];
 
+timeout_op = 5000;
+
 
 
 var doStaffcall = function(staffcall_idx) {
@@ -41,9 +43,7 @@ var doGetStaffcall = function() {
 				if (staffcall_id_list.indexOf(data.staffcall_list[i])  == -1 && i >= 0 ) {
 					staffcall_id_list.push(data.staffcall_list[i].id);
 				staffcall_data_list.push(data.staffcall_list[i]);
-				// toast.push({body:'직원호출:'+data.staffcall_list[i].table_code +'테이블 '+ data.staffcall_list[i].staffcall_desc +' '+ data.staffcall_list[i].count +  '개', type:'Caution'
-				// 	 ,onClick:doStaffcall(i) 
-						// });	
+
 				};
 		
 			};
@@ -64,39 +64,28 @@ var doGetOrderboard = function(value) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
-			console.log(data);
-			var update_check = false;
-			for (var i in data.staffcall_list){
-				if (staffcall_id_list.indexOf(data.staffcall_list[i].id)  == -1 && i >= 0 ) {
-				staffcall_id_list.push(data.staffcall_list[i].id);
-				staffcall_data_list.push(data.staffcall_list[i]);
-				};
-			};
-			
-			if (value == 1) {
-				order_list.clear();
-			};
-
-			for (var i in data.order_list){
+			count = 0;
+			for (var i = data.order_list.length - 1; i >= 0; i--){
 				var idx  = order_list.indexOf(data.order_list[i].id);
 				if (idx == -1) {
-				order_list.push(data.order_list[i].id);	
+					console.log(data.order_list[i]);
+					count++;
+					order_list.push(data.order_list[i].id);	
+					console.log(count);
+
 				doOrderAppend(data.order_list[i]);				
 				}else{
 				if (!(data.order_list[i].status == 1)) {
 					$('#order_'+data.finish_list[i].id).remove();
-
-					};	
+										};	
 				};
-			
-			
+
+				doUpdate();
 		};
-		if (update_check) {
-				update(1);
-			};
+
 		},
 		error : function() {
-			location.href = "login.html";
+			// location.href = "login.html";
 		},
 	});
 }
@@ -117,7 +106,7 @@ var doGetFinishboard = function(value) {
 				finish_list.clear();
 			};
 
-			for (var i in data.finish_list){
+			for (var i = data.finish_list.length - 1; i >= 0; i--){
 				var idx  = finish_list.indexOf(data.finish_list[i].id);
 				if (idx == -1  ) {
 				finish_list.push(data.finish_list[i].id);	
@@ -149,13 +138,7 @@ doGetCancleboard = function(value) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
-			console.log(data);
-			var update_check = false;
-			if (value == 1) {
-				cancle_list.clear();
-			};
-
-			for (var i in data.cancle_list){
+			for (var i = data.cancle_list.length - 1; i >= 0; i--){
 				var idx  = cancle_list.indexOf(data.cancle_list[i].id);
 				if (idx == -1  ) {
 				cancle_list.push(data.cancle_list[i].id);	
@@ -163,15 +146,9 @@ doGetCancleboard = function(value) {
 				}else{
 				if (!(data.cancle_list[i].status == 1)) {
 					$('#order_'+data.cancle_list[i].id).remove();
-
 					};	
 				};
-			
-			
 		};
-		if (update_check) {
-				update(1);
-			};
 		},
 		error : function() {
 			// location.href = "login.html";
@@ -183,23 +160,23 @@ doGetNewOrder = function(obj) {
 	$.ajax({
 		type : 'POST',
 		url : baseUrl + 'orders/neworders/',
-		timeout:10000,
+		timeout:timeout_op,
 		beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},data : obj,
 		success : function(data) {
-			// console.log(data);
-			// doUpdate();
-			for (var i = data.order_list.length - 1; i >= 0; i--) {
-					doOrderAppend(data.order_list[i]);	
+
+		for (var i = data.order_list.length - 1; i >= 0; i--) {
+			order_list.push(data.order_list[i].id)
+			doOrderAppend(data.order_list[i]);	
 			};
 	
-			
+			doUpdate();
 		},
 		error : function() {
 			console.log('Fail');
 			doUpdate();
-			// location.href = "login.html";
+
 		},
 	});
 }
@@ -279,9 +256,9 @@ var doReload = function() {
 } 
 
 var doUpdate = function() {
-
- var value = {'id':order_list[order_list.length-2]};
- console.log(value)
+ var value = 0;
+ value = {'id':order_list[order_list.length-1]};
+ 	console.log(value)
 	doGetNewOrder(JSON.stringify(value));
 
 }
@@ -304,6 +281,9 @@ var doRightBtn = function() {
 	var status = status + 3;
 	$.ajax({
 		type : 'post',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
 		url : baseUrl + 'orders/' + id + "/update/",
 		data :{
 		status:status
@@ -325,6 +305,9 @@ var doLeftBtn = function() {
 	var status = status - 1;
 	$.ajax({
 		type : 'post',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
 		url : baseUrl + 'orders/' + id + "/update/",
 		data : {
 			status : status
@@ -344,6 +327,9 @@ var doReBackBtn = function() {
 	var status = status - 3;
 	$.ajax({
 		type : 'post',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
 		url : baseUrl + 'orders/' + id + "/update/",
 		data : {
 			status : status
@@ -361,6 +347,9 @@ var doGetOrderInfo = function() {
 	var order_id= $("div", this).html() ;
 	$.ajax({
 		type : 'get',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
 		url : baseUrl + 'api/profile/' + order_id + "/",
 		beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
