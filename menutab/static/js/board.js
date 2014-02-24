@@ -3,8 +3,8 @@
 var order_list = new Array();
 var finish_list = new Array();
 var cancle_list = new Array();
-var staffcall_id_list =  [];
-var staffcall_data_list =  [];
+var staffcall_id_list = new Array();
+var staffcall_data_list = new Array();
 
 timeout_op = 5000;
 
@@ -167,8 +167,12 @@ doGetNewOrder = function(obj) {
 		success : function(data) {
 
 		for (var i = data.order_list.length - 1; i >= 0; i--) {
+			if (order_list.indexOf(data.order_list[i].id) == -1) {
 			order_list.push(data.order_list[i].id)
 			doOrderAppend(data.order_list[i]);	
+
+			};
+			
 			};
 	
 			doUpdate();
