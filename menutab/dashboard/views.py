@@ -19,7 +19,8 @@ def serve_html(request, page):
 	Html 페이지 반환 뷰
 	url에 해당하는 HTML 페이지를 반환한다.
 	"""
-	return render_to_response("dashboard/" +  page + '.html', {}, context_instance=RequestContext(request))
+	context = {"page":page}
+	return render_to_response("dashboard/" +  page + '.html', context, context_instance=RequestContext(request))
 
 def main_html(request):
 	"""
@@ -34,10 +35,11 @@ def login_view(request):
 
 
 @need_auth
-def dashboard_list_view(request):
+def orderboard_view(request):
 	"""
 	접수된 주문 목록을 제공
 	"""
+	print request.body
 	user =  request.user
 	now = datetime.now() 
 	daysthree_day_ago = now - timedelta(days=3)
@@ -47,13 +49,12 @@ def dashboard_list_view(request):
 
 	resp = {
            'order_list' : serialize(order_list),
-           'staffcall_list' : serialize(staffcall_list)
 			}
 
 	return toJSON(resp)
 
 @need_auth
-def cancle_list_view(request):
+def cancleboard_view(request):
 	"""
 	최소된 주문에 대한 목록을 제공한다.
 
@@ -63,17 +64,16 @@ def cancle_list_view(request):
 	daysthree_day_ago = now - timedelta(days=3)
 
 	# staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).filter(staffcall_time__range=(daysthree_day_ago, now)).order_by('staffcall_time').all()
-	order_list = Order.objects.filter(user__exact=user,status__in = [0]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-order_time').all()
+	cancle_list = Order.objects.filter(user__exact=user,status__in = [0]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-order_time').all()
 
 	resp = {
-           'order_list' : serialize(order_list),
-           'staffcall_list' : serialize(staffcall_list)
+           'cancle_list' : serialize(cancle_list)
 			}
 
 	return toJSON(resp)
 
 @need_auth
-def finish_list_view(request):
+def finishboard_view(request):
 	"""
 	완료된 주문 리스트 제공
 	"""
@@ -81,11 +81,10 @@ def finish_list_view(request):
 	now = datetime.now()
 	daysthree_day_ago = now - timedelta(days=3)
 
-	order_list = Order.objects.filter(user__exact=user,status__in = [4]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+	finish_list = Order.objects.filter(user__exact=user,status__in = [4]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-order_time').all()
 
 	resp = {
-           'order_list' : serialize(order_list),
-           'staffcall_list' : serialize(staffcall_list)
+           'finish_list' : serialize(finish_list),
 			}
 
 	return toJSON(resp)
@@ -95,7 +94,7 @@ def finish_list_view(request):
 
 
 @need_auth
-def dashboard_search_view(request):
+def history_order_view(request):
 	if request.method == 'POST':
 		data = json.loads(request.body)
 		user =  request.user
@@ -114,7 +113,7 @@ def dashboard_search_view(request):
 	return toJSON(resp)
 
 @need_auth
-def dashboard_cancle_view(request):
+def history_cancle_view(request):
 	if request.method == 'POST':
 		data = json.loads(request.body)
 		user =  request.user

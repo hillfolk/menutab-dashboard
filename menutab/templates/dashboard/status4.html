@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>주문 대쉬 보드</title>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXJ.css">	
+		<link href="{{ STATIC_URL }}css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}css/dashboard.css" rel="stylesheet">
+		<link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXJ.css">	
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXInput.css">
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu"> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> </a>
+					{# <a class="brand" href="#">주문 대쉬 보드</a> #}
+					<div class="nav-collapse" id="navMenu">
+					<ul class="nav center">
+							<li class="active"><a href="dashboard.html"><h2> 대쉬보드</h2></a></li>
+							<li><a href="orderhistory.html"><h2>완료현황</h2></a></li>
+							<li><a href="canclehistory.html"><h2>취소현황</h2></a></li>
+							<li><a href="preferences.html"><h2>환경설정</h2></a></li> 
+					</ul>
+						<div class=" pull-right" >
+						<a id = "logoutBtn"> 
+							<h2>
+							로그아웃 
+							</h2>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--End of NavBar!-->
+
+
+		{# <a href={% url 'dashboard:dashboard' %}>your link text</a> #}
+
+		<div class="container"><!-- Start of Container -->
+		<!-- Start of orderboard -->
+				<div class="span12">	<!-- Start of Span12 -->
+				<div id='order_area'>
+		
+				</div>
+				</div><!-- End of Span4 -->
+
+		</div><!-- End of Container -->
+		
+
+		<div class="modal hide fade" id="orderMdoal" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					×
+				</button>
+				<h2><span id="modalid"></span>'s Info</h2>
+			</div>
+			<div class="modal-body">
+				<h3>테이블이름 : <span class="modal_table_code"> </span></h3>
+				<h3>주문 메뉴 : <span class="modal_menuname"> </span></h3>
+				<h3>주문 시간: <span class="modal_order_time"> </span></h3>
+				<h3>주문 수량: <span class="modal_order_count"> </span></h3>
+			</div>
+		</div>
+		
+				{# 주문 리스트 DIV #}
+				<div class="orderTemplate" id='order_' style="display:none;" >
+				<div class = "table_info"> <!-- 1단 -->
+					<h2>
+				<span id = 'table_row'> </span>		
+				<span id = 'table_code'> </span> 
+				<span class = "pull-right leftalign" id = 'order_time'> </span>
+				</h2>
+				</div> <!-- 1단  종료-->
+				<div class = "menu_info"> <!--2단 -->
+				<div class='button_area pull-right'>
+				
+				<a class="btn" id="LeftBtn" name="LeftBtn"><h2>취소</h2></a>
+				<a class="btn" id="RightBtn" name="RightBtn"><h2>완료</h2></a>
+			
+				</div>
+				<h2>
+				<span id = 'menu_name'> </span>
+				<span id = 'menu_count'> </span>
+			</h2>
+				</div> <!-- 2단  종료-->
+				<div class = 'opt_info'> <!-- 3단 -->
+				<span id = 'opt_name'> </span>
+				</div> <!-- 3단  종료-->
+	
+		</h2>
+				</div>
+
+		
+
+
+
+		
+		<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+		
+		<script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXJ.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXInput.js"></script>
+
+
+		<script src="{{STATIC_URL}}js/common.js"></script>
+		<script src="{{STATIC_URL}}js/bootstrap.js"></script>
+		<script src="{{STATIC_URL}}js/dashboard.js"></script>
+		<script src="{{STATIC_URL}}js/base64.js"></script>
+		<script>
+			$(document).ready(function() {
+				status = 4;
+				
+				getLoginString();
+				// doGetOrderBoard();
+				//doGetStaffcall();
+				doGetDasboard(status);
+				$("#testBtn").click(doGetStaffcall);
+				$("#adminBtn").click(goAdmin);
+				$("#reloadBtn").click(doReload);
+				$("#logoutBtn").click(doLogout);
+
+				 $("[name=LeftBtn]").live("click", doLeftBtn);
+				 $("[name=RightBtn]").live("click", doRightBtn);
+				  // $(".orderTemplate").live("click", doShowConfirm);
+				
+				  var auto_refresh = setInterval(function() { doUpdate(); }, 3000);
+
+			});
+
+
+
+		</script>
+	</body>
+</html>

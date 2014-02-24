@@ -28,7 +28,7 @@ var doLogin = function() {
 		},
 		success : function(data) {
 			setLoginString();
-			window.location = "dashboard.html";
+			window.location = "orderboard.html";
 		},
 		error : function() {
 			window.location = "login.html";

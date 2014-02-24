@@ -9,24 +9,25 @@ from pushs.models import MenuTabApp
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
+import time;
 
 # Create your views here.
 
 @need_auth
 def order_list_view(request):
-	print request.body
-	order_per_page = int(request.GET.get('per_page', 20))
-	page_num = int(request.GET.get('page', 1))
-
+	"""
+	접수된 주문 목록을 제공
+	"""
 	user =  request.user
+	now = datetime.now() 
+	daysthree_day_ago = now - timedelta(days=3)
 
-    #order_list = Order.objects.filter(user__exact=user,order_time__gte=starttime,order_time__lte=endtime).order_by('-order_time').all()
-	order_list = Order.objects.filter(user__exact=user).order_by('-order_time').all()
-	pages = Paginator(order_list, order_per_page)
+	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+
 	resp = {
-           'total_count' : pages.count,
-           'order_list' : serialize(pages.page(page_num).object_list)
+           'order_list' : serialize(order_list),
 			}
+
 	return toJSON(resp)
 
 @need_auth
@@ -69,16 +70,18 @@ def order_create_view(request,method):
 
 
 @need_auth
-def new_order_view(request):
+def neworder_view(request):
 	"""
 	새로운 주문 요청 제공
 	"""
 	user =  request.user
 	data = json.loads(request.body)
+	# print data
 	if data['id']:
-		old_id = data[id]
-		while old_id >= Order.objects.filter(user__exact=use).latest('id'):
+		old_id = data['id']
+		while old_id <= Order.objects.filter(user__exact=user).latest('id'):
 			time.sleep(1)
+			# print Order.objects.filter(user__exact=user).latest('id')
 		order_list = Order.objects.filter(user__exact=user,status__in = [1],id__gt = old_id).all()
 		resp = {
            'order_list' : serialize(order_list),

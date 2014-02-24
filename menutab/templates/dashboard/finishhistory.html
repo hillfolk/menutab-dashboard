@@ -7,7 +7,7 @@
 
 {% block content%}
 			
-	<div class="row-fluid bg"><!--Start of Row-->
+			<div class="row-fluid "><!--Start of Row-->
 				
 	<span>
 	<input type="text" name="" id="AXInputDateST" class="AXInput W100" /> ~
@@ -33,7 +33,7 @@
 		
 			$("#AXInputDateED").bindTwinDate({align:"right", valign:"bottom", separator:"/", startTargetID:"AXInputDateST", onChange:function(){doSearchOrder(Object.toJSON(this));}});
 		
-			doCancleOrder(Object.toJSON({'ST_objID': 'AXInputDateST','ED_value':'','ST_value':'','ED_objID':'AXInputDateED'}));
+			doSearchOrder(Object.toJSON({'ST_objID': 'AXInputDateST','ED_value':'','ST_value':'','ED_objID':'AXInputDateED'}));
 			setOrderConfig();
 			
 			

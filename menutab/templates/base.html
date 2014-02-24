@@ -1,70 +1,143 @@
-{% templatetag openblock %} load staticfiles {% templatetag closeblock %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
-    <title>{% templatetag openblock %} block title {% templatetag closeblock %}{{ project_name }}{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Le styles -->
-    <link href="{% templatetag openblock %} static 'css/bootstrap.min.css' {% templatetag closeblock %}" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- This file store project specific CSS -->
-    <link href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}" rel="stylesheet">
-
-    <!-- Use this to quickly test CSS changes in a template,
-        then move to {{ project_name }}.css -->
-    {% templatetag openblock %} block extra_css {% templatetag closeblock %}{% templatetag openblock %} endblock extra_css {% templatetag closeblock %}
+    {%block title%}  <title>주문 대쉬 보드</title> {%endblock title%}
+    <link href="{{ STATIC_URL }}css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/dashboard.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXJ.css">  
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXInput.css">
+    {%block extends_css %}
+    {%endblock extends_css %} 
+   
   </head>
-
   <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">{{ project_name }}</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu"> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> </a>
+          <div class="nav-collapse" id="navMenu">
+          <ul class="nav center">
+             {% if page == 'orderboard'%}
+              <li class = "active"><a href="orderboard.html"><h2>주문현항</h2></a></li>
+             {%else%}
+             <li><a href="orderboard.html"><h2> 주문현항</h2></a></li>
+             {%endif%}
+            
+            {%if page == 'finishboard'%}
+              <li class = "active"><a href="finishboard.html"><h2>완료현황</h2></a></li>
+              {%else%}
+                <li><a href="finishboard.html"><h2>완료현황</h2></a></li>
+                {%endif%}
+                
+                {%if page == 'cancleboard'%}
+              <li class = "active"><a href="cancleboard.html"><h2>취소현황</h2></a></li>
+              {%else%}
+               <li><a href="cancleboard.html"><h2>취소현황</h2></a></li>
+               {%endif%}
+              
+               {%if page == 'finishhistory'%}
+              <li class = "active" ><a href="finishhistory.html"><h2>완료내역</h2></a></li> 
+              {%else%}
+              <li><a href="finishhistory.html"><h2>완료내역</h2></a></li> 
+             {%endif%}
+
+              {%if page == 'canclehistory'%}
+              <li class = "active" ><a href="canclehistory.html"><h2>취소내역</h2></a></li> 
+              {%else%}
+              <li><a href="canclehistory.html"><h2>취소내역</h2></a></li> 
+              {%endif%}
+              
           </ul>
-        </div><!--/.nav-collapse -->
+            <div class=" pull-right" >
+            <a id = "logoutBtn"> 
+              <h2>
+              로그아웃 
+              </h2>
+              </a>
+
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </div><!--End of NavBar!-->
 
-    <div class="container">
+    <div class="container bg"><!-- Start of Container -->
 
-      <h1>{% templatetag openblock %} block page_title {% templatetag closeblock %}Example Base Template{% templatetag openblock %} endblock page_title {% templatetag closeblock %}</h1>
-
-      {% templatetag openblock %} block content {% templatetag closeblock %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% templatetag openblock %} endblock content {% templatetag closeblock %}
+     {%block content%} {%endblock content %}
 
     </div> <!-- /container -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{% templatetag openblock %} static 'js/bootstrap.min.js' {% templatetag closeblock %}"></script>
+   
+    {%block user_template%}
+     {# 주문 리스트 DIV #}
+        <div class="orderTemplate" id='order_' style="display:none;" >
+        <div class = "table_info"> <!-- 1단 -->
+          <h2>
+        <span id = 'table_row'> </span>   
+        <span id = 'table_code'> </span> 
+        <span class = "pull-right leftalign" id = 'order_time'> </span>
+        </h2>
+        </div> <!-- 1단  종료-->
+        <div class = "menu_info"> <!--2단 -->
+        <div class='button_area pull-right'>
+        
+        <a class="btn" id="LeftBtn" name="LeftBtn"><h2>취소</h2></a>
+        <a class="btn" id="RightBtn" name="RightBtn"><h2>완료</h2></a>
+      
+        </div>
+        <h2>
+        <span id = 'menu_name'> </span>
+        <span id = 'menu_count'> </span>
+      </h2>
+        </div> <!-- 2단  종료-->
+        <div class = 'opt_info'> <!-- 3단 -->
+        <span id = 'opt_name'> </span>
+        </div> <!-- 3단  종료-->
+          </h2>
+        </div>
 
-    <!-- place project specific Javascript in this file -->
-    <script src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
+    
+{%endblock user_template%}
 
-    {% templatetag openblock %} block extra_js {% templatetag closeblock %}{% templatetag openblock %} endblock extra_js {% templatetag closeblock %}
+    <script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    
+    <script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXJ.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXInput.js"></script>
+
+
+    <script src="{{STATIC_URL}}js/common.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.js"></script>
+    <script src="{{STATIC_URL}}js/board.js"></script>
+    <script src="{{STATIC_URL}}js/base64.js"></script>
+    {%block extend_js%}
+    {%endblock extend_js%}
+
+
+
+    <script>
+      $(document).ready(function() {
+        
+        getLoginString();
+         $("#adminBtn").click(goAdmin);
+        {%block extend_bind%}
+
+
+        {%endblock extend_bind%}
+
+
+      });
+
+
+
+    </script>
   </body>
 </html>

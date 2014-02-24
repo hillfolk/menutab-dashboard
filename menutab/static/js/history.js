@@ -4,13 +4,13 @@ var status = ['취소','대기','처리','완료'];
 var order_list = [];
 
 var order = {};
-	var pageID = "orderhistory_page";
-var orderhistoryGrid = new AXGrid();
+	var pageID = "history_page";
+var historyGrid = new AXGrid();
 
 
 var setOrderConfig = function (){
-orderhistoryGrid.setConfig({
-				targetID : "orderhistory_grid",
+historyGrid.setConfig({
+				targetID : "history_grid",
 				height:"auto",
 				colHeadAlign: "center", // 헤드의 기본 정렬 값
 				colGroup : [
@@ -18,13 +18,13 @@ orderhistoryGrid.setConfig({
 					{key:"status_set_time", label:"처리시간", width:"120", align:"center",formatter:"datetime"},
 					{key:"row", label:"층", width:"50", align:"center"},
 					{key:"table_code", label:"테이블", width:"100", align:"center"},
-					{key:"menu_name", label:"메뉴", width:"100"},
+					{key:"menu_name", label:"메뉴", width:"*"},
 					{key:"menu_price", label:"가격", width:"100", align:"right", formatter:"money"},
 					{key:"count", label:"수량", width:"50", align:"center"},
 					{key:"cost", label:"금액", width:"80", align:"right", formatter:function(){
 						return (this.item.menu_price.number() * this.item.count.number()).money();
 						}},
-					{key:"customer_key", label:"고객번호", width:"*", align:"right", formatter:"string"},
+					
 					// 	return (this.item.price.number() * this.item.amount.number()).money();
 					// {key:"amount", label:"수량", width:"80", align:"right", formatter:"money"},
 					// {key:"cost", label:"금액", width:"100", align:"right", formatter:function(){
@@ -55,7 +55,7 @@ orderhistoryGrid.setConfig({
 					}
 				},
 				page: {
-                paging: false
+                paging: true
             }
 			});
 
@@ -154,7 +154,7 @@ var doCancleOrder = function(search_value) {
 		,
 		success : function(data) {
 	 	console.log(search_value)
-		orderhistoryGrid.setList(data.order_list);
+		historyGrid.setList(data.order_list);
 
 	},error : function(msg) {
 			alert("Fail to get data!");
