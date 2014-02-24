@@ -175,11 +175,11 @@ doGetNewOrder = function(obj) {
 			
 			};
 	
-			doUpdate();
+		 setTimeout(doUpdate(), 1000);
 		},
 		error : function() {
 			console.log('Fail');
-			doUpdate();
+			 setTimeout(doUpdate(), 1000);
 
 		},
 	});
