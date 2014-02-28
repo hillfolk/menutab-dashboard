@@ -44,7 +44,7 @@ class OrderManager(models.Manager):
 		return order
 
 	def get_new_orders(self,id,user):
-		return Order.objects.filter(user__exact=user,pk__gt=id,status__exact=1).order_by('pk')
+		return Order.objects.filter(user__exact=user,pk__gt=id,status__in = [4]).order_by('pk')
 
 
 class Order(models.Model):

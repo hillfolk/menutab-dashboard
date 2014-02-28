@@ -10,6 +10,6 @@ url(r'login/$', login_view),
 url(r'orderboard/',orderboard_view),
 url(r'finishboard/',finishboard_view),
 url(r'cancleboard/',cancleboard_view),
-url(r'getsearchboard/',history_order_view),
-url(r'getcancleboard/',history_cancle_view),
+url(r'orderhistory/',history_order_view),
+url(r'canclehistory/',history_cancle_view),
 )

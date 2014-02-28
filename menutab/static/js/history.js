@@ -24,13 +24,6 @@ historyGrid.setConfig({
 					{key:"cost", label:"금액", width:"80", align:"right", formatter:function(){
 						return (this.item.menu_price.number() * this.item.count.number()).money();
 						}},
-					
-					// 	return (this.item.price.number() * this.item.amount.number()).money();
-					// {key:"amount", label:"수량", width:"80", align:"right", formatter:"money"},
-					// {key:"cost", label:"금액", width:"100", align:"right", formatter:function(){
-					// 	return (this.item.price.number() * this.item.amount.number()).money();
-					// }},
-					// {key:"desc", label:"비고", width:"*"}
 				],
 				body : {
 					onclick: function(){
@@ -70,16 +63,12 @@ historyGrid.setConfig({
 var doReload = function() {
 	console.log(order_list.length);     
 
-
-	//doClear();
 	doGetOrderBoard(1);
 } 
 
 var doUpdate = function() {
 	console.log(order_list.length);     
 
-
-	//doClear();
 	doGetOrderBoard(0);
 }
 
@@ -116,7 +105,6 @@ var doGetOrderInfo = function() {
 			
 		},
 		error : function(msg) {
-			// alert("Fail to get data!");
 		},
 	});
 }
@@ -130,7 +118,7 @@ var doCancel = function() {
 var doSearchOrder = function(search_value) {
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'getsearchboard/',beforeSend : function(req) {
+		url : baseUrl + 'orderhistory/',beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},data:search_value
 		,
@@ -147,7 +135,7 @@ var doSearchOrder = function(search_value) {
 var doCancleOrder = function(search_value) {
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'getcancleboard/',beforeSend : function(req) {
+		url : baseUrl + 'orderhistory/',beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},data:search_value
 		,

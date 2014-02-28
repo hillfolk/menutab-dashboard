@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+import time;
+import json;
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
@@ -9,7 +11,7 @@ from pushs.models import MenuTabApp
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
-import time;
+
 
 
 SLEEP_SECONDS = 5000
@@ -29,7 +31,6 @@ def order_list_view(request):
 	resp = {
            'order_list' : serialize(order_list),
 			}
-
 	return toJSON(resp)
 
 @need_auth
@@ -88,6 +89,7 @@ def neworder_view(request):
 		neworders_count = neworders.count()
 		if neworders_count == 0:
 			time.sleep(1)
+			print "sleep"
 			continue
 
 		result = {
@@ -120,12 +122,6 @@ def order_update_view(request,num,method):
 		status = request.POST.get('status',order.status)
 		
 
-		# try:
-		# 	device = MenuTabApp.objects.get(dev_id = order.device_key)
-		# except MenuTabApp.DoesNotExist:
-		# 	device = None
-		# 	return toJSON({'status':'None'})
-	
 		if status:
 			order.status =  status
 		if beStatus < order.status:

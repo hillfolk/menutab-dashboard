@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
@@ -13,7 +14,6 @@ from staffcall.models import StaffCall
 from datetime import datetime, timedelta
 from menutab.settings import *
 
-
 def serve_html(request, page):
 	"""
 	Html 페이지 반환 뷰
@@ -21,6 +21,7 @@ def serve_html(request, page):
 	"""
 	context = {"page":page}
 	return render_to_response("dashboard/" +  page + '.html', context, context_instance=RequestContext(request))
+
 
 def main_html(request):
 	"""

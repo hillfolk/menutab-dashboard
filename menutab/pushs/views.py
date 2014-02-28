@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*-
+import time;
+import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import MenuTabApp
 from django.utils import simplejson
-import json
 from menutab.utils import *
 
 # Create your views here.
@@ -38,6 +39,6 @@ def DeviceBinding(request,method):
 		device.save()
 		# MenuTabApp.objects.update_device(id=device.id,user = device.user,table_code=table_code,dev_id=dev_id)
 # 
-		return toJSON(device.serialize())
+		return json.dumps(device.serialize())
 	else:
 		return HttpResponse('bad request',status=400)

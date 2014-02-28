@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+import json
+import time
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
@@ -12,6 +14,7 @@ from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.utils.log import logging
 
+
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -21,10 +24,9 @@ def staffcall_list_view(request):
 	"""
 	직원호출 리스트 요청
 	"""
+	user =  request.user
 	staffcall_per_page = int(request.GET.get('per_page', 20))
 	page_num = int(request.GET.get('page', 1))
-
-	user =  request.user
 
 	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).order_by('-staffcall_time').all()
 	pages = Paginator(staffcall_list, staffcall_per_page)
@@ -32,7 +34,7 @@ def staffcall_list_view(request):
 			'total_count' : pages.count,
            	'staffcall_list' : serialize(pages.page(page_num).object_list)
 			}
-	return toJSON(resp)
+	return json.dumps(resp)
 
 @need_auth
 def staffcall_search_view(request):
@@ -41,18 +43,14 @@ def staffcall_search_view(request):
 	"""
 	staffcall_per_page = int(request.GET.get('per_page', 20))
 	page_num = int(request.GET.get('page', 1))
-    # starttime = request.GET.get('starttime')
-    # endtime = request.GET.get('endtime')
 	user =  request.user
-
-    #staffcall_list = staffcall.objects.filter(user__exact=user,staffcall_time__gte=starttime,staffcall_time__lte=endtime).staffcall_by('-staffcall_time').all()
 	staffcall_list = staffcall.objects.filter(user__exact=user,status__in = [0,4]).staffcall_by('-staffcall_time').all()
 	pages = Paginator(staffcall_list, staffcall_per_page)
 	resp = {
            'total_count' : pages.count,
            'staffcall_list' : serialize(pages.page(page_num).object_list)
 			}
-	return toJSON(resp)
+	return json.dumps(resp)
 
 
 
@@ -74,7 +72,7 @@ def staffcall_create_view(request,method):
 		user =  User.objects.get(username = username)
 
 		staffcall = StaffCall.objects.create_staffcall(userid = user.id,staffcall_desc = staffcall_desc,count=count,row=row,table_code = table_code,device_key=device_key,customer_key = customer_key);
-		return toJSON(staffcall.serialize())
+		return json.dumps(staffcall.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
 
@@ -94,7 +92,7 @@ def staffcall_view(request,num):
 	if request.method == 'GET':
 		user =  request.user
 		staffcall = staffcall.objects.get(id=num)
-		return toJSON(staffcall.serialize())
+		return json.dumps(staffcall.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
 
@@ -131,6 +129,6 @@ def staffcall_update_view(request,num,method):
 				
 		StaffCall.objects.staffcall_update(id = staffcall.id,user = user.id, staffcall_desc = staffcall.staffcall_desc,customer_key = staffcall.customer_key,count = staffcall.count,row = staffcall.row ,table_code =staffcall.table_code,device_key = staffcall.device_key,status = staffcall.status)
 
-		return toJSON(staffcall.serialize())
+		return json.dumps(staffcall.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
