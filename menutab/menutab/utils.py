@@ -1,9 +1,11 @@
 # -*- coding:utf-8 -*-
+import json
+import base64
 from django.contrib.auth import authenticate, login, logout
 from orders.models import *
 from django.http import HttpResponse
-import json
-import base64
+from django_sockjs_server.lib.client import SockJsServerClient
+
 
 
 def need_auth(functor):
@@ -36,3 +38,12 @@ def toJSON(objs, status=200):
 
 def serialize(objs):
     return map(lambda x: x.serialize(), objs)
+
+def send_message(message):
+    """
+    큐 메시지 전송
+    """
+    a = SockJsServerClient()
+    a.publish_message(message)
+
+    return 'send' 

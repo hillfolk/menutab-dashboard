@@ -1,12 +1,15 @@
-var baseUrl = 'http://127.0.0.1/';
+var baseUrl = 'http://dashboard.menutab.co.kr:8000/';
 
 var username;
 var password;
 var loginstring;
 
-var order = {};
+var order_list = new Array();
+var finish_list = new Array();
+var cancle_list = new Array();
+var staffcall_id_list = new Array();
+var staffcall_data_list = new Array();
 
-var staffcall = {};
 
 var status = ['취소','대기','처리','완료'];
 
@@ -32,7 +35,6 @@ var doLogin = function() {
 		},
 		error : function() {
 			window.location = "login.html";
-			//alert("Fail to get data!"+username +":"+password);
 		},
 	});
 }

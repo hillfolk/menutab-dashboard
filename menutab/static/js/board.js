@@ -1,33 +1,60 @@
+var doOrderProcess = function(order) { 
+
+			if(order.status == 1)	{
+			doOrderAppend(order);
+			$('#finish_area #order_'+order.id).remove();
+			$('#cancle_area  #order_'+order.id).remove();
+	
+			}else if(order.status == 4){
+
+			doFinishAppend(order);
+			$('#order_area #order_'+order.id).remove();
+
+		
+			}else if(order.status == 0){
+			doCancleAppend(order);
+			$('#order_area #order_'+order.id).remove();
+			}
+	
+	
+}; 
+
+var doStaffCallProcess = function(staffcall) { 
+			if(staffcall.status == 0)	{
+			doStaffcallAppend(staffcall);
+			}else if(staffcall.status == 1){
+			$('#order_area #staff_'+staffcall.id).remove();
+			}
 
 
-var order_list = new Array();
-var finish_list = new Array();
-var cancle_list = new Array();
-var staffcall_id_list = new Array();
-var staffcall_data_list = new Array();
-
-timeout_op = 5000;
+}; 
 
 
 
-var doStaffcall = function(staffcall_idx) {
-	console.log(staffcall_idx);
-	staffcall_data_list[staffcall_idx].status = staffcall_data_list[staffcall_idx].status +1;
+
+var doStaffcall = function() {
+	var id = $(this).val() ;
+	var status = $("#staff_"+id).val();
+	var status = status + 1;
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'staffcall/' + staffcall_data_list[staffcall_idx].id + "/update/",
-		data :{
-		status:staffcall_data_list[staffcall_idx].status
-
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
+		url : baseUrl + 'staffcall/' + id + "/update/",
+		data : {
+			status : status
 		},
 		success : function() {
-			// doReload();
+			console.log('staffcall')
+			$('#staff_'+id).remove()
 		},
 		error : function(msg) {
-			// alert("Fail to set data!");
+			
 		},
 	});
 }
+
 
 
 var doGetStaffcall = function() {
@@ -38,19 +65,18 @@ var doGetStaffcall = function() {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
-			console.log(data);
 			for (var i in data.staffcall_list){
 				if (staffcall_id_list.indexOf(data.staffcall_list[i])  == -1 && i >= 0 ) {
 					staffcall_id_list.push(data.staffcall_list[i].id);
 				staffcall_data_list.push(data.staffcall_list[i]);
-
+					doStaffcallAppend(data.staffcall_list[i]);		
 				};
 		
 			};
 
 		},
 		error : function() {
-			location.href = "login.html";
+		
 		},
 	});
 }
@@ -77,10 +103,10 @@ var doGetOrderboard = function(value) {
 				}else{
 				if (!(data.order_list[i].status == 1)) {
 					$('#order_'+data.finish_list[i].id).remove();
-										};	
+						};	
 				};
 
-				doUpdate();
+			
 		};
 
 		},
@@ -99,30 +125,15 @@ var doGetFinishboard = function(value) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
-			console.log(data);
-			var update_check = false;
-
-			if (value == 1) {
-				finish_list.clear();
-			};
-
+		
 			for (var i = data.finish_list.length - 1; i >= 0; i--){
 				var idx  = finish_list.indexOf(data.finish_list[i].id);
 				if (idx == -1  ) {
 				finish_list.push(data.finish_list[i].id);	
 				doFinishAppend(data.finish_list[i]);				
-				}else{
-				if (!(data.finish_list[i].status == 1)) {
-					$('#order_'+data.finish_list[i].id).remove();
-
-					};	
-				};
-			
-			
+				}
 		};
-		if (update_check) {
-				update(1);
-			};
+
 		},
 		error : function() {
 			// location.href = "login.html";
@@ -151,39 +162,32 @@ doGetCancleboard = function(value) {
 		};
 		},
 		error : function() {
-			// location.href = "login.html";
+		
 		},
 	});
 }
 
-doGetNewOrder = function(obj) {
-	$.ajax({
-		type : 'POST',
-		url : baseUrl + 'orders/neworders/',
-		timeout:timeout_op,
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},data : obj,
-		success : function(data) {
 
-		for (var i = data.order_list.length - 1; i >= 0; i--) {
-			if (order_list.indexOf(data.order_list[i].id) == -1) {
-			order_list.push(data.order_list[i].id)
-			doOrderAppend(data.order_list[i]);	
 
-			};
-			
-			};
+var doStaffcallAppend = function(data) {
 	
-		 setTimeout(doUpdate(), 1000);
-		},
-		error : function() {
-			console.log('Fail');
-			 setTimeout(doUpdate(), 1000);
+	node = $('#staff_').clone();
+	$(node).attr("id", "staff_"+ data.id).attr("value",data.status);
+	$('#table_row', node).append(data.row );
+	$('#table_code', node).append(data.table_code );
+	$('#staff_desc', node).append(data.staffcall_desc);
+	$('#staff_count', node).append(data.count+'개');	
+	$('#staff_time', node).append( data.staffcall_time.substring(8));
+	$('#RightBtn', node).attr("value",data.id);
 
-		},
-	});
+	node.show();
+	if (data.status == 0) {
+		console.log(data.status);
+	$('#order_area').append(node);		
+	};
+	
 }
+
 
 var doOrderAppend = function(data) {
 	
@@ -200,7 +204,7 @@ var doOrderAppend = function(data) {
 	
 	node.show();
 	if (data.status == 1) {
-	$('#order_area').append(node);		
+	 $('#order_area').append(node);		
 	};
 
 
@@ -224,7 +228,7 @@ var doFinishAppend = function(data) {
 	node.show();
 
 	if (data.status == 4) {
-	$('#finish_area').append(node);		
+	$('#finish_area').prepend(node);		
 	};
 	
 	
@@ -247,30 +251,8 @@ var doCancleAppend = function(data) {
 	node.show();
 
 	if (data.status == 0) {
-	$('#cancle_area').append(node);		
+	$('#cancle_area').prepend(node);		
 	};
-
-	
-	
-}
-
-var doReload = function() {
- 	doClear();
-	doGetDasboard(1);
-} 
-
-var doUpdate = function() {
- var value = 0;
- value = {'id':order_list[order_list.length-1]};
- 	console.log(value)
-	doGetNewOrder(JSON.stringify(value));
-
-}
-
-var doClear = function() {
-	$('#order_area').html('')
-
-
 }
 
 
@@ -294,7 +276,6 @@ var doRightBtn = function() {
 
 		},
 		success : function() {
-			// doReload();
 			$('#order_'+id).remove()
 		},
 		error : function(msg) {
@@ -302,6 +283,8 @@ var doRightBtn = function() {
 		},
 	});
 }
+
+
 
 var doLeftBtn = function() {
 	var id = $(this).val() ;
@@ -317,6 +300,7 @@ var doLeftBtn = function() {
 			status : status
 		},
 		success : function() {
+			console.log('LeftBtn')
 			$('#order_'+id).remove()
 		},
 		error : function(msg) {
@@ -339,10 +323,37 @@ var doReBackBtn = function() {
 			status : status
 		},
 		success : function() {
+			console.log('RightBtn')
 			$('#order_'+id).remove()
 		},
 		error : function(msg) {
 			
+		},
+	});
+}
+
+
+var doReRightBtn = function() {
+	var id = $(this).val() ;
+	
+	var status = $("#order_"+id).val();
+	var status = status + 1;
+	$.ajax({
+		type : 'post',
+		beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+		},
+		url : baseUrl + 'orders/' + id + "/update/",
+		data :{
+		status:status
+
+		},
+		success : function() {
+			
+			$('#order_'+id).remove()
+		},
+		error : function(msg) {
+			alert("Fail to set data!");
 		},
 	});
 }

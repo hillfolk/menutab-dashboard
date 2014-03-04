@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from menutab.utils import *
-from django.utils import simplejson
 from pushs.models import MenuTabApp 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -65,39 +64,17 @@ def order_create_view(request,method):
 		device_key = data['device_key']
 		customer_key = data['customer_key']
 		user =  User.objects.get(username = username)
-
-		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key,customer_key = customer_key);
+		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key,customer_key = customer_key);	
+		message = dict()
+		message['channel'] = user.username
+		message['data'] = dict()
+		message['data']['order'] = order.serialize() 
+		send_message(message)
 		return toJSON(order.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
 
 
-@need_auth
-def neworder_view(request):
-	"""
-	새로운 주문 요청 제공
-	"""
-	user =  request.user
-	data = json.loads(request.body)
-	# print data
-	if not data['id']:
-		return HttpResponse('bad request',status=400)
-
-	for _ in xrange(SLEEP_SECONDS):
-		id = data['id']
-		neworders = Order.objects.get_new_orders(id,user)
-		neworders_count = neworders.count()
-		if neworders_count == 0:
-			time.sleep(1)
-			print "sleep"
-			continue
-
-		result = {
-           'order_list' : serialize(neworders),
-			}
-		return HttpResponse(json.dumps(result),
-                            mimetype='application/json; charset=UTF-8')
-	return HttpResponse('OK', mimetype='text/plain; charset=UTF-8')
 	
 
 
@@ -154,7 +131,11 @@ def order_update_view(request,num,method):
 			
 		
 		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,customer_key = order.customer_key,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
-
+		message = dict()
+		message['channel'] = user.username
+		message['data'] = dict()
+		message['data']['order'] = order.serialize()
+		send_message(message)
 		return toJSON(order.serialize())
 	else:
 		return HttpResponse('bad request',status=400)

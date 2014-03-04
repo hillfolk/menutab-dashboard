@@ -5,7 +5,6 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from menutab.utils import *
-from django.utils import simplejson
 from pushs.models import MenuTabApp 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -19,7 +18,7 @@ def serve_html(request, page):
 	Html 페이지 반환 뷰
 	url에 해당하는 HTML 페이지를 반환한다.
 	"""
-	context = {"page":page}
+	context = {"page":page ,"username":request.user.username}
 	return render_to_response("dashboard/" +  page + '.html', context, context_instance=RequestContext(request))
 
 

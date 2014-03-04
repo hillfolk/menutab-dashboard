@@ -171,6 +171,38 @@ div [class*="span"] {
 	
 }
 
+.staffTemplate {
+	background-color: #e6e6e6;
+	margin-top: 5px;
+	padding-top:  1px;
+	padding-left:   5px;
+	padding-right:   5px;
+	padding-bottom:  10px;
+
+}
+
+.staffTemplate  > h2{
+	margin-top: 2px;
+	padding: 2px;
+	position: relative;
+	
+}
+
+
+.staffTemplate .table_info  {
+padding-left: 2px;
+padding-right: 2px;
+background-color: #7b7b7b;
+color: #2c2c2c;
+
+}
+
+.staffTemplate .menu_info {
+	padding: 2px;
+	color:#2c2c2c;
+	/*background-color: #7b7b7b;*/
+	
+}
 
 
 .table_info  {

@@ -31,10 +31,7 @@ historyGrid.setConfig({
 					},
 					/* ondblclick 선언하면 onclick 이벤트가 0.25 초 지연 발생 됩니다. 주의 하시기 바람니다. */
 					ondblclick: function(){
-						// toast.push("더블클릭");
-						//toast.push(Object.toJSON({index:this.index, r:this.r, c:this.c, item:this.item}));
-						//alert(this.list);
-						//alert(this.page);
+
 					},
 					addClass: function(){	
 						// red, green, blue, yellow, white, gray

@@ -2,15 +2,15 @@
 
 {%block extends_css %}
  
- {%endblock extends_css %} 
+{%endblock extends_css %} 
 
 {% block content%}
 		<!-- Start of orderboard -->
-				<div class="span12">	<!-- Start of Span12 -->
+			<div class="span12">	<!-- Start of Span12 -->
 				<div id='cancle_area'>
 		
 				</div>
-				</div><!-- End of Span4 -->
+			</div><!-- End of Span4 -->
 
 		</div><!-- End of Container -->
 		
@@ -71,14 +71,10 @@
 	 {%block extend_bind%}
 				doGetCancleboard();
 				$("#adminBtn").click(goAdmin);
-				$("#reloadBtn").click(doReload);
 				$("#logoutBtn").click(doLogout);
-
 				 {# $("[name=LeftBtn]").live("click", doLeftBtn); #}
-				 $("[name=RightBtn]").live("click", doRightBtn);
-				  
-				// 취소 목록 
-				 // var auto_refresh = setInterval(function() { doUpdate(); }, 3000);
+				 $("[name=RightBtn]").live("click", doReRightBtn);
+
  {%endblock extend_bind%}
 		
 

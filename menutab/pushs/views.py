@@ -4,7 +4,7 @@ import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import MenuTabApp
-from django.utils import simplejson
+
 from menutab.utils import *
 
 # Create your views here.

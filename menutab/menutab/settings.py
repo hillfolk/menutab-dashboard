@@ -29,12 +29,12 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Markmedia', 'markmenutab@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = ['dashboard.menutab.co.kr','localhost']
+ALLOWED_HOSTS = ['dashboard.menutab.co.kr','localhost','127.0.0.1']
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_sockjs_server',
     'south',
     'gcm',
     'debug_toolbar',
@@ -117,8 +118,6 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-import os
 SITE_ROOT = BASE_DIR
 # STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '/static/'
@@ -156,6 +155,21 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(SITE_ROOT, "templates")
 )
+
+DJANGO_SOCKJS_SERVER = {
+      'rabbitmq_server_host': '127.0.0.1',
+      'rabbitmq_user': 'guest',
+      'rabbitmq_password': 'guest',
+      'rabbitmq_server_port': 5672,
+      'rabbitmq_server_vhost': '/',
+      'rabbitmq_exhange_name': 'sockjs',
+      'rabbitmq_exchange_type': 'fanout',
+      'listen_addr': '0.0.0.0',
+      'listen_port': 8083,
+      'listen_location': '/ws',
+      'secret_key': 'xe4pa7gysp4phe2rhyd',
+      'sockjs_url': ['http://dashboard.menutab.co.kr:8083/ws']
+  }
 
 LOGGING = {
     'version': 1,

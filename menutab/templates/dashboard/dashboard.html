@@ -119,7 +119,7 @@
 			$(document).ready(function() {
 				
 				getLoginString();
-				// doGetOrderBoard();
+				doGetOrderBoard();
 				//doGetStaffcall();
 				doGetDasboard();
 				$("#testBtn").click(doGetStaffcall);
@@ -131,7 +131,7 @@
 				 $("[name=RightBtn]").live("click", doRightBtn);
 				  // $(".orderTemplate").live("click", doShowConfirm);
 				
-				  var auto_refresh = setInterval(function() { doUpdate(); }, 3000);
+				  // var auto_refresh = setInterval(function() { doUpdate(); }, 3000);
 
 			});
 
