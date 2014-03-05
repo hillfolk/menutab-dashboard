@@ -1,4 +1,4 @@
-var baseUrl = 'http://dashboard.menutab.co.kr:8000/';
+var baseUrl = 'http://dashboard.menutab.co.kr/';
 
 var username;
 var password;
