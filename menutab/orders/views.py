@@ -25,7 +25,7 @@ def order_list_view(request):
 	now = datetime.now() 
 	daysthree_day_ago = now - timedelta(days=3)
 
-	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-id').all()
 
 	resp = {
            'order_list' : serialize(order_list),

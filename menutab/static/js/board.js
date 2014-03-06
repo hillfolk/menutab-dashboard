@@ -91,7 +91,7 @@ var doGetOrderboard = function(value) {
 		},
 		success : function(data) {
 			count = 0;
-			for (var i = data.order_list.length - 1; i >= 0; i--){
+			for (var i in data.order_list){
 				var idx  = order_list.indexOf(data.order_list[i].id);
 				if (idx == -1) {
 					console.log(data.order_list[i]);

@@ -45,7 +45,7 @@ def orderboard_view(request):
 	daysthree_day_ago = now - timedelta(days=3)
 
 	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).filter(staffcall_time__range=(daysthree_day_ago, now)).order_by('staffcall_time').all()
-	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('order_time').all()
+	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-order_time').all()
 
 	resp = {
            'order_list' : serialize(order_list),

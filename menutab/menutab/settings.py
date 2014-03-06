@@ -84,13 +84,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dashboard',
-        'HOST': 'menutab-dashboard.chsffw8ul0ti.ap-northeast-1.rds.amazonaws.com',
+        'HOST': 'dashboard.chsffw8ul0ti.ap-northeast-1.rds.amazonaws.com',
         'PORT': '3306',
         'USER': 'dashboard',
         'PASSWORD': 'mark130620'
     }
 }
-
+DATABASE_OPTIONS = {'charset': 'utf8'}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
