@@ -25,7 +25,7 @@ BASE_DIR = dirname(dirname(abspath(__file__)))
 SECRET_KEY = 'hz^1+g&er(wu9tq7ld#p2p&s%cyf^z7qr4fyj81o5$7!zyy-16'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 

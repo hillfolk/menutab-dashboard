@@ -62,9 +62,8 @@ def order_create_view(request,method):
 		row = data['row']
 		table_code = data['table_code']
 		device_key = data['device_key']
-		customer_key = data['customer_key']
 		user =  User.objects.get(username = username)
-		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key,customer_key = customer_key);	
+		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key);	
 		message = dict()
 		message['channel'] = user.username
 		message['data'] = dict()
@@ -130,7 +129,7 @@ def order_update_view(request,num,method):
 			
 			
 		
-		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,customer_key = order.customer_key,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
+		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
 		message = dict()
 		message['channel'] = user.username
 		message['data'] = dict()

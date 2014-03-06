@@ -64,11 +64,9 @@ def staffcall_create_view(request,method):
 		row = data['row']
 		table_code = data['table_code']
 		device_key = data['device_key']
-		customer_key = data['customer_key']
-
 		user =  User.objects.get(username = username)
 
-		staffcall = StaffCall.objects.create_staffcall(userid = user.id,staffcall_desc = staffcall_desc,count=count,row=row,table_code = table_code,device_key=device_key,customer_key = customer_key);
+		staffcall = StaffCall.objects.create_staffcall(userid = user.id,staffcall_desc = staffcall_desc,count=count,row=row,table_code = table_code,device_key=device_key);
 		message = dict()
 		message['channel'] = user.username
 		message['data'] = dict()
@@ -122,7 +120,7 @@ def staffcall_update_view(request,num,method):
 				#device.send_message(msg)
 				print msg
 
-		StaffCall.objects.staffcall_update(id = staffcall.id,user = user.id, staffcall_desc = staffcall.staffcall_desc,customer_key = staffcall.customer_key,count = staffcall.count,row = staffcall.row ,table_code =staffcall.table_code,device_key = staffcall.device_key,status = staffcall.status)
+		StaffCall.objects.staffcall_update(id = staffcall.id,user = user.id, staffcall_desc = staffcall.staffcall_desc,count = staffcall.count,row = staffcall.row ,table_code =staffcall.table_code,device_key = staffcall.device_key,status = staffcall.status)
 		message = dict()
 		message['channel'] = user.username
 		message['data'] = dict()
