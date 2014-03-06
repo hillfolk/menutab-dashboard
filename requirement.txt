@@ -1,8 +1,6 @@
 Django==1.6.2
-Flask==0.10.1
 Jinja2==2.7.2
 MarkupSafe==0.18
-MySQL-python==1.2.3
 South==0.8.4
 Werkzeug==0.9.4
 argparse==1.2.1
@@ -14,7 +12,6 @@ django-sockjs-server==0.1.9
 django-tastypie==0.11.0
 itsdangerous==0.23
 pika==0.9.13
-psycopg2==2.5.2
 pymongo==2.6.3
 python-dateutil==2.2
 python-mimeparse==0.1.4
