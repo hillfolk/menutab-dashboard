@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 
 #STATICFILES_DIRS = (
 #    normpath(join(SITE_ROOT, 'static')),
-#)
+#####################)
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
