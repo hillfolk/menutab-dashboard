@@ -207,7 +207,6 @@ var doOrderAppend = function(data) {
 	if (data.status == 1) {
 	 $('#order_area').append(node);		
 	  appendSound.play();
-	  AndAud.playAudio("sataic/audio/append.wav");
 	};
 
 
