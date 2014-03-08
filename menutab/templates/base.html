@@ -118,6 +118,26 @@
     <script src="{{STATIC_URL}}js/base64.js"></script>
         <script src="{{STATIC_URL}}js/sockjs-0.3.min.js"></script>
     <script src="{{STATIC_URL}}js/sockjs_emit.js"></script>
+
+<script>
+soundManager.setup({
+  url: '/path/to/swf-files/',
+  flashVersion: 9, // optional: shiny features (default = 8)
+  // optional: ignore Flash where possible, use 100% HTML5 mode
+  // preferFlash: false,
+  onready: function() {
+    // Ready to use; soundManager.createSound() etc. can now be called.
+     appendSound = soundManager.createSound({
+      type: 'audio/wav',
+      url: '{{STATIC_URL}}audio/append.wav'
+      });
+     appendSound.play();
+  }
+});
+
+   
+</script>
+
     <script src="{{STATIC_URL}}js/board.js"></script>
     {%block extend_js%}
 
