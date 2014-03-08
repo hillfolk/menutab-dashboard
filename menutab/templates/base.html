@@ -24,31 +24,46 @@
             <span class="icon-bar"></span> 
             <span class="icon-bar"></span>
             <span class="icon-bar"></span> </a>
-
-          <div class="nav-collapse" id="navMenu">
-          <ul class="nav center">
              {% if page == 'orderboard'%}
-              <li class = "active"><a href="orderboard.html"><h2>주문현황</h2></a></li>
-             {%else%}
-             <li><a href="orderboard.html"><h2> 주문현황</h2></a></li>
-             {%endif%}
+              <a class="brand" href="#"><h3>주문현황</h3></a>
+            {%endif%}
             
             {%if page == 'finishboard'%}
-              <li class = "active"><a href="finishboard.html"><h2>완료현황</h2></a></li>
-              {%else%}
-                <li><a href="finishboard.html"><h2>완료현황</h2></a></li>
+                <a class="brand" href="#"><h3>완료현황</h3></a>
                 {%endif%}
                 
                 {%if page == 'cancleboard'%}
-              <li class = "active"><a href="cancleboard.html"><h2>취소현황</h2></a></li>
-              {%else%}
-               <li><a href="cancleboard.html"><h2>취소현황</h2></a></li>
+               <a class="brand" href="#"><h3>취소현황</h3></a>
                {%endif%}
               
                {%if page == 'finishhistory'%}
-              <li class = "active" ><a href="finishhistory.html"><h2>처리내역</h2></a></li> 
+<a class="brand" href="#"><h2>처리내역</h2></a>
+             {%endif%}
+ 
+          <div class="nav-collapse" id="navMenu">
+          <ul class="nav center">
+             {% if page == 'orderboard'%}
+              <li class = "active"><a href="orderboard.html"><h3>주문현황</h3></a></li>
+             {%else%}
+             <li><a href="orderboard.html"><h3> 주문현황</h3></a></li>
+             {%endif%}
+            
+            {%if page == 'finishboard'%}
+              <li class = "active"><a href="finishboard.html"><h3>완료현황</h3></a></li>
               {%else%}
-              <li><a href="finishhistory.html"><h2>처리내역</h2></a></li> 
+                <li><a href="finishboard.html"><h3>완료현황</h3></a></li>
+                {%endif%}
+                
+                {%if page == 'cancleboard'%}
+              <li class = "active"><a href="cancleboard.html"><h3>취소현황</h3></a></li>
+              {%else%}
+               <li><a href="cancleboard.html"><h3>취소현황</h3></a></li>
+               {%endif%}
+              
+               {%if page == 'finishhistory'%}
+              <li class = "active" ><a href="finishhistory.html"><h3>처리내역</h3></a></li> 
+              {%else%}
+              <li><a href="finishhistory.html"><h3>처리내역</h3></a></li> 
              {%endif%}
 
           </ul>
@@ -96,22 +111,26 @@
     <script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXJ.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXInput.js"></script>
 
-
+    <script type="text/javascript" src="{{STATIC_URL}}js/soundmanager2.js"></script>
     <script src="{{STATIC_URL}}js/common.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.js"></script>
-    <script src="{{STATIC_URL}}js/board.js"></script>
+  
     <script src="{{STATIC_URL}}js/base64.js"></script>
         <script src="{{STATIC_URL}}js/sockjs-0.3.min.js"></script>
     <script src="{{STATIC_URL}}js/sockjs_emit.js"></script>
+    <script src="{{STATIC_URL}}js/board.js"></script>
     {%block extend_js%}
+
     {%endblock extend_js%}
 
     <script type="text/javascript">
+
+
+
     $(document).ready(function() {
 
         getLoginString();
          $("#adminBtn").click(goAdmin);
-
 
 
         window.sockjs_action_pull = new Array();
