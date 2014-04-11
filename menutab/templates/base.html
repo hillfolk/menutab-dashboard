@@ -21,7 +21,7 @@
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu">
-            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span> </a>
              {% if page == 'orderboard'%}
@@ -37,7 +37,7 @@
                {%endif%}
               
                {%if page == 'finishhistory'%}
-<a class="brand" href="#"><h2>처리내역</h2></a>
+          <a class="brand" href="#"><h2>처리내역</h2></a>
              {%endif%}
  
           <div class="nav-collapse" id="navMenu">
@@ -67,7 +67,7 @@
              {%endif%}
 
           </ul>
-            <div class=" nav-collapse pull-right" >
+      <div class=" nav-collapse pull-right" >
               <ul class="nav center">
                 <li>
                  <a id = "logoutBtn"> 
@@ -78,7 +78,7 @@
                
              </li>
             </ul>
-           
+                      
 
             </div>
           </div>
@@ -152,14 +152,12 @@ soundManager.setup({
         getLoginString();
          $("#adminBtn").click(goAdmin);
 
-
+        var recInterval = null;
         window.sockjs_action_pull = new Array();
         var new_conn = function() {
             window.connection_sockjs = new SockJS('{% sockjs_server_url %}');
             window.connection_sockjs.onmessage = function(e) {
           console.log(e);
-         
-            
          
           if(jQuery.parseJSON(e.data).data.staffcall) {
              staffcall = jQuery.parseJSON(e.data).data.staffcall;
@@ -171,17 +169,17 @@ soundManager.setup({
             order = jQuery.parseJSON(e.data).data.order;
             doOrderProcess(order);
             }
-            
-
-       
 
             };
 
             connection_sockjs.onclose = function(e) {
-                setTimeout(function() { new_conn(); }, 5000);
+                 recInterval = window.setInterval(function () {
+                    new_conn();
+                  }, 2000);
             };
 
             connection_sockjs.onopen = function(e) {
+              clearInterval(recInterval);
             };
         };
         new_conn();

@@ -37,7 +37,7 @@ var doLogin = function() {
 			window.location = "login.html";
 		},
 	});
-}
+};
 var doLogout = function() {
 	resetLoginString();
 	window.location = "login.html";
