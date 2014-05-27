@@ -51,7 +51,7 @@ var doStaffcall = function() {
 		},
 		error : function(msg) {
 			
-		},
+		}
 	});
 }
 
@@ -77,7 +77,7 @@ var doGetStaffcall = function() {
 		},
 		error : function() {
 		
-		},
+		}
 	});
 }
 
@@ -112,7 +112,7 @@ var doGetOrderboard = function(value) {
 		},
 		error : function() {
 			// location.href = "login.html";
-		},
+		}
 	});
 }
 
@@ -137,7 +137,7 @@ var doGetFinishboard = function(value) {
 		},
 		error : function() {
 			// location.href = "login.html";
-		},
+		}
 	});
 }
 
@@ -163,7 +163,7 @@ doGetCancleboard = function(value) {
 		},
 		error : function() {
 		
-		},
+		}
 	});
 }
 

@@ -59,7 +59,7 @@ var doCheckPassword = function() {
 		},
 		error : function(msg) {
 			alert("Fail to get data!");
-		},
+		}
 	});
 };
 var doSetPassword = function() {
@@ -80,7 +80,7 @@ var doSetPassword = function() {
 		},
 		error : function(msg) {
 			alert(msg.responseText);
-		},
+		}
 	});
 };
 var doGetName = function() {
@@ -95,7 +95,7 @@ var doGetName = function() {
 		},
 		error : function(msg) {
 			alert("Fail to get data!");
-		},
+		}
 	});
 };
 

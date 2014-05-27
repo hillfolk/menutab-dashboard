@@ -37,7 +37,7 @@
                {%endif%}
               
                {%if page == 'finishhistory'%}
-          <a class="brand" href="#"><h2>처리내역</h2></a>
+          <a class="brand" href="#"><h3>처리내역</h3></a>
              {%endif%}
  
           <div class="nav-collapse" id="navMenu">
@@ -173,9 +173,9 @@ soundManager.setup({
             };
 
             connection_sockjs.onclose = function(e) {
-                 recInterval = window.setInterval(function () {
-                    new_conn();
-                  }, 2000);
+                 //recInterval = window.setInterval(function () {
+                 //   new_conn();
+                 // }, 2000);
             };
 
             connection_sockjs.onopen = function(e) {

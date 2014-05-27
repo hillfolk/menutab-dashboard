@@ -30,15 +30,18 @@ def DeviceBinding(request,method):
 		print dev_id
 		table_code = data['table_code']
 		print table_code
+                userid = data['user_id']
 
-		user = User.objects.get(id = 1)
-
+		#user = User.objects.get(name = userid)
+                
+		
 		device = MenuTabApp.objects.get(dev_id=dev_id)
-		device.user = user              
+		device.user = user 
+		#device.name = userid;             
 		device.table_code = table_code
 		device.save()
-		# MenuTabApp.objects.update_device(id=device.id,user = device.user,table_code=table_code,dev_id=dev_id)
-# 
+		MenuTabApp.objects.update_device(id=device.id,user = device.user,table_code=table_code,dev_id=dev_id)
+ 
 		return json.dumps(device.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
