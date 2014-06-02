@@ -85,7 +85,10 @@
         </div>
       </div>
     </div><!--End of NavBar!-->
-
+            <div class="alert alert-error" id="reconnect-alert">
+              <button type="button" class="close" id="reconnect" data-dismiss="alert">&times;</button>
+            <h3>  <strong>서버 재접속</strong> 인터넷 연결이 실패하였습니다. 재접속 하시겠습니까? <a href="#" id="reconnectBtn">재접속 요청</a></h3>
+            </div>
     <div class="container bg"><!-- Start of Container -->
 
      {%block content%} {%endblock content %}
@@ -146,26 +149,21 @@ soundManager.setup({
     <script type="text/javascript">
 
 
-
     $(document).ready(function() {
 
         getLoginString();
          $("#adminBtn").click(goAdmin);
-
         var recInterval = null;
         window.sockjs_action_pull = new Array();
         var new_conn = function() {
             window.connection_sockjs = new SockJS('{% sockjs_server_url %}');
             window.connection_sockjs.onmessage = function(e) {
-          console.log(e);
-         
           if(jQuery.parseJSON(e.data).data.staffcall) {
              staffcall = jQuery.parseJSON(e.data).data.staffcall;
             doStaffCallProcess(staffcall); 
           
             }
-
-               if(jQuery.parseJSON(e.data).data.order ){
+          if(jQuery.parseJSON(e.data).data.order ){
             order = jQuery.parseJSON(e.data).data.order;
             doOrderProcess(order);
             }
@@ -173,19 +171,23 @@ soundManager.setup({
             };
 
             connection_sockjs.onclose = function(e) {
-                 //recInterval = window.setInterval(function () {
-                 //   new_conn();
-                 // }, 2000);
+		$("#reconnect-alert").show();
             };
 
             connection_sockjs.onopen = function(e) {
-              clearInterval(recInterval);
+		$("#reconnect-alert").hide();
             };
         };
         new_conn();
+	soundTimer = setInterval(doSoundPlay,15000);
+
+	 var goReconnect = function (){
+	setTimeout("location.reload(true);",1000);
+        }
+	$("#reconnectBtn").click(goReconnect);
+	
         var token = '{% sockjs_auth_token username %}'
         connection_sockjs.addEventListener("open", function() {
-
                 connection_sockjs.emit(token, {'channel': username });
             }
         );
@@ -198,7 +200,7 @@ soundManager.setup({
 
     });
 
-
+	
     </script>
   </body>
 </html>

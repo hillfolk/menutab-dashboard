@@ -184,7 +184,6 @@ var doStaffcallAppend = function(data) {
 	if (data.status == 0) {
 		console.log(data.status);
 	$('#order_area').append(node);		
-	 appendSound.play(); 
 	};
 	
 }
@@ -206,7 +205,6 @@ var doOrderAppend = function(data) {
 	node.show();
 	if (data.status == 1) {
 	 $('#order_area').append(node);		
-	 appendSound.play(); 
 	};
 
 
@@ -397,4 +395,9 @@ var doCancel = function() {
 };
 
 
-
+var doSoundPlay = function(){
+var items=$('#order_area div');
+if(items.length > 0){
+	appendSound.play();
+}
+};
