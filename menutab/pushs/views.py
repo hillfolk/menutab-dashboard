@@ -25,22 +25,19 @@ def order_completed_messge(request,orderid):
 def DeviceBinding(request,method):
 	if method == 'binding' and request.method == 'POST':
 		data = json.loads(request.body)
-		print data
 		dev_id =  data['device_id']
-		print dev_id
 		table_code = data['table_code']
-		print table_code
                 userid = data['user_id']
 
-		#user = User.objects.get(name = userid)
-                
-		
+		user = User.objects.get(username = userid)
+
 		device = MenuTabApp.objects.get(dev_id=dev_id)
+		if user is not None:
+				device.name = user.username;
 		device.user = user 
-		#device.name = userid;             
+		device.name = userid;             
 		device.table_code = table_code
 		device.save()
-		MenuTabApp.objects.update_device(id=device.id,user = device.user,table_code=table_code,dev_id=dev_id)
  
 		return json.dumps(device.serialize())
 	else:

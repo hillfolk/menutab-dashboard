@@ -87,7 +87,7 @@
     </div><!--End of NavBar!-->
             <div class="alert alert-error" id="reconnect-alert">
               <button type="button" class="close" id="reconnect" data-dismiss="alert">&times;</button>
-            <h3>  <strong>서버 재접속</strong> 인터넷 연결이 실패하였습니다. 재접속 하시겠습니까? <a href="#" id="reconnectBtn">재접속 요청</a></h3>
+            <h3>  인터넷 연결이 실패하였습니다. 재접속 하시겠습니까? <a href="#" id="reconnectBtn">재접속 요청</a></h3>
             </div>
     <div class="container bg"><!-- Start of Container -->
 
@@ -124,15 +124,10 @@
 
 <script>
 soundManager.setup({
-  url: '/path/to/swf-files/',
-  flashVersion: 9, // optional: shiny features (default = 8)
-  // optional: ignore Flash where possible, use 100% HTML5 mode
-  // preferFlash: false,
   onready: function() {
     // Ready to use; soundManager.createSound() etc. can now be called.
      appendSound = soundManager.createSound({
-      type: 'audio/wav',
-      url: '{{STATIC_URL}}audio/append.wav'
+      url: '{{STATIC_URL}}audio/append.mp3'
       });
     
   }
@@ -150,10 +145,10 @@ soundManager.setup({
 
 
     $(document).ready(function() {
-
+	
         getLoginString();
+	
          $("#adminBtn").click(goAdmin);
-        var recInterval = null;
         window.sockjs_action_pull = new Array();
         var new_conn = function() {
             window.connection_sockjs = new SockJS('{% sockjs_server_url %}');
@@ -182,7 +177,7 @@ soundManager.setup({
 	soundTimer = setInterval(doSoundPlay,15000);
 
 	 var goReconnect = function (){
-	setTimeout("location.reload(true);",1000);
+	setTimeout("window.location.reload(true);",1000);
         }
 	$("#reconnectBtn").click(goReconnect);
 	

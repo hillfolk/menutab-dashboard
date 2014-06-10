@@ -4,16 +4,16 @@ var doOrderProcess = function(order) {
 			doOrderAppend(order);
 			$('#finish_area #order_'+order.id).remove();
 			$('#cancle_area  #order_'+order.id).remove();
+			doSoundPlay();
 	
-			}else if(order.status == 4){
-
+			}
+			 if(order.status == 4){
+			$('#order_area #order_'+order.id).remove();
 			doFinishAppend(order);
+			} 
+			if(order.status == 0){
 			$('#order_area #order_'+order.id).remove();
-
-		
-			}else if(order.status == 0){
 			doCancleAppend(order);
-			$('#order_area #order_'+order.id).remove();
 			}
 	
 	
@@ -22,6 +22,7 @@ var doOrderProcess = function(order) {
 var doStaffCallProcess = function(staffcall) { 
 			if(staffcall.status == 0)	{
 			doStaffcallAppend(staffcall);
+			doSoundPlay();
 			}else if(staffcall.status == 1){
 			$('#order_area #staff_'+staffcall.id).remove();
 			}
@@ -46,11 +47,10 @@ var doStaffcall = function() {
 			status : status
 		},
 		success : function() {
-			console.log('staffcall')
 			$('#staff_'+id).remove()
 		},
 		error : function(msg) {
-			
+		alert("통신이 실패하였습니다.");	
 		}
 	});
 }
@@ -76,7 +76,7 @@ var doGetStaffcall = function() {
 
 		},
 		error : function() {
-		
+		alert("통신이 실패하였습니다.");
 		}
 	});
 }
@@ -94,12 +94,9 @@ var doGetOrderboard = function(value) {
 			for (var i in data.order_list){
 				var idx  = order_list.indexOf(data.order_list[i].id);
 				if (idx == -1) {
-					console.log(data.order_list[i]);
 					count++;
 					order_list.push(data.order_list[i].id);	
-					console.log(count);
-
-				doOrderAppend(data.order_list[i]);				
+					doOrderAppend(data.order_list[i]);				
 				}else{
 				if (!(data.order_list[i].status == 1)) {
 					$('#order_'+data.finish_list[i].id).remove();
@@ -111,7 +108,7 @@ var doGetOrderboard = function(value) {
 
 		},
 		error : function() {
-			// location.href = "login.html";
+		alert("통신이 실패하였습니다.");
 		}
 	});
 }
@@ -136,7 +133,7 @@ var doGetFinishboard = function(value) {
 
 		},
 		error : function() {
-			// location.href = "login.html";
+		alert("통신이 실패하였습니다.");
 		}
 	});
 }
@@ -162,7 +159,7 @@ doGetCancleboard = function(value) {
 		};
 		},
 		error : function() {
-		
+		alert("통신이 실패하였습니다.");	
 		}
 	});
 }
@@ -182,7 +179,6 @@ var doStaffcallAppend = function(data) {
 
 	node.show();
 	if (data.status == 0) {
-		console.log(data.status);
 	$('#order_area').append(node);		
 	};
 	
@@ -220,7 +216,6 @@ var doFinishAppend = function(data) {
 	$('#table_code', node).append(data.table_code );
 	$('#menu_name', node).append(data.menu_name);
 	$('#menu_count', node).append(data.count+'개');
-	
 	$('#order_time', node).append( data.order_time.substring(8));
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);
@@ -279,8 +274,8 @@ var doRightBtn = function() {
 			$('#order_'+id).remove()
 		},
 		error : function(msg) {
-			alert("Fail to set data!");
-		},
+		alert("통신이 실패하였습니다.");
+		}
 	});
 }
 
@@ -300,12 +295,11 @@ var doLeftBtn = function() {
 			status : status
 		},
 		success : function() {
-			console.log('LeftBtn')
 			$('#order_'+id).remove()
 		},
 		error : function(msg) {
-			
-		},
+		alert("통신이 실패하였습니다.");	
+		}
 	});
 }
 
@@ -323,19 +317,17 @@ var doReBackBtn = function() {
 			status : status
 		},
 		success : function() {
-			console.log('RightBtn')
-			$('#order_'+id).remove()
+		$('#order_'+id).remove()
 		},
 		error : function(msg) {
-			
-		},
+		alert("통신이 실패하였습니다.");
+		}
 	});
 }
 
 
 var doReRightBtn = function() {
 	var id = $(this).val() ;
-	
 	var status = $("#order_"+id).val();
 	var status = status + 1;
 	$.ajax({
@@ -346,15 +338,13 @@ var doReRightBtn = function() {
 		url : baseUrl + 'orders/' + id + "/update/",
 		data :{
 		status:status
-
 		},
 		success : function() {
-			
 			$('#order_'+id).remove()
 		},
 		error : function(msg) {
-			alert("Fail to set data!");
-		},
+		alert("통신이 실패하였습니다.");
+		}
 	});
 }
 
@@ -378,7 +368,7 @@ var doGetOrderInfo = function() {
 			$("#myModal").modal("show");
 		},
 		error : function(msg) {
-			alert("Fail to get data!");
+			alert("통신이 실패하였습니다.");
 		},
 	});
 }
