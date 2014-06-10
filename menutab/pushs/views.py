@@ -27,17 +27,15 @@ def DeviceBinding(request,method):
 		data = json.loads(request.body)
 		dev_id =  data['device_id']
 		table_code = data['table_code']
-        userid = data['user_id']
-        try:
-        	user = User.objects.get(username = userid)
-        except Exception, e:
-        	user = User.objects.get(username = "markadmin")
+		userid = data['user_id']
+		try:
+			user = User.objects.get(username = userid)
+		except Exception, e:
+			user = User.objects.get(username = "markadmin")
 
 		device = MenuTabApp.objects.get(dev_id=dev_id)
-		if user is not None:
-				device.name = user.username;
-		device.user = user 
-		device.name = userid;             
+		device.name = userid
+		device.user = user   
 		device.table_code = table_code
 		device.save()
  
