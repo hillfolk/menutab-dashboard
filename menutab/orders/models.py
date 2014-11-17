@@ -51,7 +51,7 @@ class Order(models.Model):
 	user = models.ForeignKey(User)
 	menu_name = models.CharField(max_length=255)
 	menu_price =  models.IntegerField(null=False);
-	option = models.CharField(max_length=255)
+	option = models.CharField(max_length=255, default = "")
 	count = models.IntegerField(default=1);
 	row = models.CharField(max_length=255)
 	table_code = models.CharField(max_length=255)
