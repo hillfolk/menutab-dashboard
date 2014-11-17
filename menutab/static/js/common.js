@@ -1,4 +1,4 @@
-var baseUrl = 'http://127.0.0.1:8000/';
+var baseUrl = 'http://54.65.44.205/';
 
 var username;
 var password;

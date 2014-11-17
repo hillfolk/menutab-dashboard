@@ -35,7 +35,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = ['dashboard.menutab.co.kr','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['54.65.44.205','localhost','127.0.0.1']
 
 
 # Application definition
@@ -122,9 +122,9 @@ SITE_ROOT = BASE_DIR
 #STATIC_ROOT = normpath(join(SITE_ROOT, 'static'))
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    normpath(join(SITE_ROOT, 'static')),
-)
+#STATICFILES_DIRS = (
+#    normpath(join(SITE_ROOT, 'static')),
+#)
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -165,7 +165,7 @@ DJANGO_SOCKJS_SERVER = {
       'listen_port': 8083,
       'listen_location': '/ws',
       'secret_key': 'xe4pa7gysp4phe2rhyd',
-      'sockjs_url': ['http://dashboard.menutab.co.kr:8083/ws']
+      'sockjs_url': ['http://54.65.44.205:8083/ws']
   }
 
 LOGGING = {
