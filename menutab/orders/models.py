@@ -9,20 +9,20 @@ MENU_STATUS = ((0, '취소'), (1, '대기'), (2, '처리'), (3, '완료'),(4, '�
 
 class OrderManager(models.Manager):
 
-	def create_order(self, userid, menu_name, menu_price,count, row, table_code, device_key, **extra_fields):
+	def create_order(self, userid, menu_name, menu_price,count,option, row, table_code, device_key, **extra_fields):
 		"""
 		Order 생성
 		"""
 		if not menu_name:
 			raise ValueError('The given menu_name must be set')
 		user = User.objects.get(id=userid)
-		order = self.model(user=user, menu_name=menu_name,menu_price = menu_price,
+		order = self.model(user=user, menu_name=menu_name,menu_price = menu_price,option = option,
 		                   table_code=table_code,count = count,row = row,device_key=device_key, **extra_fields)
 
 		order.save(using=self._db)
 		return order
 
-	def order_update(self, id, user, menu_name,count, row, table_code, device_key, status, **extra_fields):
+	def order_update(self, id, user, menu_name,option,count, row, table_code, device_key, status, **extra_fields):
 		"""
 		Order 업데이트
 		"""
@@ -33,6 +33,7 @@ class OrderManager(models.Manager):
 		    raise ValueError('The given game must be set')
 
 		order.menu_name = menu_name
+		order.option = option
 		order.device_key = device_key
 		order.row = row
 		order.count = count
@@ -66,7 +67,7 @@ class Order(models.Model):
 		'user': self.user_id,
 		'menu_name': self.menu_name,
 		'menu_price' : self.menu_price,
-		'options' : self.options,
+		'option' : self.option,
 		'count': self.count,
 		'row': self.row,
 		'table_code': self.table_code,

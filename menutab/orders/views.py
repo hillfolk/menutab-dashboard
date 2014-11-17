@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from menutab.utils import *
-from pushs.models import MenuTabApp 
+from pushs.models import MenuTabApp
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
@@ -22,7 +22,7 @@ def order_list_view(request):
 	접수된 주문 목록을 제공
 	"""
 	user =  request.user
-	now = datetime.now() 
+	now = datetime.now()
 	daysthree_day_ago = now - timedelta(days=3)
 
 	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-id').all()
@@ -58,23 +58,24 @@ def order_create_view(request,method):
 		username =  data['username']
 		menu_name =  data['menu_name']
 		menu_price =  data['menu_price']
+		option = data['options']
 		count = data['count']
 		row = data['row']
 		table_code = data['table_code']
 		device_key = data['device_key']
 		user =  User.objects.get(username = username)
-		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key);	
+		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,option = option,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key);	
 		message = dict()
 		message['channel'] = user.username
 		message['data'] = dict()
-		message['data']['order'] = order.serialize() 
+		message['data']['order'] = order.serialize()
 		send_message(message)
 		return toJSON(order.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
 
 
-	
+
 
 
 
@@ -96,7 +97,7 @@ def order_update_view(request,num,method):
 		order = get_object_or_404(Order, pk=num)
 		beStatus = order.status
 		status = request.POST.get('status',order.status)
-		
+
 
 		if status:
 			order.status =  status
@@ -126,9 +127,9 @@ def order_update_view(request,num,method):
 				msg =  order.table_code +u' 테이블에서 주문하신 '+ order.menu_name+u'가 수되었습니다.'
 				#device.send_message(msg)
 				print msg
-			
-			
-		
+
+
+
 		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
 		message = dict()
 		message['channel'] = user.username
@@ -138,4 +139,3 @@ def order_update_view(request,num,method):
 		return toJSON(order.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
-
