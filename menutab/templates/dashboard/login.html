@@ -34,7 +34,7 @@
 						<h2>사용자명 : <input type="text"  id="username" class="width50"/></h2>
 						<h2>비밀번호 : <input type="password" id="password" class="width50"/></h2>
 						<div class="inside">
-							<a class="btn btn-large btn-primary" id='loginBtn'><h2>로그인 하기</h2> </a>
+							<a class="btn btn-large btn-primary" id='loginBtn'><h2>로그인</h2> </a>
 						{# 	<a class="btn btn-primary between" id='registerBtn'> Register </a> #}
 						</div>
 					</div>
@@ -51,6 +51,7 @@
 		<script src="{{STATIC_URL}}js/base64.js"></script>
 		<script>
 			$(document).ready(function() {
+				/*doReLogin(); */
 				$("#loginBtn").click(doLogin);
 				$("#adminBtn").click(goAdmin);
 			});

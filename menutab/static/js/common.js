@@ -34,10 +34,19 @@ var doLogin = function() {
 			window.location = "orderboard.html";
 		},
 		error : function() {
+		alert("로그인에 실패하였습니다.");
 			window.location = "login.html";
-		},
+		}
 	});
 };
+
+var doReLogin = function() {
+	getLoginString();
+        if (typeof loginstring != 'undefined')
+        window.location = "orderboard.html";
+	
+};
+
 var doLogout = function() {
 	resetLoginString();
 	window.location = "login.html";
@@ -83,21 +92,6 @@ var doSetPassword = function() {
 		}
 	});
 };
-var doGetName = function() {
-	$.ajax({
-		type : 'get',
-		url : baseUrl + 'api/user/name/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
-		success : function(data) {
-			$("#getname").val(data.name);
-		},
-		error : function(msg) {
-			alert("Fail to get data!");
-		}
-	});
-};
 
 
 
@@ -131,14 +125,17 @@ function getCookie(name) {
 function getLoginString() {
 	loginstring = getCookie("loginstring");
 	username = getCookie("username");
+	password = getCookie("password");
 }
 function setLoginString() {
 	setCookie("loginstring", loginstring, 1);
 	setCookie("username", username, 1);
+	setCookie("password",password,1);
 }
 function resetLoginString() {
 	setCookie("loginstring", "", "-1");
 	setCookie("username", "", "-1");
+	setCookie("password","","-1");
 }
 
 function checkLoginString() {

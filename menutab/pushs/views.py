@@ -25,23 +25,20 @@ def order_completed_messge(request,orderid):
 def DeviceBinding(request,method):
 	if method == 'binding' and request.method == 'POST':
 		data = json.loads(request.body)
-		print data
 		dev_id =  data['device_id']
-		print dev_id
 		table_code = data['table_code']
-		print table_code
-                userid = data['user_id']
+		userid = data['user_id']
+		try:
+			user = User.objects.get(username = userid)
+		except Exception, e:
+			user = User.objects.get(username = "markadmin")
 
-		#user = User.objects.get(name = userid)
-                
-		
 		device = MenuTabApp.objects.get(dev_id=dev_id)
-		device.user = user 
-		#device.name = userid;             
+		device.name = userid
+		device.user = user   
 		device.table_code = table_code
 		device.save()
-		MenuTabApp.objects.update_device(id=device.id,user = device.user,table_code=table_code,dev_id=dev_id)
  
-		return json.dumps(device.serialize())
+		return toJSON(device.serialize())
 	else:
 		return HttpResponse('bad request',status=400)
