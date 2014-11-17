@@ -50,6 +50,7 @@ class Order(models.Model):
 	user = models.ForeignKey(User)
 	menu_name = models.CharField(max_length=255)
 	menu_price =  models.IntegerField(null=False);
+	option = models.CharField(max_length=255)
 	count = models.IntegerField(default=1);
 	row = models.CharField(max_length=255)
 	table_code = models.CharField(max_length=255)
@@ -65,6 +66,7 @@ class Order(models.Model):
 		'user': self.user_id,
 		'menu_name': self.menu_name,
 		'menu_price' : self.menu_price,
+		'options' : self.options,
 		'count': self.count,
 		'row': self.row,
 		'table_code': self.table_code,
@@ -80,7 +82,3 @@ class Order(models.Model):
 	def __unicode__(self):
 		return self.menu_name
 		# return  u'테이블'+ self.table_code + u'메뉴'+ self.menu_name  +':'+ self.time.__str__()
-
-
-
-
