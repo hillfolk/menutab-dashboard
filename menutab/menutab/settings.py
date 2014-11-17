@@ -55,7 +55,6 @@ INSTALLED_APPS = (
     'pushs',
     'staffcall',
     'dashboard',
-
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,10 +82,10 @@ WSGI_APPLICATION = 'menutab.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dashboard',
-        'HOST': 'dashboard.chsffw8ul0ti.ap-northeast-1.rds.amazonaws.com',
+        'NAME': 'wdmdashboard',
+        'HOST': 'wdmdashboard.cgvb2gghmvsp.ap-northeast-1.rds.amazonaws.com',
         'PORT': '3306',
-        'USER': 'dashboard',
+        'USER': 'wdmdashboard',
         'PASSWORD': 'mark130620'
     }
 }
@@ -120,12 +119,12 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 SITE_ROOT = BASE_DIR
-STATIC_ROOT = normpath(join(SITE_ROOT, 'static'))
+#STATIC_ROOT = normpath(join(SITE_ROOT, 'static'))
 STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = (
-#    normpath(join(SITE_ROOT, 'static')),
-#####################)
+STATICFILES_DIRS = (
+    normpath(join(SITE_ROOT, 'static')),
+)
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -137,7 +136,7 @@ DATETIME_INPUT_FORMATS = (
     '%Y-%m-%d %H:%M:%S',     # '2006-10-25 14:30:59'
     '%Y-%m-%d %H:%M:%S.%f',  # '2006-10-25 14:30:59.000200'
     '%Y-%m-%d %H:%M',        # '2006-10-25 14:30'
-    '%Y-%m-%d',  
+    '%Y-%m-%d',
     '%Y/%m/%d',             # '2006-10-25'
     '%m/%d/%Y %H:%M:%S',     # '10/25/2006 14:30:59'
     '%m/%d/%Y %H:%M:%S.%f',  # '10/25/2006 14:30:59.000200'
@@ -151,9 +150,6 @@ DATETIME_INPUT_FORMATS = (
 
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     os.path.join(SITE_ROOT, "templates")
 )
 

@@ -1,4 +1,4 @@
-var baseUrl = 'http://dashboard.menutab.co.kr/';
+var baseUrl = 'http://127.0.0.1:8000/';
 
 var username;
 var password;
@@ -21,7 +21,7 @@ var doLogin = function() {
 	username = $('#username').val();
 	password = $('#password').val();
 	loginstring = "Basic " +  Base64.encode(username + ":" + password);
-	
+
 	$.ajax({
 		type : 'get',
 		async : true,
@@ -72,7 +72,7 @@ var doSetPassword = function() {
 		},
 		success : function(data) {
 			alert("OK");
-			loginstring = "Basic " +  
+			loginstring = "Basic " +
 						  Base64.encode(username + ":" + $("#newpassword").val());
 			setLoginString();
 			$("#oldpassword").val($("#newpassword").val());
@@ -116,7 +116,7 @@ function getCookie(name) {
 	name = name + '=';
 	var cookieData = document.cookie;
 	var start = cookieData.indexOf(name);
-	
+
 	var value = '';
 	if (start != -1) {
 		start += name.length;
