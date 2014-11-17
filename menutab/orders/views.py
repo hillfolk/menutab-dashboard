@@ -58,13 +58,13 @@ def order_create_view(request,method):
 		username =  data['username']
 		menu_name =  data['menu_name']
 		menu_price =  data['menu_price']
-		option = data['options']
+		option = data['option']
 		count = data['count']
 		row = data['row']
 		table_code = data['table_code']
 		device_key = data['device_key']
 		user =  User.objects.get(username = username)
-		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,option = option,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key);	
+		order = Order.objects.create_order(userid = user.id,menu_name = menu_name,option = option,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key);
 		message = dict()
 		message['channel'] = user.username
 		message['data'] = dict()
