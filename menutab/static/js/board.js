@@ -193,7 +193,7 @@ var doOrderAppend = function(data) {
 	$('#table_code', node).append(data.table_code );
 	$('#menu_name', node).append(data.menu_name);
 	$('#menu_count', node).append(data.count+'개');
-	$('#option', node).append(data.option);
+	$('#option', node).append('옵션'+data.option);
 
 	$('#order_time', node).append( data.order_time.substring(8));
 	$('#LeftBtn', node).attr("value",data.id);
@@ -216,6 +216,7 @@ var doFinishAppend = function(data) {
 	$('#table_row', node).append(data.row );
 	$('#table_code', node).append(data.table_code );
 	$('#menu_name', node).append(data.menu_name);
+	$('#option', node).append('옵션'+data.option);
 	$('#menu_count', node).append(data.count+'개');
 	$('#order_time', node).append( data.order_time.substring(8));
 	$('#LeftBtn', node).attr("value",data.id);
@@ -238,8 +239,8 @@ var doCancleAppend = function(data) {
 	$('#table_row', node).append(data.row );
 	$('#table_code', node).append(data.table_code );
 	$('#menu_name', node).append(data.menu_name);
+	$('#option', node).append('옵션'+data.option);
 	$('#menu_count', node).append(data.count+'개');
-
 	$('#order_time', node).append( data.order_time.substring(8));
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);

@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {%block extends_css %}
- 
- {%endblock extends_css %} 
+
+ {%endblock extends_css %}
 
 {% block content%}
 		<!-- Start of orderboard -->
 				<div class="span12">	<!-- Start of Span12 -->
 				<div id='finish_area'>
-		
+
 				</div>
 				</div><!-- End of Span4 -->
 
 		</div><!-- End of Container -->
-		
+
 
 		<div class="modal hide fade" id="orderMdoal" >
 			<div class="modal-header">
@@ -29,10 +29,10 @@
 				<h3>주문 수량: <span class="modal_order_count"> </span></h3>
 			</div>
 		</div>
-		
-	
- 
-		
+
+
+
+
  {%endblock content %}
 
 {%block user_template%}
@@ -40,43 +40,41 @@
         <div class="orderTemplate" id='order_' style="display:none;" >
         <div class = "table_info"> <!-- 1단 -->
           <h3>
-        <span id = 'table_row'> </span>   
-        <span id = 'table_code'> </span> 
+        <span id = 'table_row'> </span>
+        <span id = 'table_code'> </span>
         <span class = "pull-right leftalign" id = 'order_time'> </span>
         </h3>
         </div> <!-- 1단  종료-->
         <div class = "menu_info"> <!--2단 -->
         <div class='button_area pull-right'>
-        
+
         <a class="btn" id="LeftBtn" name="LeftBtn"><h3>되돌리기</h3></a>
         {# <a class="btn" id="RightBtn" name="RightBtn"><h2>완료</h2></a> #}
-      
+
         </div>
         <h3>
         <span id = 'menu_name'> </span>
+        <span id = 'option'> </span>
         <span id = 'menu_count'> </span>
       </h3>
         </div> <!-- 2단  종료-->
         <div class = 'opt_info'> <!-- 3단 -->
         <span id = 'opt_name'> </span>
         </div> <!-- 3단  종료-->
-  
+
     </h2>
         </div>
 
-    
+
 {%endblock user_template%}
 		  {%block extend_js%}
     {%endblock extend_js%}
 
 	 {%block extend_bind%}
-				doGetFinishboard();			
-				
+				doGetFinishboard();
+
 				$("#adminBtn").click(goAdmin);
 				$("#logoutBtn").click(doLogout);
 				 $("[name=LeftBtn]").live("click", doReBackBtn);
-				 
+
  {%endblock extend_bind%}
-		
-
-
