@@ -1,25 +1,25 @@
-var doOrderProcess = function(order) { 
+var doOrderProcess = function(order) {
 
 			if(order.status == 1)	{
 			doOrderAppend(order);
 			$('#finish_area #order_'+order.id).remove();
 			$('#cancle_area  #order_'+order.id).remove();
 			doSoundPlay();
-	
+
 			}
 			 if(order.status == 4){
 			$('#order_area #order_'+order.id).remove();
 			doFinishAppend(order);
-			} 
+			}
 			if(order.status == 0){
 			$('#order_area #order_'+order.id).remove();
 			doCancleAppend(order);
 			}
-	
-	
-}; 
 
-var doStaffCallProcess = function(staffcall) { 
+
+};
+
+var doStaffCallProcess = function(staffcall) {
 			if(staffcall.status == 0)	{
 			doStaffcallAppend(staffcall);
 			doSoundPlay();
@@ -28,7 +28,7 @@ var doStaffCallProcess = function(staffcall) {
 			}
 
 
-}; 
+};
 
 
 
@@ -50,7 +50,7 @@ var doStaffcall = function() {
 			$('#staff_'+id).remove()
 		},
 		error : function(msg) {
-		alert("통신이 실패하였습니다.");	
+		alert("통신이 실패하였습니다.");
 		}
 	});
 }
@@ -69,9 +69,9 @@ var doGetStaffcall = function() {
 				if (staffcall_id_list.indexOf(data.staffcall_list[i])  == -1 && i >= 0 ) {
 					staffcall_id_list.push(data.staffcall_list[i].id);
 				staffcall_data_list.push(data.staffcall_list[i]);
-					doStaffcallAppend(data.staffcall_list[i]);		
+					doStaffcallAppend(data.staffcall_list[i]);
 				};
-		
+
 			};
 
 		},
@@ -95,15 +95,15 @@ var doGetOrderboard = function(value) {
 				var idx  = order_list.indexOf(data.order_list[i].id);
 				if (idx == -1) {
 					count++;
-					order_list.push(data.order_list[i].id);	
-					doOrderAppend(data.order_list[i]);				
+					order_list.push(data.order_list[i].id);
+					doOrderAppend(data.order_list[i]);
 				}else{
 				if (!(data.order_list[i].status == 1)) {
 					$('#order_'+data.finish_list[i].id).remove();
-						};	
+						};
 				};
 
-			
+
 		};
 
 		},
@@ -122,12 +122,12 @@ var doGetFinishboard = function(value) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
 		success : function(data) {
-		
+
 			for (var i = data.finish_list.length - 1; i >= 0; i--){
 				var idx  = finish_list.indexOf(data.finish_list[i].id);
 				if (idx == -1  ) {
-				finish_list.push(data.finish_list[i].id);	
-				doFinishAppend(data.finish_list[i]);				
+				finish_list.push(data.finish_list[i].id);
+				doFinishAppend(data.finish_list[i]);
 				}
 		};
 
@@ -149,17 +149,17 @@ doGetCancleboard = function(value) {
 			for (var i = data.cancle_list.length - 1; i >= 0; i--){
 				var idx  = cancle_list.indexOf(data.cancle_list[i].id);
 				if (idx == -1  ) {
-				cancle_list.push(data.cancle_list[i].id);	
-				doCancleAppend(data.cancle_list[i]);				
+				cancle_list.push(data.cancle_list[i].id);
+				doCancleAppend(data.cancle_list[i]);
 				}else{
 				if (!(data.cancle_list[i].status == 1)) {
 					$('#order_'+data.cancle_list[i].id).remove();
-					};	
+					};
 				};
 		};
 		},
 		error : function() {
-		alert("통신이 실패하였습니다.");	
+		alert("통신이 실패하였습니다.");
 		}
 	});
 }
@@ -167,49 +167,50 @@ doGetCancleboard = function(value) {
 
 
 var doStaffcallAppend = function(data) {
-	
+
 	node = $('#staff_').clone();
 	$(node).attr("id", "staff_"+ data.id).attr("value",data.status);
 	$('#table_row', node).append(data.row );
 	$('#table_code', node).append(data.table_code );
 	$('#staff_desc', node).append(data.staffcall_desc);
-	$('#staff_count', node).append(data.count+'개');	
+	$('#staff_count', node).append(data.count+'개');
 	$('#staff_time', node).append( data.staffcall_time.substring(8));
 	$('#RightBtn', node).attr("value",data.id);
 
 	node.show();
 	if (data.status == 0) {
-	$('#order_area').append(node);		
+	$('#order_area').append(node);
 	};
-	
+
 }
 
 
 var doOrderAppend = function(data) {
-	
+
 	node = $('#order_').clone();
 	$(node).attr("id", "order_"+ data.id).attr("value",data.status);
 	$('#table_row', node).append(data.row );
 	$('#table_code', node).append(data.table_code );
 	$('#menu_name', node).append(data.menu_name);
 	$('#menu_count', node).append(data.count+'개');
-	
+	$('#option', node).append(data.option);
+
 	$('#order_time', node).append( data.order_time.substring(8));
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);
-	
+
 	node.show();
 	if (data.status == 1) {
-	 $('#order_area').append(node);		
+	 $('#order_area').append(node);
 	};
 
 
-	
+
 }
 
 
 var doFinishAppend = function(data) {
-	
+
 	node = $('#order_').clone();
 	$(node).attr("id", "order_"+ data.id).attr("value",data.status);
 	$('#table_row', node).append(data.row );
@@ -219,34 +220,34 @@ var doFinishAppend = function(data) {
 	$('#order_time', node).append( data.order_time.substring(8));
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);
-	
+
 	node.show();
 
 	if (data.status == 4) {
-	$('#finish_area').prepend(node);		
+	$('#finish_area').prepend(node);
 	};
-	
-	
+
+
 }
 
 
 var doCancleAppend = function(data) {
-	
+
 	node = $('#order_').clone();
 	$(node).attr("id", "order_"+ data.id).attr("value",data.status);
 	$('#table_row', node).append(data.row );
 	$('#table_code', node).append(data.table_code );
 	$('#menu_name', node).append(data.menu_name);
 	$('#menu_count', node).append(data.count+'개');
-	
+
 	$('#order_time', node).append( data.order_time.substring(8));
 	$('#LeftBtn', node).attr("value",data.id);
 	$('#RightBtn', node).attr("value",data.id);
-	
+
 	node.show();
 
 	if (data.status == 0) {
-	$('#cancle_area').prepend(node);		
+	$('#cancle_area').prepend(node);
 	};
 }
 
@@ -257,7 +258,7 @@ var doCancleAppend = function(data) {
 
 var doRightBtn = function() {
 	var id = $(this).val() ;
-	
+
 	var status = $("#order_"+id).val();
 	var status = status + 3;
 	$.ajax({
@@ -298,7 +299,7 @@ var doLeftBtn = function() {
 			$('#order_'+id).remove()
 		},
 		error : function(msg) {
-		alert("통신이 실패하였습니다.");	
+		alert("통신이 실패하였습니다.");
 		}
 	});
 }

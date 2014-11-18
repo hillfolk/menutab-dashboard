@@ -130,7 +130,7 @@ def order_update_view(request,num,method):
 
 
 
-		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
+		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,option = order.option,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
 		message = dict()
 		message['channel'] = user.username
 		message['data'] = dict()

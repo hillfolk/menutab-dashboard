@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {%block extends_css %}
- 
- {%endblock extends_css %} 
+
+ {%endblock extends_css %}
 
 {% block content%}
 		<!-- Start of orderboard -->
@@ -26,25 +26,26 @@
 				<h3>주문 수량: <span class="modal_order_count"> </span></h3>
 			</div>
 		</div>
-		
+
 				{# 주문 리스트 DIV #}
 				<div class="orderTemplate" id='order_' style="display:none;" >
 				<div class = "table_info"> <!-- 1단 -->
 					<h3>
-				<span id = 'table_row'> </span>		
-				<span id = 'table_code'> </span> 
+				<span id = 'table_row'> </span>
+				<span id = 'table_code'> </span>
 				<span class = "pull-right leftalign" id = 'order_time'> </span>
 				</h3>
 				</div> <!-- 1단  종료-->
 				<div class = "menu_info"> <!--2단 -->
 				<div class='button_area pull-right'>
-				
+
 				<a class="btn" id="LeftBtn" name="LeftBtn"><h3>취소</h3></a>
 				<a class="btn" id="RightBtn" name="RightBtn"><h3>완료</h3></a>
-			
+
 				</div>
 				<h3>
 				<span id = 'menu_name'> </span>
+        <span id = 'option'> </span>
 				<span id = 'menu_count'> </span>
 				</h3>
 				</div> <!-- 2단  종료-->
@@ -53,19 +54,19 @@
 				</div> <!-- 3단  종료-->
 
 				</div>
- 
+
 
          <div class="staffTemplate" id='staff_' style="display:none;" >
         		<div class = "table_info"> <!-- 1단 -->
           		<h3>
-        		<span id = 'table_row'> </span>   
-        		<span id = 'table_code'> </span> 
+        		<span id = 'table_row'> </span>
+        		<span id = 'table_code'> </span>
         		<span class = "pull-right leftalign" id = 'staff_time'> </span>
         		</h3>
         		</div> <!-- 1단  종료-->
         <div class = "menu_info"> <!--2단 -->
         	<div class='button_area pull-right'>
-        
+
         		<a class="btn" id="RightBtn" name="StaffcallCheckBtn"><h2>확인</h2></a>
         		</div>
         	<h3>
@@ -77,17 +78,17 @@
         <span id = 'opt_name'> </span>
         </div> <!-- 3단  종료-->
         </div>
-		
+
  {%endblock content %}
 
 {%block user_template%}
-   
+
 {%endblock user_template%}
 		  {%block extend_js%}
     {%endblock extend_js%}
 
 	 {%block extend_bind%}
-			doGetOrderboard();			 
+			doGetOrderboard();
 			doGetStaffcall();
 			$("#logoutBtn").click(doLogout);
 	 		$("[name=LeftBtn]").live('click',doLeftBtn);
@@ -95,6 +96,3 @@
 		  	$("[name=StaffcallCheckBtn]").live('click',doStaffcall);
 
  {%endblock extend_bind%}
-		
-
-
