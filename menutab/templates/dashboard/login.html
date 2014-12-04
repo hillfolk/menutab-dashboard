@@ -6,40 +6,58 @@
 		<title>주문처리 대쉬보드</title>
 		<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}css/dashboard.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}css/custome.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
-				<div class="container">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span> </a>
-					<a class="brand" href="login.html">주문 처리 서비스</a>
-					<div class="nav-collapse" id="navMenu">
-						<div class="btn-group pull-right">
-							<a class="btn" id="adminBtn"> 
-								<i class="icon-pencil"></i> ADMIN</a>
-						</div>
+				<div class="nav-collapse" id="navMenu">
+					<div class="btn-group pull-left">
+						<a class="btn btn-navbar" style="padding:0;border:0;" data-toggle="collapse" data-target="#navMenu">
+							<span class="icon-bar"></span>			
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+						<a class="brand" href="login.html">주문상황판</a>
+						<a><img src="{{ STATIC_URL }}img/logo.png" width="151" alt="logo"></a>
+					</div>
+					<div class="btn-group pull-right">
+						<button class="btn" id="adminBtn">ADMIN</button>
 					</div>
 				</div>
 			</div>
 		</div><!--End of NavBar!-->
-		<div class="container"><!-- Start of Container-->
-			<div class="row-fluid"><!--Start of Row-->
-				<div class="span8" >
-					<div class="inside center loginbox"><br>
-						<div class="alert alert-info"><h2>주문 현황판 로그인</h2></div>
-						<h2>사용자명 : <input type="text"  id="username" class="width50"/></h2>
-						<h2>비밀번호 : <input type="password" id="password" class="width50"/></h2>
-						<div class="inside">
-							<a class="btn btn-large btn-primary" id='loginBtn'><h2>로그인</h2> </a>
-						{# 	<a class="btn btn-primary between" id='registerBtn'> Register </a> #}
+		<div class="container"><!-- Start of Container-->		
+			<div class="row bl-login">
+				<div class="col-md-12">
+					<div class="reg-page">
+						<div class="reg-header">			
+							<h2>로그인</h2>
+							<p>아이디(이메일 주소)로 로그인해주세요.</p>  
+						</div>
+						<div class="input-group margin-bottom-20">
+							<!-- <span class="input-group-addon"><i class="fa fa-envelope"></i></span> -->
+							<input type="text" name="username" id="username" maxlength="50" placeholder="아이디(이메일 주소)" class="form-control">
+						</div>					
+						<div class="input-group margin-bottom-20">
+							<!-- <span class="input-group-addon"><i class="fa fa-envelope fa-lock"></i></span> -->
+							<input type="password" name="password" id="password" maxlength="50" placeholder="비밀번호" class="form-control">
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label class="checkbox"><input type="checkbox"> 아이디 저장하기</label>						
+							</div>
+						</div>
+						<div class="row" style="margin-bottom:20px;">
+							<div class="col-md-12 margin-bottom-10">
+								<button class="btn-u btn-u-primary btn-block" id="loginBtn">로그인</button>
+								{# 	<a class="btn btn-primary between" id='registerBtn'> Register </a> #}
+							</div>
 						</div>
 					</div>
 				</div>
-			</div><!-- End of Row -->
+			</div>
 		</div><!-- End of Container-->
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
 		</script>
