@@ -35,7 +35,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# ALLOWED_HOSTS = ['54.65.44.205','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['54.65.44.205','localhost','127.0.0.1']
 ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 
@@ -123,9 +123,9 @@ SITE_ROOT = BASE_DIR
 # STATIC_ROOT = normpath(join(SITE_ROOT, 'static'))
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-   normpath(join(SITE_ROOT, 'static')),
-)
+#STATICFILES_DIRS = (
+#   normpath(join(SITE_ROOT, 'static')),
+#)
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
