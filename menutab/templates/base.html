@@ -9,6 +9,7 @@
     <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXJ.css">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}_AXJ/ui/default/AXInput.css">
+    <link href="{{STATIC_URL}}css/custome.css" rel="stylesheet">
     {%block extends_css %}
     {%endblock extends_css %}
 
@@ -20,67 +21,60 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu">
+          <a class="btn btn-navbar" style="padding:0;border:0;" data-toggle="collapse" data-target="#navMenu">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span> </a>
-             {% if page == 'orderboard'%}
-              <a class="brand" href="#"><h3>주문현황</h3></a>
-            {%endif%}
-
-            {%if page == 'finishboard'%}
-                <a class="brand" href="#"><h3>완료현황</h3></a>
-                {%endif%}
-
-                {%if page == 'cancleboard'%}
-               <a class="brand" href="#"><h3>취소현황</h3></a>
-               {%endif%}
-
-               {%if page == 'finishhistory'%}
-          <a class="brand" href="#"><h3>처리내역</h3></a>
-             {%endif%}
 
           <div class="nav-collapse" id="navMenu">
-          <ul class="nav center">
-             {% if page == 'orderboard'%}
-              <li class = "active"><a href="orderboard.html"><h3>주문현황</h3></a></li>
-             {%else%}
-             <li><a href="orderboard.html"><h3> 주문현황</h3></a></li>
-             {%endif%}
+          <div class=" nav-collapse pull-left" >
+            <ul class="nav center">
+              <!-- <li>
+              {% if page == 'orderboard'%}
+                <a class="brand" href="#"><h3>주문현황</h3></a>
+              {%endif%}
 
-            {%if page == 'finishboard'%}
-              <li class = "active"><a href="finishboard.html"><h3>완료현황</h3></a></li>
+              {%if page == 'finishboard'%}
+                <a class="brand" href="#"><h3>완료현황</h3></a>
+              {%endif%}
+
+              {%if page == 'cancleboard'%}
+                <a class="brand" href="#"><h3>취소현황</h3></a>
+              {%endif%}
+
+              {%if page == 'finishhistory'%}
+                <a class="brand" href="#"><h3>처리내역</h3></a>
+              {%endif%}
+              </li>   -->
+
+              {% if page == 'orderboard'%}
+                <li class = "active"><a href="orderboard.html"><h3>주문현황</h3></a></li>
+              {%else%}
+                <li><a href="orderboard.html"><h3> 주문현황</h3></a></li>
+              {%endif%}
+
+              {%if page == 'finishboard'%}
+                <li class = "active"><a href="finishboard.html"><h3>완료현황</h3></a></li>
               {%else%}
                 <li><a href="finishboard.html"><h3>완료현황</h3></a></li>
-                {%endif%}
-
-                {%if page == 'cancleboard'%}
-              <li class = "active"><a href="cancleboard.html"><h3>취소현황</h3></a></li>
+              {%endif%}
+              {%if page == 'cancleboard'%}
+                <li class = "active"><a href="cancleboard.html"><h3>취소현황</h3></a></li>
               {%else%}
-               <li><a href="cancleboard.html"><h3>취소현황</h3></a></li>
-               {%endif%}
-
-               {%if page == 'finishhistory'%}
-              <li class = "active" ><a href="finishhistory.html"><h3>처리내역</h3></a></li>
+                <li><a href="cancleboard.html"><h3>취소현황</h3></a></li>
+              {%endif%}
+              {%if page == 'finishhistory'%}
+                <li class = "active" ><a href="finishhistory.html"><h3>처리내역</h3></a></li>
               {%else%}
-              <li><a href="finishhistory.html"><h3>처리내역</h3></a></li>
-             {%endif%}
-
-          </ul>
-      <div class=" nav-collapse pull-right" >
-              <ul class="nav center">
-                <li>
-                 <a id = "logoutBtn">
-                  <h2>
-                  로그아웃
-                  </h2>
-                 </a>
-
-             </li>
+                <li><a href="finishhistory.html"><h3>처리내역</h3></a></li>
+              {%endif%}
+              <li><a id = "logoutBtn"><h3>로그아웃</h3></a></li>
             </ul>
-
-
-            </div>
+          </div>
+           <!-- <div class=" nav-collapse pull-right" >
+              <a class="btn btn-all"><h3>전체취소</h3></a>
+              <a class="btn"><h3>전체완료</h3></a>
+            </div> -->
           </div>
         </div>
       </div>
