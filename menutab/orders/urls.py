@@ -11,5 +11,3 @@ url(r'(?P<num>\w+)/$',order_completed_view),
 url(r'(?P<method>allcompleted)/$',order_completed_view),
 url(r'(?P<method>allcancle)/$',order_cancle_view),
 )
-)
-)
