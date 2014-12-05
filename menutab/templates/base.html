@@ -54,27 +54,38 @@
               {%endif%}
 
               {%if page == 'finishboard'%}
-                <li class = "active"><a href="finishboard.html"><h3>완료현황</h3></a></li>
+                <li class = "active"><a href="finishboard.html"><h3>완료내역</h3></a></li>
               {%else%}
-                <li><a href="finishboard.html"><h3>완료현황</h3></a></li>
+                <li><a href="finishboard.html"><h3>완료내역</h3></a></li>
               {%endif%}
               {%if page == 'cancleboard'%}
-                <li class = "active"><a href="cancleboard.html"><h3>취소현황</h3></a></li>
+                <li class = "active"><a href="cancleboard.html"><h3>취소내역</h3></a></li>
               {%else%}
-                <li><a href="cancleboard.html"><h3>취소현황</h3></a></li>
+                <li><a href="cancleboard.html"><h3>취소내역</h3></a></li>
               {%endif%}
               {%if page == 'finishhistory'%}
-                <li class = "active" ><a href="finishhistory.html"><h3>처리내역</h3></a></li>
+                <li class = "active" ><a href="finishhistory.html"><h3>주문통계</h3></a></li>
               {%else%}
-                <li><a href="finishhistory.html"><h3>처리내역</h3></a></li>
+                <li><a href="finishhistory.html"><h3>주문통계</h3></a></li>
               {%endif%}
               <li><a id = "logoutBtn"><h3>로그아웃</h3></a></li>
             </ul>
           </div>
-           <!-- <div class=" nav-collapse pull-right" >
-              <a class="btn btn-all"><h3>전체취소</h3></a>
-              <a class="btn"><h3>전체완료</h3></a>
-            </div> -->
+            <div class=" nav-collapse pull-right" >
+              {% if page == 'orderboard'%}
+                <a class="btn btn-all" href="javascript:;" onclick="alert('전체 주문을 취소처리하시겠습니까?');"><h3>전체취소</h3></a>
+                <a class="btn" href="javascript:;" onclick="alert('전체 주문을 완료처리하시겠습니까?');"><h3>전체완료</h3></a>
+              {%endif%}
+              {% if page == 'finishboard'%}
+                <a class="btn" href="javascript:;" onclick="alert('전체 완료내역을 삭제하시겠습니까?주문통계에서는 삭제되지 않습니다.');"><h3>전체삭제</h3></a>
+              {%endif%}
+              {% if page == 'cancleboard'%}
+                <a class="btn" href="javascript:;" onclick="alert('전체 취소내역을 삭제하시겠습니까?주문통계에서는 삭제되지 않습니다.');"><h3>전체삭제</h3></a>
+              {%endif%}
+              {% if page == 'finishhistory'%}
+                <a class="btn" href="javascript:;" onclick="alert('전체 내역을 삭제하시겠습니까?');"><h3>전체삭제</h3></a>
+              {%endif%}
+            </div>
           </div>
         </div>
       </div>

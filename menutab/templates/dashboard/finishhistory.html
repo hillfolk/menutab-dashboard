@@ -7,13 +7,24 @@
 
 {% block content%}
 			
-			<div class="row-fluid "><!--Start of Row-->
-				
-	<span>
-	<input type="text" name="" id="AXInputDateST" class="AXInput W100" /> ~
-	<input type="text" name="" id="AXInputDateED" class="AXInput W100" />
-	</span>
-
+			<div class="row-fluid"><!--Start of Row-->				
+				<span>
+				<input type="text" name="" id="AXInputDateST" class="AXInput W100" />
+				</span>
+				<span>
+				<input type="text" name="" id="AXInputDateED" class="AXInput W100" />
+				</span>
+				<span>
+					<select class="seldate">
+						<option>오늘</option>
+						<option>1주일</option>
+						<option>1개월</option>
+						<option>3개월</option>
+						<option>6개월</option>
+						<option>지정날짜</option>						
+					</select>
+				</span>
+				<span><a class="btn btn_search">검색</a></span>
 			</div>
 			
 			<div class = "span12 pull-right" id = "history_grid">

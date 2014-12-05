@@ -223,7 +223,8 @@ color: #ffffff;
 	/*background-color: #7b7b7b;*/
 	
 }
-.menu_info h1{color:#CBCBCB}
+.menu_info h1{color:#CBCBCB;margin:15px 0 20px 0;}
+.menu_info #LeftBtn,#RightBtn{margin:3px 15px 0 15px;}
 .opt_info {
 	color:#818181;
 	font-size:15px;
