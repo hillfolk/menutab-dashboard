@@ -36,8 +36,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 ALLOWED_HOSTS = ['54.65.44.205','localhost','127.0.0.1']
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
-
 
 # Application definition
 
