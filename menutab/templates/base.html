@@ -48,9 +48,9 @@
               </li>   -->
 
               {% if page == 'orderboard'%}
-                <li class = "active"><a href="orderboard.html"><h3>주문현황</h3></a></li>
+                <li class = "active"><a href="orderboard.html"><h3>주문상황</h3></a></li>
               {%else%}
-                <li><a href="orderboard.html"><h3> 주문현황</h3></a></li>
+                <li><a href="orderboard.html"><h3> 주문상황</h3></a></li>
               {%endif%}
 
               {%if page == 'finishboard'%}
@@ -73,17 +73,8 @@
           </div>
             <div class=" nav-collapse pull-right" >
               {% if page == 'orderboard'%}
-                <a class="btn btn-all" href="javascript:;" onclick="alert('전체 주문을 취소처리하시겠습니까?');"><h3>전체취소</h3></a>
-                <a class="btn" href="javascript:;" onclick="alert('전체 주문을 완료처리하시겠습니까?');"><h3>전체완료</h3></a>
-              {%endif%}
-              {% if page == 'finishboard'%}
-                <a class="btn" href="javascript:;" onclick="alert('전체 완료내역을 삭제하시겠습니까?주문통계에서는 삭제되지 않습니다.');"><h3>전체삭제</h3></a>
-              {%endif%}
-              {% if page == 'cancleboard'%}
-                <a class="btn" href="javascript:;" onclick="alert('전체 취소내역을 삭제하시겠습니까?주문통계에서는 삭제되지 않습니다.');"><h3>전체삭제</h3></a>
-              {%endif%}
-              {% if page == 'finishhistory'%}
-                <a class="btn" href="javascript:;" onclick="alert('전체 내역을 삭제하시겠습니까?');"><h3>전체삭제</h3></a>
+                <a class="btn btn-all" id="btn_allcancle"><h3>전체취소</h3></a>
+                <a class="btn" id="btn_allcompleted"><h3>전체완료</h3></a>
               {%endif%}
             </div>
           </div>
@@ -120,12 +111,12 @@
     <script type="text/javascript" src="{{STATIC_URL}}_AXJ/lib/AXInput.js"></script>
 
     <script type="text/javascript" src="{{STATIC_URL}}js/soundmanager2.js"></script>
-    <script src="{{STATIC_URL}}js/common.js"></script>
-    <script src="{{STATIC_URL}}js/bootstrap.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/common.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.js"></script>
 
-    <script src="{{STATIC_URL}}js/base64.js"></script>
-        <script src="{{STATIC_URL}}js/sockjs-0.3.min.js"></script>
-    <script src="{{STATIC_URL}}js/sockjs_emit.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/base64.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/sockjs-0.3.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/sockjs_emit.js"></script>
 
 <script>
 soundManager.setup({

@@ -46,7 +46,7 @@
 						<hr>
 						<div class="row">
 							<div class="col-md-4">
-								<label class="checkbox"><input type="checkbox"> 아이디 저장하기</label>						
+								<label class="checkbox"><input type="checkbox" id="chk_save"> 아이디 저장하기</label>						
 							</div>
 						</div>
 						<div class="row" style="margin-bottom:20px;">
@@ -63,14 +63,35 @@
 		</script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js">
 		</script>
-		<script src="{{STATIC_URL}}js/common.js"></script>
-		<script src="{{STATIC_URL}}js/bootstrap.js"></script>
-		<script src="{{STATIC_URL}}js/board.js"></script>
-		<script src="{{STATIC_URL}}js/base64.js"></script>
+		<script type="text/javascript"  src="{{STATIC_URL}}js/common.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.js"></script>
+		<script type="text/javascript"  src="{{STATIC_URL}}js/board.js"></script>
+		<script type="text/javascript"  src="{{STATIC_URL}}js/base64.js"></script>
 		<script>
-			$(document).ready(function() {
+			$(document).ready(function() {				
+				var username = window.localStorage.getItem('username');
+				var password = window.localStorage.getItem('password')
+				if(username != null){
+					$('#username').val(username);
+					$('#chk_save').attr('checked', true);
+				}
+				if(password != null){
+					$('#password').val(password);						
+					$('#chk_save').attr('checked', true);
+				}
 				/*doReLogin(); */
-				$("#loginBtn").click(doLogin);
+				$("#loginBtn").click(function(){
+					if($("input:checkbox[id='chk_save']").is(':checked') == true){
+						if($('#username').val() != '' && $('#password').val() != ''){
+							window.localStorage.setItem("username",$('#username').val());
+							window.localStorage.setItem("password",$('#password').val());
+						}
+					}else{
+						window.localStorage.removeItem("username");
+						window.localStorage.removeItem("password");
+					}
+					doLogin();
+				});
 				$("#adminBtn").click(goAdmin);
 			});
 

@@ -30,12 +30,12 @@
 				{# 주문 리스트 DIV #}
 				<div class="orderTemplate" id='order_' style="display:none;" >
 				<div class = "table_info"> <!-- 1단 -->
-					<h3>
+					<h2>
 				<span id = 'table_row'> </span>
 				<span>-</span>
 				<span id = 'table_code'> </span>
 				<span class = "pull-right leftalign" id = 'order_time'> </span>
-				</h3>
+				</h2>
 				</div> <!-- 1단  종료-->
 				<div class = "menu_info"> <!--2단 -->
 				<div class='button_area pull-right'>
@@ -59,21 +59,21 @@
 
          <div class="staffTemplate" id='staff_' style="display:none;" >
         		<div class = "table_info"> <!-- 1단 -->
-          		<h3>
+          		<h2>
         		<span id = 'table_row'> </span>
+        		<span>-</span>
         		<span id = 'table_code'> </span>
         		<span class = "pull-right leftalign" id = 'staff_time'> </span>
-        		</h3>
+        		</h2>
         		</div> <!-- 1단  종료-->
         <div class = "menu_info"> <!--2단 -->
         	<div class='button_area pull-right'>
-
         		<a class="btn" id="RightBtn" name="StaffcallCheckBtn"><h2>확인</h2></a>
         		</div>
-        	<h3>
+        	<h1>
         		<span id = 'staff_desc'> </span>
         		<span id = 'staff_count'> </span>
-      		</h3>
+      		</h2>
         </div> <!-- 2단  종료-->
         <div class = 'opt_info'> <!-- 3단 -->
         <span id = 'opt_name'> </span>
@@ -95,5 +95,6 @@
 	 		$("[name=LeftBtn]").live('click',doLeftBtn);
 	 		$("[name=RightBtn]").live('click',doRightBtn);
 		  	$("[name=StaffcallCheckBtn]").live('click',doStaffcall);
-
+		  	$("#btn_allcompleted").live('click',doAllCompleted);
+		  	$("#btn_allcancle").live('click',doAllCancle);
  {%endblock extend_bind%}
