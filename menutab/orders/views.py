@@ -47,6 +47,49 @@ def order_search_view(request):
 
 
 
+@need_auth
+def order_list_completed_view(request,method):
+	"""
+	접수된 주문 목록의 전체를 완료 합니다. 
+	"""
+	if method == 'allcompleted' and request.method == 'POST':
+	user =  request.user
+	now = datetime.now()
+	daysthree_day_ago = now - timedelta(days=3)
+
+	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-id').all()
+
+	for order in order_list:
+		order.status = 2;
+		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,option = order.option,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
+
+		return HttpResponse('success',status=200)
+	else:
+		return HttpResponse('bad request',status=400)
+
+
+
+@need_auth
+def order_list_cancle_view(request,method):
+	"""
+	접수된 주문 목록의 전체를 취소 합니다. 
+	"""
+	if method == 'allcancle' and request.method == 'POST':
+	user =  request.user
+	now = datetime.now()
+	daysthree_day_ago = now - timedelta(days=3)
+
+	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-id').all()
+
+	for order in order_list:
+		order.status = 0;
+		Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,option = order.option,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
+
+		
+
+		return HttpResponse('success',status=200)
+	else:
+		return HttpResponse('bad request',status=400)
 
 
 
