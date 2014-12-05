@@ -167,13 +167,8 @@ div [class*="span"] {
 }
 
 .staffTemplate {
-	background-color: #e6e6e6;
-	margin-top: 5px;
-	padding-top:  1px;
-	padding-left:   5px;
-	padding-right:   5px;
-	padding-bottom:  10px;
-
+	background-color: #171717;
+	margin-bottom: 20px;
 }
 
 .staffTemplate  > h2{
@@ -187,8 +182,8 @@ div [class*="span"] {
 .staffTemplate .table_info  {
 padding-left: 2px;
 padding-right: 2px;
-background-color: #7b7b7b;
-color: #2c2c2c;
+background-color: #303030;
+color: #ffffff;
 
 }
 
@@ -209,7 +204,8 @@ color: #ffffff;
 }
 .table_info #table_row,.table_info #table_code{padding: 10px 10px 10px 10px;} 
 .table_info #order_time{padding:0px 10px 0px 10px;}
-#order_time{color:#000000} 
+#order_time{color:#CACACA}
+#staff_time{color:#CACACA} 
 .button_area{
 	padding: 2px;
 	position: relative;
@@ -223,7 +219,8 @@ color: #ffffff;
 	/*background-color: #7b7b7b;*/
 	
 }
-.menu_info h1{color:#CBCBCB}
+.menu_info h1{color:#CBCBCB;margin:15px 0 20px 0;}
+.menu_info #LeftBtn,#RightBtn{margin:3px 15px 0 0;}
 .opt_info {
 	color:#818181;
 	font-size:15px;

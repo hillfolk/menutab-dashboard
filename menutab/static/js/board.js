@@ -393,3 +393,45 @@ if(items.length > 0){
 	appendSound.play();
 }
 };
+
+var doAllCompleted = function(){
+	if(confirm('전체 주문을 완료처리하시겠습니까?')){
+		$.ajax({
+			type : 'post',
+			beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+			},
+			data : {
+			status : status
+			},
+			url : baseUrl + 'orders/' + "allcompleted/",
+			success : function() {
+				location.reload();
+			},
+			error : function(msg) {
+			alert("통신이 실패하였습니다.");
+			}
+		});
+	}
+}
+
+var doAllCancle = function(){
+	if(confirm('전체 주문을 취소처리하시겠습니까?')){
+		$.ajax({
+			type : 'post',
+			beforeSend : function(req) {
+			req.setRequestHeader('Authorization', loginstring);
+			},
+			data : {
+			status : status
+			},
+			url : baseUrl + 'orders/' + "allcancle/",
+			success : function() {
+				location.reload();
+			},
+			error : function(msg) {
+			alert("통신이 실패하였습니다.");
+			}
+		});
+	}
+}

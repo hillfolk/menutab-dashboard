@@ -9,6 +9,7 @@ from menutab.utils import *
 from pushs.models import MenuTabApp
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from datetime import datetime, timedelta
 from django.shortcuts import get_object_or_404
 
 
@@ -52,17 +53,16 @@ def order_list_completed_view(request,method):
 	"""
 	접수된 주문 목록의 전체를 완료 합니다. 
 	"""
+
 	if method == 'allcompleted' and request.method == 'POST':
 		user =  request.user
 		now = datetime.now()
 		daysthree_day_ago = now - timedelta(days=3)
-
 		order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-id').all()
-
+		print order_list
 		for order in order_list:
-			order.status = 2;
+			order.status = 4
 			Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,option = order.option,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
-
 		return HttpResponse('success',status=200)
 	else:
 		return HttpResponse('bad request',status=400)
