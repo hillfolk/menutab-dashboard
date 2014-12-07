@@ -1,4 +1,4 @@
-var baseUrl = 'http://54.65.44.205/';
+var baseUrl = 'http://dashobard.woodongpan.com/';
 
 var username;
 var password;
