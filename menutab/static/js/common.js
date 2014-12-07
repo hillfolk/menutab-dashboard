@@ -1,4 +1,4 @@
-var baseUrl = 'http://dashobard.woodongpan.com/';
+var baseUrl = 'http://dashboard.woodongpan.com/';
 
 var username;
 var password;
