@@ -145,3 +145,89 @@ var doCancleOrder = function(search_value) {
 
 }
 
+var doChSeldate = function fnChSeldate(){
+	var term = $('#seldate').val();
+  	var date = new Date();
+  	var today = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+	var strdate;
+	if(term == '1'){
+		$('#AXInputDateST').val(today);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '7'){
+		date.setDate(date.getDate()-7);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '30'){
+		date.setDate(date.getDate()-30);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '90'){
+		date.setDate(date.getDate()-90);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '180'){
+		date.setDate(date.getDate()-180);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);					
+	}else if(term == 'sel'){
+		$('#AXInputDateST').val('');
+		$('#AXInputDateED').val('');					
+	}				
+}
+
+var doSearchHistory = function fnSearchHistory(){
+	var term = $('#seldate').val();
+  	var date = new Date();
+  	var today = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+	var strdate;
+	var dateset = {ST_objID:"AXInputDateST",ED_objID:"AXInputDateED",ST_value:today,ED_value:today}
+	if(term == '1'){
+		doSearchOrder(Object.toJSON(dateset));
+		$('#AXInputDateST').val(today);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '7'){
+		date.setDate(date.getDate()-7);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		dateset.ST_value = strdate;
+		doSearchOrder(Object.toJSON(dateset));
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '30'){
+		date.setDate(date.getDate()-30);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		dateset.ST_value = strdate;
+		doSearchOrder(Object.toJSON(dateset));
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '90'){
+		date.setDate(date.getDate()-90);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		dateset.ST_value = strdate;
+		doSearchOrder(Object.toJSON(dateset));
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);					
+	}
+	else if(term == '180'){
+		date.setDate(date.getDate()-180);
+		strdate = date.getFullYear()+'/'+((date.getMonth()+1)<10 ? '0'+(date.getMonth()+1):(date.getMonth()+1))+'/'+(date.getDate()<10 ? '0'+date.getDate():date.getDate());
+		dateset.ST_value = strdate;
+		doSearchOrder(Object.toJSON(dateset));
+		$('#AXInputDateST').val(strdate);
+		$('#AXInputDateED').val(today);
+	}else if(term == 'sel'){
+		dateset.ST_value = $('#AXInputDateST').val();
+		dateset.ED_value = $('#AXInputDateED').val();
+		doSearchOrder(Object.toJSON(dateset));					
+	}
+}
