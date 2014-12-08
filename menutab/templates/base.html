@@ -27,26 +27,7 @@
             <span class="icon-bar"></span> </a>
 
           <div class="nav-collapse" id="navMenu">
-          <div class=" nav-collapse pull-left" >
             <ul class="nav center">
-              <!-- <li>
-              {% if page == 'orderboard'%}
-                <a class="brand" href="#"><h3>주문현황</h3></a>
-              {%endif%}
-
-              {%if page == 'finishboard'%}
-                <a class="brand" href="#"><h3>완료현황</h3></a>
-              {%endif%}
-
-              {%if page == 'cancleboard'%}
-                <a class="brand" href="#"><h3>취소현황</h3></a>
-              {%endif%}
-
-              {%if page == 'finishhistory'%}
-                <a class="brand" href="#"><h3>처리내역</h3></a>
-              {%endif%}
-              </li>   -->
-
               {% if page == 'orderboard'%}
                 <li class = "active"><a href="orderboard.html"><h3>주문상황</h3></a></li>
               {%else%}
@@ -70,7 +51,6 @@
               {%endif%}
               <li><a id = "logoutBtn"><h3>로그아웃</h3></a></li>
             </ul>
-          </div>
             <div class=" nav-collapse pull-right" >
               {% if page == 'orderboard'%}
                 <a class="btn btn-all" id="btn_allcancle"><h3>전체취소</h3></a>

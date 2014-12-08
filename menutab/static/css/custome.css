@@ -4,7 +4,7 @@ h1, h2, h3, h4, h5, h6
 h1, h2, h3, h4, h5, h6{ font-weight:700}
 a{ font-weight:700; color:#999}
 hr {margin: 30px 0;}
-.row{margin-left:0;}
+.row{margin-left:0}
 .reg-page input[type="text"], input[type="password"]{display:block;border-radius:0;width:100%;padding:4px 0;}
 .reg-page {
 color: #555;
@@ -24,11 +24,15 @@ font-size: 24px;
 margin-bottom: 15px;
 }
 .bl-login{
-	width:50%;
+	width:585px;
+	min-width: 292px;
 	position:relative;
-	left:25%;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top:10%
-
+}
+@media screen and (max-width: 585px){
+	.bl-login{width:auto;}
 }
 .margin-bottom-10 {
 margin-bottom: 10px;
