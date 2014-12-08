@@ -115,6 +115,31 @@ def order_create_view(request,method):
 	else:
 		return HttpResponse('bad request',status=400)
 
+def order_list_create_view(request,method):
+	if method == 'createlist' and request.method == 'POST':
+		data = json.loads(request.body)
+		print data
+		username =  data['username']
+		table_code = data['table_code']
+		device_key = data['device_key']
+		row = data['row']
+		user =  User.objects.get(username = username)
+		cartvos = data['cartvos']
+		for cart in cartvos:
+			menu_name =  cart['menu_name']
+			menu_price =  cart['menu_price']
+			option = cart['option']
+			count = cart['count']
+			order = Order.objects.create_order(userid = user.id,menu_name = menu_name,option = option,menu_price = menu_price,count=count,row=row,table_code = table_code,device_key=device_key)
+			message = dict()
+			message['channel'] = user.username
+			message['data'] = dict()
+			message['data']['order'] = order.serialize()
+			send_message(message)
+		return toJSON(order.serialize())
+	else:
+		return HttpResponse('bad request',status=400)
+
 
 
 
