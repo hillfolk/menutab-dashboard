@@ -82,7 +82,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'wdmdashboard',
-        'HOST': 'wdmdashboard.cgvb2gghmvsp.ap-northeast-1.rds.amazonaws.com',
+        'HOST': 'wdmdashboard-2.cgvb2gghmvsp.ap-northeast-1.rds.amazonaws.com',
         'PORT': '3306',
         'USER': 'wdmdashboard',
         'PASSWORD': 'mark130620'
