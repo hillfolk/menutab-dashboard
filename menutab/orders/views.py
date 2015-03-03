@@ -63,6 +63,11 @@ def order_list_completed_view(request,method):
 		for order in order_list:
 			order.status = 4
 			Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,option = order.option,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
+                        message = dict()
+			message['channel'] = user.username
+			message['data'] = dict()
+			message['data']['order'] = order.serialize()
+			send_message(message)
 		return HttpResponse('success',status=200)
 	else:
 		return HttpResponse('bad request',status=400)
@@ -84,6 +89,11 @@ def order_list_cancle_view(request,method):
 		for order in order_list:
 			order.status = 0;
 			Order.objects.order_update(id = order.id,user = user.id, menu_name = order.menu_name,option = order.option,count = order.count,row = order.row ,table_code =order.table_code,device_key = order.device_key,status = order.status)
+                        message = dict()
+			message['channel'] = user.username
+			message['data'] = dict()
+			message['data']['order'] = order.serialize()
+			send_message(message)
 
 		return HttpResponse('success',status=200)
 	else:
