@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import json
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
@@ -14,13 +14,12 @@ from staffcall.models import StaffCall
 from datetime import datetime, timedelta
 from menutab.settings import *
 
-def serve_html(request, page):
+
+def redirict_main_page(request):
+        """
+	redirict_page 페이지 호출 
 	"""
-	Html 페이지 반환 뷰
-	url에 해당하는 HTML 페이지를 반환한다.
-	"""
-	context = {"page":page ,"username":request.user.username}
-	return render_to_response("dashboard/" +  page + '.html', context, context_instance=RequestContext(request))
+        return redirect('/')
 
 @login_required(login_url='/account/login/')
 def orderboard_page(request):

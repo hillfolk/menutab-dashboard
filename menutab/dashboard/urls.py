@@ -4,6 +4,8 @@ from .views import *
 
 urlpatterns = patterns('',
                        url(r'^$',orderboard_page),
+                       url(r'login.html',redirict_main_page),
+                       url(r'orderboard.html',redirict_main_page),
                        url(r'orderboard/',orderboard_page),
                        url(r'finishboard/',finishboard_page),
                        url(r'cancleboard/',cancleboard_page),

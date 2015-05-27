@@ -33,6 +33,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 ADMINS = (
      ('Markmedia', 'markmenutab@gmail.com'),
 )
+DOMAIN = "localhost"
 
 MANAGERS = ADMINS
 
