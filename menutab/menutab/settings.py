@@ -164,7 +164,7 @@ DJANGO_SOCKJS_SERVER = {
       'listen_port': 8083,
       'listen_location': '/ws',
       'secret_key': 'xe4pa7gysp4phe2rhyd',
-      'sockjs_url': ['http://127.0.0.1:8083/ws']
+      'sockjs_url': ['http://54.65.44.205:8083/ws']
   }
 
 LOGGING = {
