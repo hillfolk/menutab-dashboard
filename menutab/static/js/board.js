@@ -108,9 +108,6 @@ var doGetFinishboard = function(value) {
 	$.ajax({
 		type : 'post',
 		url : baseUrl + 'finishitems/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		success : function(data) {
 
 			for (var i = data.finish_list.length - 1; i >= 0; i--){
@@ -163,7 +160,6 @@ var doStaffcallAppend = function(data) {
 	$('#staff_count', node).append(data.count+'개');
 	$('#staff_time', node).append( data.staffcall_time.substring(8));
 	$('#RightBtn', node).attr("value",data.id);
-
 	node.show();
 	if (data.status == 0) {
 	$('#order_area').append(node);

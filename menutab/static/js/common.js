@@ -17,69 +17,6 @@ var goAdmin = function() {
 	location.href = baseUrl + "admin/";
 }
 
-var doLogin = function() {
-
-	$.ajax({
-		type : 'get',
-		async : true,
-		url : baseUrl + 'orders/login/',
-		success : function(data) {
-			setLoginString();
-			window.location = "orderboard.html";
-		},
-		error : function() {
-		alert("로그인에 실패하였습니다.");
-			window.location = "login.html";
-		}
-	});
-};
-
-var doReLogin = function() {
-	getLoginString();
-        if (typeof loginstring != 'undefined')
-        window.location = "orderboard.html";
-	
-};
-
-var doLogout = function() {
-	resetLoginString();
-	window.location = "login.html";
-};
-
-
-//FOR ACCOUNT
-var doCheckPassword = function() {
-	$.ajax({
-		type : 'post',
-		url : baseUrl + 'api/user/checkpassword/',
-		data : {password:$("#oldpassword").val()},
-		success : function(data) {
-			alert(data.status);
-			console.log(data);
-		},
-		error : function(msg) {
-			alert("Fail to get data!");
-		}
-	});
-};
-var doSetPassword = function() {
-	$.ajax({
-		type : 'post',
-		url : baseUrl + 'api/user/setpassword/',
-		data : {password:$("#newpassword").val()},
-		success : function(data) {
-			alert("OK");
-			loginstring = "Basic " +
-						  Base64.encode(username + ":" + $("#newpassword").val());
-			setLoginString();
-			$("#oldpassword").val($("#newpassword").val());
-			$("#newpassword").val("");
-		},
-		error : function(msg) {
-			alert(msg.responseText);
-		}
-	});
-};
 
 
 
@@ -110,24 +47,3 @@ function getCookie(name) {
 	return unescape(value);
 }
 
-function getLoginString() {
-	loginstring = getCookie("loginstring");
-	username = getCookie("username");
-	password = getCookie("password");
-}
-function setLoginString() {
-	setCookie("loginstring", loginstring, 1);
-	setCookie("username", username, 1);
-	setCookie("password",password,1);
-}
-function resetLoginString() {
-	setCookie("loginstring", "", "-1");
-	setCookie("username", "", "-1");
-	setCookie("password","","-1");
-}
-
-function checkLoginString() {
-	if (loginstring == "") {
-		history.back();
-	}
-}
