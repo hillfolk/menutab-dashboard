@@ -27,7 +27,8 @@ def orderboard_page(request):
 	orderboard 페이지 호출 
 	"""
         user = request.user
-	return render_to_response('dashboard/orderboard.html', {"username":user.username}, context_instance=RequestContext(request))
+        page = 'orderboard'
+	return render_to_response('dashboard/orderboard.html', {"username":user.username,"page":page}, context_instance=RequestContext(request))
 
 @login_required(login_url='/account/login/')
 def finishboard_page(request):
