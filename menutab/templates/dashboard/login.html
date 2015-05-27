@@ -1,101 +1,105 @@
 <!DOCTYPE html>
 <!-- LOGIN -->
 <html lang="ko">
-	<head>
-		<meta charset="utf-8">
-		<title>주문처리 대쉬보드</title>
-		<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}css/dashboard.css" rel="stylesheet">
-		<link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}css/custome.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<a class="btn btn-navbar" style="padding:0;border:0;" data-toggle="collapse" data-target="#navMenu">
-					<span class="icon-bar"></span>			
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<div class="nav-collapse" id="navMenu">
-					<ul class="nav center">
-						<li><a><img src="{{ STATIC_URL }}img/logo.png" width="151" alt="logo"></a></li>
-						<li><a class="brand" href="login.html">주문상황판</a></li>
-					</ul>
-					<div class="btn-group pull-right">
-						<button class="btn" id="adminBtn">ADMIN</button>
-					</div>								
-				</div>				
-			</div>
-		</div><!--End of NavBar!-->
-		<div class="container"><!-- Start of Container-->		
-			<div class="row">
-				<div class="bl-login">
-					<div class="reg-page">
-						<div class="reg-header">			
-							<h2>로그인</h2>
-							<p>아이디(이메일 주소)로 로그인해주세요.</p>  
-						</div>
-						<div class="input-group margin-bottom-20">
-							<!-- <span class="input-group-addon"><i class="fa fa-envelope"></i></span> -->
-							<input type="text" name="username" id="username" maxlength="50" placeholder="아이디(이메일 주소)" class="form-control">
-						</div>					
-						<div class="input-group margin-bottom-20">
-							<!-- <span class="input-group-addon"><i class="fa fa-envelope fa-lock"></i></span> -->
-							<input type="password" name="password" id="password" maxlength="50" placeholder="비밀번호" class="form-control">
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-md-4">
-								<label class="checkbox"><input type="checkbox" id="chk_save"> 아이디 저장하기</label>						
-							</div>
-						</div>
-						<div class="row" style="margin-bottom:20px;">
-							<div class="col-md-12 margin-bottom-10">
-								<button class="btn-u btn-u-primary btn-block" id="loginBtn">로그인</button>
-								{# 	<a class="btn btn-primary between" id='registerBtn'> Register </a> #}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!-- End of Container-->
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-		</script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js">
-		</script>
-		<script type="text/javascript"  src="{{STATIC_URL}}js/common.js"></script>
-		<script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.js"></script>
-		<script type="text/javascript"  src="{{STATIC_URL}}js/board.js"></script>
-		<script type="text/javascript"  src="{{STATIC_URL}}js/base64.js"></script>
-		<script>
-			$(document).ready(function() {				
-				var username = window.localStorage.getItem('username');
-				var password = window.localStorage.getItem('password')
-				if(username != null){
-					$('#username').val(username);
-					$('#chk_save').attr('checked', true);
-				}
-				if(password != null){
-					$('#password').val(password);						
-					$('#chk_save').attr('checked', true);
-				}
-				/*doReLogin(); */
-				$("#loginBtn").click(function(){
-					if($("input:checkbox[id='chk_save']").is(':checked') == true){
-						if($('#username').val() != '' && $('#password').val() != ''){
-							window.localStorage.setItem("username",$('#username').val());
-							window.localStorage.setItem("password",$('#password').val());
-						}
-					}else{
-						window.localStorage.removeItem("username");
-						window.localStorage.removeItem("password");
-					}
-					doLogin();
-				});
-				$("#adminBtn").click(goAdmin);
-			});
+  <head>
+    <meta charset="utf-8">
+    <title>주문처리 대쉬보드</title>
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/dashboard.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/custome.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+	<a class="btn btn-navbar" style="padding:0;border:0;" data-toggle="collapse" data-target="#navMenu">
+	  <span class="icon-bar"></span>			
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</a>
+	<div class="nav-collapse" id="navMenu">
+	  <ul class="nav center">
+	    <li><a><img src="{{ STATIC_URL }}img/logo.png" width="151" alt="logo"></a></li>
+	    <li><a class="brand" href="login.html">주문상황판</a></li>
+	  </ul>
+	  <div class="btn-group pull-right">
+	    <button class="btn" id="adminBtn">ADMIN</button>
+	  </div>								
+	</div>				
+      </div>
+    </div><!--End of NavBar!-->
+    <div class="container"><!-- Start of Container-->		
+      <div class="row">
+	<div class="bl-login">
+	  <div class="reg-page">
+	    <form id="id_loginform" action="{% url 'auth' %}" method="post">
+	      {% csrf_token %}
+	      <div class="reg-header">			
+		<h2>로그인</h2>
+		<p>아이디(이메일 주소)로 로그인해주세요.</p>  
+	      </div>
+	      <div class="input-group margin-bottom-20">
+		<!-- <span class="input-group-addon"><i class="fa fa-envelope"></i></span> -->
+		<input type="text" name="username" id="username" maxlength="50" placeholder="아이디(이메일 주소)" class="form-control">
+	      </div>					
+	      <div class="input-group margin-bottom-20">
+		<!-- <span class="input-group-addon"><i class="fa fa-envelope fa-lock"></i></span> -->
+		<input type="password" name="password" id="password" maxlength="50" placeholder="비밀번호" class="form-control">
+	      </div>
+	      <hr>
+	      <div class="row">
+		<div class="col-md-4">
+		  <label class="checkbox"><input type="checkbox" id="chk_save"> 아이디 저장하기</label>						
+		</div>
+	      </div>
+	      <div class="row" style="margin-bottom:20px;">
+		<div class="col-md-12 margin-bottom-10">
+		  <button class="btn-u btn-u-primary btn-block" id="loginBtn">로그인</button>
+		  {# 	<a class="btn btn-primary between" id='registerBtn'> Register </a> #}
+		</div>
+	      </div>
+	  </div>
+	  </form>
+	</div>
+      </div>
+    </div><!-- End of Container-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js">
+    </script>
+    <script type="text/javascript"  src="{{STATIC_URL}}js/common.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.js"></script>
+    <script type="text/javascript"  src="{{STATIC_URL}}js/board.js"></script>
+    <script type="text/javascript"  src="{{STATIC_URL}}js/base64.js"></script>
+    <script>
+      $(document).ready(function() {				
+      var username = window.localStorage.getItem('username');
+      var password = window.localStorage.getItem('password')
+      if(username != null){
+      $('#username').val(username);
+      $('#chk_save').attr('checked', true);
+      }
+      if(password != null){
+      $('#password').val(password);						
+      $('#chk_save').attr('checked', true);
+      }
+      /*doReLogin(); */
+      $("#loginBtn").click(function(){
+      if($("input:checkbox[id='chk_save']").is(':checked') == true){
+      if($('#username').val() != '' && $('#password').val() != ''){
+      window.localStorage.setItem("username",$('#username').val());
+      window.localStorage.setItem("password",$('#password').val());
+      }
+      }else{
+      window.localStorage.removeItem("username");
+      window.localStorage.removeItem("password");
+      }
+      $("#id_loginform").submit();
+      
+      });
+      $("#adminBtn").click(goAdmin);
+      });
 
-		</script>
-	</body>
+    </script>
+  </body>
 </html>

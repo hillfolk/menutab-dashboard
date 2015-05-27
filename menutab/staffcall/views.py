@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from menutab.utils import *
 from pushs.models import MenuTabApp
 from .models import StaffCall
@@ -19,7 +20,8 @@ from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
-@need_auth
+
+@login_required(login_url='/account/login/')
 def staffcall_list_view(request):
 	"""
 	직원호출 리스트 요청
@@ -33,7 +35,7 @@ def staffcall_list_view(request):
 			}
 	return toJSON(resp)
 
-@need_auth
+@login_required(login_url='/account/login/')
 def staffcall_search_view(request):
 	"""
 	직원호출 검사
@@ -48,7 +50,6 @@ def staffcall_search_view(request):
            'staffcall_list' : serialize(pages.page(page_num).object_list)
 			}
 	return json.dumps(resp)
-
 
 
 
@@ -87,7 +88,7 @@ def new_staffcall_view(request):
 
 
 
-@need_auth
+@login_required(login_url='/account/login/')
 def staffcall_view(request,num):
 	if request.method == 'GET':
 		user =  request.user

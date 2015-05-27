@@ -29,27 +29,27 @@
           <div class="nav-collapse" id="navMenu">
             <ul class="nav center">
               {% if page == 'orderboard'%}
-                <li class = "active"><a href="orderboard.html"><h3>주문상황</h3></a></li>
+                <li class = "active"><a href="/orderboard"><h3>주문상황</h3></a></li>
               {%else%}
-                <li><a href="orderboard.html"><h3> 주문상황</h3></a></li>
+                <li><a href="/orderboard/"><h3> 주문상황</h3></a></li>
               {%endif%}
 
               {%if page == 'finishboard'%}
-                <li class = "active"><a href="finishboard.html"><h3>완료내역</h3></a></li>
+                <li class = "active"><a href="/finishboard/"><h3>완료내역</h3></a></li>
               {%else%}
-                <li><a href="finishboard.html"><h3>완료내역</h3></a></li>
+                <li><a href="/finishboard/"><h3>완료내역</h3></a></li>
               {%endif%}
               {%if page == 'cancleboard'%}
-                <li class = "active"><a href="cancleboard.html"><h3>취소내역</h3></a></li>
+                <li class = "active"><a href="/cancleboard/"><h3>취소내역</h3></a></li>
               {%else%}
-                <li><a href="cancleboard.html"><h3>취소내역</h3></a></li>
+                <li><a href="/cancleboard/"><h3>취소내역</h3></a></li>
               {%endif%}
               {%if page == 'finishhistory'%}
-                <li class = "active" ><a href="finishhistory.html"><h3>주문통계</h3></a></li>
+                <li class = "active" ><a href="/finishhistory/"><h3>주문통계</h3></a></li>
               {%else%}
-                <li><a href="finishhistory.html"><h3>주문통계</h3></a></li>
+                <li><a href="/finishhistory/"><h3>주문통계</h3></a></li>
               {%endif%}
-              <li><a id = "logoutBtn"><h3>로그아웃</h3></a></li>
+              <li><a id = "logoutBtn" href = "{% url 'logout' %}"><h3>로그아웃</h3></a></li>
             </ul>
             <div class=" nav-collapse pull-right" >
               {% if page == 'orderboard'%}
@@ -118,12 +118,10 @@ soundManager.setup({
     {%endblock extend_js%}
 
     <script type="text/javascript">
-
+  var username = "{{ username }}";
 
     $(document).ready(function() {
-
-        getLoginString();
-
+       
          $("#adminBtn").click(goAdmin);
         window.sockjs_action_pull = new Array();
         var new_conn = function() {
@@ -160,7 +158,7 @@ soundManager.setup({
 
         var token = '{% sockjs_auth_token username %}'
         connection_sockjs.addEventListener("open", function() {
-                connection_sockjs.emit(token, {'channel': username });
+                connection_sockjs.emit(token, {'channel': username  });
             }
         );
         {%block extend_bind%}

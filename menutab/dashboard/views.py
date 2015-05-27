@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*-
 import json
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from menutab.utils import *
 from pushs.models import MenuTabApp 
 from django.shortcuts import render_to_response
@@ -13,37 +14,62 @@ from staffcall.models import StaffCall
 from datetime import datetime, timedelta
 from menutab.settings import *
 
-def serve_html(request, page):
+
+def redirict_main_page(request):
+        """
+	redirict_page 페이지 호출 
 	"""
-	Html 페이지 반환 뷰
-	url에 해당하는 HTML 페이지를 반환한다.
+        return redirect('/')
+
+@login_required(login_url='/account/login/')
+def orderboard_page(request):
 	"""
-	context = {"page":page ,"username":request.user.username}
-	return render_to_response("dashboard/" +  page + '.html', context, context_instance=RequestContext(request))
+	orderboard 페이지 호출 
+	"""
+        user = request.user
+	return render_to_response('dashboard/orderboard.html', {"username":user.username}, context_instance=RequestContext(request))
+
+@login_required(login_url='/account/login/')
+def finishboard_page(request):
+	"""
+	finishboard 페이지 호출 
+	"""
+        user = request.user
+	return render_to_response('dashboard/finishboard.html', {"username":user.username}, context_instance=RequestContext(request))
+
+@login_required(login_url='/account/login/')
+def cancleboard_page(request):
+	"""
+	cancleboard 페이지 호출 
+	"""
+        user = request.user
+	return render_to_response('dashboard/cancleboard.html',  {"username":user.username}, context_instance=RequestContext(request))
+
+@login_required(login_url='/account/login/')
+def finishhistory_page(request):
+	"""
+	finishhistory 페이지 호출 
+	"""
+        user = request.user
+	return render_to_response('dashboard/finishhistory.html',  {"username":user.username}, context_instance=RequestContext(request))
 
 
-def main_html(request):
-	"""
-	Main html 페이지 호출 
-	"""
-	return render_to_response("dashboard/" +  "login" + '.html', {}, context_instance=RequestContext(request))
 
-@need_auth
+
+@login_required(login_url='/account/login/')
 def login_view(request):
     return toJSON({'status':'ok',
                    'user':request.user.username})
 
-
-@need_auth
+@login_required(login_url='/account/login/')
 def orderboard_view(request):
 	"""
 	접수된 주문 목록을 제공
 	"""
 	print request.body
 	user =  request.user
-	now = datetime.now() 
+	now = datetime.now()
 	daysthree_day_ago = now - timedelta(days=3)
-
 	staffcall_list = StaffCall.objects.filter(user__exact=user,status__in = [0]).filter(staffcall_time__range=(daysthree_day_ago, now)).order_by('staffcall_time').all()
 	order_list = Order.objects.filter(user__exact=user,status__in = [1]).filter(order_time__range=(daysthree_day_ago, now)).order_by('-order_time').all()
 
@@ -53,7 +79,8 @@ def orderboard_view(request):
 
 	return toJSON(resp)
 
-@need_auth
+
+@login_required(login_url='/account/login/')
 def cancleboard_view(request):
 	"""
 	최소된 주문에 대한 목록을 제공한다.
@@ -72,7 +99,8 @@ def cancleboard_view(request):
 
 	return toJSON(resp)
 
-@need_auth
+
+@login_required(login_url='/account/login/')
 def finishboard_view(request):
 	"""
 	완료된 주문 리스트 제공
@@ -93,7 +121,8 @@ def finishboard_view(request):
 
 
 
-@need_auth
+
+@login_required(login_url='/account/login/')
 def history_order_view(request):
 	if request.method == 'POST':
 		data = json.loads(request.body)
@@ -112,7 +141,8 @@ def history_order_view(request):
 
 	return toJSON(resp)
 
-@need_auth
+
+@login_required(login_url='/account/login/')
 def history_cancle_view(request):
 	if request.method == 'POST':
 		data = json.loads(request.body)
