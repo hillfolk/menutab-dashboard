@@ -27,8 +27,9 @@ SECRET_KEY = 'hz^1+g&er(wu9tq7ld#p2p&s%cyf^z7qr4fyj81o5$7!zyy-16'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 ADMINS = (
      ('Markmedia', 'markmenutab@gmail.com'),
 )
@@ -50,6 +51,7 @@ INSTALLED_APPS = (
     'south',
     'gcm',
     'debug_toolbar',
+    'account',
     'orders',
     'pushs',
     'staffcall',
@@ -118,12 +120,9 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 SITE_ROOT = BASE_DIR
-# STATIC_ROOT = normpath(join(SITE_ROOT, 'static'))
+
 STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = (
-#   normpath(join(SITE_ROOT, 'static')),
-#)
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -164,7 +163,7 @@ DJANGO_SOCKJS_SERVER = {
       'listen_port': 8083,
       'listen_location': '/ws',
       'secret_key': 'xe4pa7gysp4phe2rhyd',
-      'sockjs_url': ['http://54.65.44.205:8083/ws']
+      'sockjs_url': ['http://127.0.0.1:8083/ws']
   }
 
 LOGGING = {
@@ -190,3 +189,17 @@ LOGGING = {
         },
     }
 }
+
+
+##################
+# LOCAL SETTINGS #
+##################
+
+# Allow any settings to be defined in local_settings.py which should be
+# ignored in your version control system allowing for settings to be
+# defined per machine.
+try:
+    from local_settings import *
+except ImportError:
+    pass
+

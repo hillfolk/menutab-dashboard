@@ -1,4 +1,4 @@
-var baseUrl = 'http://dashboard.woodongpan.com/';
+var baseUrl = 'http://127.0.0.1:8000/';
 
 var username;
 var password;
@@ -18,17 +18,11 @@ var goAdmin = function() {
 }
 
 var doLogin = function() {
-	username = $('#username').val();
-	password = $('#password').val();
-	loginstring = "Basic " +  Base64.encode(username + ":" + password);
 
 	$.ajax({
 		type : 'get',
 		async : true,
 		url : baseUrl + 'orders/login/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		success : function(data) {
 			setLoginString();
 			window.location = "orderboard.html";
@@ -59,9 +53,6 @@ var doCheckPassword = function() {
 		type : 'post',
 		url : baseUrl + 'api/user/checkpassword/',
 		data : {password:$("#oldpassword").val()},
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		success : function(data) {
 			alert(data.status);
 			console.log(data);
@@ -76,9 +67,6 @@ var doSetPassword = function() {
 		type : 'post',
 		url : baseUrl + 'api/user/setpassword/',
 		data : {password:$("#newpassword").val()},
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		success : function(data) {
 			alert("OK");
 			loginstring = "Basic " +

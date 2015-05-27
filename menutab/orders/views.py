@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from menutab.utils import *
 from pushs.models import MenuTabApp
 from django.shortcuts import render_to_response
@@ -17,7 +18,8 @@ from django.shortcuts import get_object_or_404
 SLEEP_SECONDS = 5000
 # Create your views here.
 
-@need_auth
+
+@login_required(login_url='/account/login/')
 def order_list_view(request):
 	"""
 	접수된 주문 목록을 제공
@@ -33,7 +35,7 @@ def order_list_view(request):
 			}
 	return toJSON(resp)
 
-@need_auth
+@login_required(login_url='/account/login/')
 def order_search_view(request):
 	user =  request.user
 	order_per_page = int(request.GET.get('per_page', 20))
@@ -48,7 +50,7 @@ def order_search_view(request):
 
 
 
-@need_auth
+@login_required(login_url='/account/login/')
 def order_list_completed_view(request,method):
 	"""
 	접수된 주문 목록의 전체를 완료 합니다. 
@@ -74,7 +76,7 @@ def order_list_completed_view(request,method):
 
 
 
-@need_auth
+@login_required(login_url='/account/login/')
 def order_list_cancle_view(request,method):
 	"""
 	접수된 주문 목록의 전체를 취소 합니다. 
@@ -155,7 +157,7 @@ def order_list_create_view(request,method):
 
 
 
-@need_auth
+@login_required(login_url='/account/login/')
 def order_view(request,num):
 	if request.method == 'GET':
 		user =  request.user
@@ -164,7 +166,7 @@ def order_view(request,num):
 	else:
 		return HttpResponse('bad request',status=400)
 
-@need_auth
+@login_required(login_url='/account/login/')
 def order_update_view(request,num,method):
 	if method == 'update' and request.method == 'POST':
 

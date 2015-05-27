@@ -39,9 +39,6 @@ var doStaffcall = function() {
 	var status = status + 1;
 	$.ajax({
 		type : 'post',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		url : baseUrl + 'staffcall/' + id + "/update/",
 		data : {
 			status : status
@@ -61,9 +58,6 @@ var doGetStaffcall = function() {
 	$.ajax({
 		type : 'post',
 		url : baseUrl + 'staffcall/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		success : function(data) {
 			for (var i in data.staffcall_list){
 				if (staffcall_id_list.indexOf(data.staffcall_list[i])  == -1 && i >= 0 ) {
@@ -84,11 +78,7 @@ var doGetStaffcall = function() {
 var doGetOrderboard = function(value) {
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'orderboard/',
-
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
+		url : baseUrl + 'orderitems/',
 		success : function(data) {
 			count = 0;
 			for (var i in data.order_list){
@@ -117,7 +107,7 @@ var doGetOrderboard = function(value) {
 var doGetFinishboard = function(value) {
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'finishboard/',
+		url : baseUrl + 'finishitems/',
 		beforeSend : function(req) {
 			req.setRequestHeader('Authorization', loginstring);
 		},
@@ -141,10 +131,7 @@ var doGetFinishboard = function(value) {
 doGetCancleboard = function(value) {
 	$.ajax({
 		type : 'post',
-		url : baseUrl + 'cancleboard/',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
+		url : baseUrl + 'cancleitems/',
 		success : function(data) {
 			for (var i = data.cancle_list.length - 1; i >= 0; i--){
 				var idx  = cancle_list.indexOf(data.cancle_list[i].id);
@@ -264,9 +251,6 @@ var doRightBtn = function() {
 	var status = status + 3;
 	$.ajax({
 		type : 'post',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		url : baseUrl + 'orders/' + id + "/update/",
 		data :{
 		status:status
@@ -289,9 +273,6 @@ var doLeftBtn = function() {
 	var status = status - 1;
 	$.ajax({
 		type : 'post',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		url : baseUrl + 'orders/' + id + "/update/",
 		data : {
 			status : status
@@ -334,9 +315,6 @@ var doReRightBtn = function() {
 	var status = status + 1;
 	$.ajax({
 		type : 'post',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		url : baseUrl + 'orders/' + id + "/update/",
 		data :{
 		status:status
@@ -354,13 +332,7 @@ var doGetOrderInfo = function() {
 	var order_id= $("div", this).html() ;
 	$.ajax({
 		type : 'get',
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		url : baseUrl + 'api/profile/' + order_id + "/",
-		beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-		},
 		success : function(data) {
 			$("#modalid").html(data.username);
 			$("#modalnickname").html(data.nickname);
@@ -398,9 +370,6 @@ var doAllCompleted = function(){
 	if(confirm('전체 주문을 완료처리하시겠습니까?')){
 		$.ajax({
 			type : 'post',
-			beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-			},
 			data : {
 			status : status
 			},
@@ -419,9 +388,6 @@ var doAllCancle = function(){
 	if(confirm('전체 주문을 취소처리하시겠습니까?')){
 		$.ajax({
 			type : 'post',
-			beforeSend : function(req) {
-			req.setRequestHeader('Authorization', loginstring);
-			},
 			data : {
 			status : status
 			},
